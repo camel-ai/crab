@@ -1,0 +1,87 @@
+[build-system]
+requires = ["poetry-core>=1.2.0", "wheel"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "crab-framework"
+version = "0.1.0"
+description = "Cross-platfrom Agent Benchmark Framework for Multimodal Embodied Language Model Agents"
+
+authors = ["CAMEL-AI.org"]
+maintainers = ["Tianqi Xu <tianqi.xu@kaust.edu.sa>"]
+
+packages = [{ include = "crab" }]
+
+readme = "README.md"
+license = "Apache License 2.0"
+repository = "https://github.com/camel-ai/crab"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+# core
+docstring-parser = "^0"
+networkx = "^3"
+dill = "^0.3.8"
+pydantic = "^2.6"
+
+# desktop actions
+pillow = "^10.2.0"
+mss = "^9.0.1"
+psutil = "^5.9.8"
+pyautogui = "^0.9.3"
+pyperclip = "^1.8.2"
+
+# client
+httpx = "^0.26"
+
+# agent
+openai = "^1.12.0"
+
+# radar plot
+plotly = "^5.20.0"
+
+# text ocr
+easyocr = { version = "^1.7.1", optional = true }
+
+# groundingdino object detection
+transformers = { version = "^4.40.1", optional = true }
+
+# server
+fastapi = { extras = ["all"], version = "0.109.1", optional = true }
+pydantic-settings = { version = "^2", optional = true }
+uvicorn = { extras = ["standard"], version = "^0.27.0.post1", optional = true }
+
+
+# types
+types-pyautogui = "^0.9.3.20240106"
+types-psutil = "^5.9.5.20240205"
+types-networkx = "^3.2.1.20240210"
+
+[tool.poetry.extras]
+server = ["fastapi", "pydantic-settings", "uvicorn"]
+visual-prompt = [
+    "easyocr",
+    "transformers",
+]
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.8.0"
+pytest = "^8.0.0"
+ruff = "^0.1.14"
+ipykernel = "^6.29.3"
+pandas = "^2.2.2"
+sphinx = "^7.3.7"
+pre-commit = "^3.7.0"
+sphinx-rtd-theme = "^2.0.0"
+certifi = "^2024.2.2"
+
+[tool.ruff]
+lint.select = ["E501", "E4", "E7", "E9", "F", "I"]
+lint.ignore = ["E731"]
+lint.ignore-init-module-imports = true
+exclude = ["docs/"]
+
+[[tool.mypy.overrides]]
+module = ["dill", "easyocr"]
+ignore_missing_imports = true

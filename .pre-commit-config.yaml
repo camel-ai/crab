@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.4.2
+    hooks:
+      # Run the linter.
+      - id: ruff
+      # Run the formatter.
+      - id: ruff-format
+  - repo: local
+    hooks:
+    - id: check-license
+      name: Check License
+      entry: python licenses/update_license.py . licenses/license_template.txt 
+      language: system
+      types: [python]
