@@ -59,5 +59,10 @@ if __name__ == "__main__":
         multienv=True,
         model="gpt-4-turbo-preview",
     )
+    print(
+        "\033[92m"
+        f"Start performing task: \"{task.description}\""
+        "\033[0m"
+    )
     start_benchmark(benchmark, agent)
     benchmark.reset()

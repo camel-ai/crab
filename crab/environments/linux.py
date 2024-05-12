@@ -16,6 +16,7 @@ from crab.actions.desktop_actions import (
     key_press,
     screenshot,
     search_application,
+    set_screen_size,
     write_text,
 )
 from crab.core import EnvironmentConfig
@@ -25,4 +26,5 @@ UBUNTU_2204 = EnvironmentConfig(
     action_space=[click, key_press, write_text, search_application],
     observation_space=[screenshot],
     description="A Ubuntu 22.04 desktop environment with a single display.",
+    reset=set_screen_size,
 )

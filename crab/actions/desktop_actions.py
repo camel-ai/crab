@@ -25,11 +25,14 @@ from .visual_prompt_actions import get_element_position
 DURATION = 0.8
 DELAY = 0.5
 
+@action
+def set_screen_size(env) -> None:
+    """Set the screen size to env attribute `width` and `height`."""
+    env.width, env.height = pyautogui.size()
 
 @action
 def click_position(x: int, y: int) -> None:
-    """
-    click on the current desktop screen.
+    """Click on the current desktop screen.
 
     Args:
         x: The X coordinate, as a floating-point number in the range [0.0, 1.0].
@@ -41,8 +44,7 @@ def click_position(x: int, y: int) -> None:
 
 @action(local=True)
 def click(element: int, env) -> None:
-    """
-    Click an UI element shown on the desktop screen. A simple use case can be
+    """Click an UI element shown on the desktop screen. A simple use case can be
     click(5), which clicks the UI element labeled with the number 5.
 
     Args:
@@ -55,8 +57,7 @@ def click(element: int, env) -> None:
 
 @action
 def mouse_scroll(click: int = 1) -> None:
-    """
-    Performs a scroll of the mouse scroll wheel.
+    """Perform a scroll of the mouse scroll wheel.
 
     Args:
         click(int): The amount of scrolling. Default to 1.
@@ -165,8 +166,7 @@ class KeyEnum(str, Enum):
 
 @action
 def key_press(key: KeyEnum) -> None:
-    """
-    Performs a keyboard key press down, followed by a release.
+    """Press and release a single keyboard key.
 
     Args:
         key (str): The key to be pressed.
@@ -194,10 +194,10 @@ def hotkey_press(keys: list[KeyEnum]) -> None:
 
 @action
 def write_text(text: str) -> None:
-    """
-    Typing the specified text. Note: This function does not move the mouse cursor.
-    Ensure the cursor focuses in the correct text input field before calling this
-    function.
+    """Type the specified text.
+
+    Note: This function does not move the mouse cursor. Ensure the cursor
+    focuses in the correct text input field before calling this function.
 
     Args:
         text (str): The text to be typed.
@@ -208,10 +208,11 @@ def write_text(text: str) -> None:
 
 @action
 def search_application(name: str) -> None:
-    """
-    Search an application name. For exmaple, if you want to open an application named
-    "slack", you can call search_application(name="slack"). You MUST use this action to
-    search for applications.
+    """Search an application name.
+
+    For exmaple, if you want to open an application named "slack", you can call
+    search_application(name="slack"). You MUST use this action to search for
+    applications.
 
     Args:
         name: the application name.
