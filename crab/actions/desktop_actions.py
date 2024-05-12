@@ -177,6 +177,20 @@ def key_press(key: KeyEnum) -> None:
         pyautogui.press(key)
     time.sleep(DELAY)
 
+@action
+def hotkey_press(keys: list[KeyEnum]) -> None:
+    """Press and release multiple keyboard keys at the same time.
+    
+    For exmaple, if you want to use Ctrl-C hoykey to copy the selected text, you
+    can call hotkey_press(keys=["ctrl", "c"]).
+
+    Args:
+        keys: The key list to be pressed together.
+    """
+    if isinstance(keys[0], KeyEnum):
+        keys = [key.value for key in keys]
+    pyautogui.hotkey(*keys)
+    time.sleep(DELAY)
 
 @action
 def write_text(text: str) -> None:
