@@ -6,15 +6,17 @@ Crab is a framework for building LLM agent benchmark environments in a Python-ce
 
 #### Key Features
 
-* 🌐 Cross-platform
-  * Build agent environments in memory, hosted through a docker environment, installed a virtual machine, or as a distributed physical machine, as long as they can be accessed by Python functions.
-  * Let the agent access all the environments in the same time through a unified interface.
-* ⚙ ️Easy-to-use Configuration
-  * Add a new action by simply adding a `@action` decorator on a Python function.
-  * Deine the environment by integrating several actions together.
-* 📐 Novel Benchmarking Suite
-  * Define tasks and the corresponding evlauators in an intuitive Python-native way.
-  * Introduce a novel graph evaluator method proving fine-grained metrics.
+🌐 Cross-platform
+* Create build agent environments that support various deployment options including in-memory, Docker-hosted, virtual machines, or distributed physical machines, provided they are accessible via Python functions.
+* Let the agent access all the environments in the same time through a unified interface.
+
+⚙ ️Easy-to-use Configuration
+* Add a new action by simply adding a `@action` decorator on a Python function.
+* Deine the environment by integrating several actions together.
+
+📐 Novel Benchmarking Suite
+* Define tasks and the corresponding evlauators in an intuitive Python-native way.
+* Introduce a novel graph evaluator method providing fine-grained metrics.
 
 ## Installation
 

@@ -274,7 +274,15 @@ def groundingdino_easyocr(
     filtered_boxes = filter_boxes_by_overlap(filtered_boxes)
     result_boxes = [box[0] for box in filtered_boxes]
     draw_boxes(image, result_boxes, font_size)
-    env.element_position_map = result_boxes
+    env.element_position_map = [
+        (
+            box[0] / image.width,
+            box[1] / image.height,
+            box[2] / image.width,
+            box[3] / image.height,
+        )
+        for box in result_boxes
+    ]
     env.ocr_results = "".join([box[1] for box in ocr_boxes])
     return image_to_base64(image), filtered_boxes
 
@@ -298,4 +306,4 @@ def get_element_position(element_id, env):
     box = env.element_position_map[element_id]
     x = (box[0] + box[2]) / 2
     y = (box[1] + box[3]) / 2
-    return round(x), round(y)
+    return round(x * env.width), round(y * env.height)

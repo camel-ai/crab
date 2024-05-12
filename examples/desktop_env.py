@@ -9,7 +9,14 @@ from crab import (
     create_benchmark,
     evaluator,
 )
-from crab.actions.desktop_actions import click, key_press, screenshot, write_text
+from crab.actions.desktop_actions import (
+    click,
+    hotkey_press,
+    key_press,
+    screenshot,
+    set_screen_size,
+    write_text,
+)
 from crab.actions.visual_prompt_actions import (
     get_elements_prompt,
     groundingdino_easyocr,
@@ -63,9 +70,10 @@ def start_benchmark(benchmark: Benchmark, agent: OpenAIAgent):
 
 ENV_CONFIG = EnvironmentConfig(
     name="desktop",
-    action_space=[click, key_press, write_text],
+    action_space=[click, key_press, write_text, hotkey_press],
     observation_space=[screenshot],
     description="A desktop environment with a single display.",
+    reset=set_screen_size,
 )
 
 BENCHMARK_CONFIG = BenchmarkConfig(
