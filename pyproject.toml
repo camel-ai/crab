@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "crab-framework"
-version = "0.1.0"
+version = "0.1.1"
 description = "Cross-platfrom Agent Benchmark Framework for Multimodal Embodied Language Model Agents"
 
 authors = ["CAMEL-AI.org"]
@@ -17,7 +17,7 @@ license = "Apache License 2.0"
 repository = "https://github.com/camel-ai/crab"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 
 # core
 docstring-parser = "^0"
