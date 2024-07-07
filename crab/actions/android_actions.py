@@ -1,16 +1,3 @@
-# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-# Licensed under the Apache License, Version 2.0 (the “License”);
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an “AS IS” BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import base64
 import subprocess
 from enum import Enum
@@ -77,15 +64,30 @@ def screenshot(env) -> str:
 @action
 def tap(element: int, env) -> None:
     """
-    This function is used to tap an UI element shown on the smartphone screen.
-    A simple use case can be tap(5), which taps the UI element labeled with the number
-    5.
+    Tap an UI element shown on the smartphone screen. A simple use case can be tap(5),
+    which taps the UI element labeled with the number 5.
 
     Args:
         element: A numeric tag assigned to an UI element shown on the smartphone screen.
     """
     x, y = get_element_position(element, env)
     execute_adb(f"shell input tap {x} {y}", env)
+    sleep(_DURATION)
+
+
+@action
+def long_tap(element: int, env) -> None:
+    """
+    Press and hold a UI element on the smartphone screen for 1 second, typically to
+    access additional menu options. For example, the command long_tap(5) simulates a
+    long press on the UI element labeled with the number 5.
+
+    Args:
+        element: A numeric tag assigned to an UI element shown on the smartphone screen.
+    """
+    x, y = get_element_position(element, env)
+    adb_command = f"shell input swipe {x} {y} {x} {y} 1000"
+    execute_adb(adb_command, env)
     sleep(_DURATION)
 
 
@@ -123,7 +125,6 @@ def swipe(element: int, direction: SwipeDirection, dist: SwipeDist, env) -> None
         unit_dist *= 3
     elif dist == "medium":
         unit_dist *= 2
-
     if direction == "up":
         offset = 0, -2 * unit_dist
     elif direction == "down":
@@ -133,19 +134,18 @@ def swipe(element: int, direction: SwipeDirection, dist: SwipeDist, env) -> None
     elif direction == "right":
         offset = unit_dist, 0
     else:
-        print("Unsupported direction")
-        return
+        return "ERROR"
     adb_command = f"shell input swipe {x} {y} {x+offset[0]} {y+offset[1]} 200"
     execute_adb(adb_command, env)
     sleep(_DURATION)
 
 
 @action
-def open_application_panel(env) -> None:
-    """Use this action to list all the installed applications in this phone. For
+def open_app_drawer(env) -> None:
+    """Open app drawer to list all the installed applications in this phone. For
     exmaple: you want to open "Messages" application, but you don't know where to find
-    it, you can call "open_application_panel()" and you will see all the installed
-    applications through screenshot.
+    it, you can call "open_app_drawer()" and you will see all the installed applications
+    through screenshot.
     """
     execute_adb("shell input keyevent KEYCODE_HOME", env)
     sleep(0.5)
@@ -161,7 +161,8 @@ class AndroidKey(str, Enum):
 @action
 def key_press(key: AndroidKey, env):
     """
-    Press Android keys.
+    Press Android keys. press("home") to go back to main screen. press("back") to return
+    to the preivous page.
 
     Args:
         key (str): The pressed key.

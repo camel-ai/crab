@@ -1,0 +1,15 @@
+{
+    "description": "Download a file from \"https://arxiv.org/pdf/2303.05499\" to \"/home/crab/Documents/Grounding_DINO.pdf\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://arxiv.org/pdf/2303.05499",
+                "file_path": "/home/crab/Documents/Grounding_DINO.pdf"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "4718df9c-97ec-4b54-86ca-bd34e65c5a43"
+}

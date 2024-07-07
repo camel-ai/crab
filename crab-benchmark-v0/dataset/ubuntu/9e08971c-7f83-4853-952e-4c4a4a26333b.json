@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to search for an image using the keyword \"Red Sea\" and copy the URL of the image to the clipboard.",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "Red Sea"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "9e08971c-7f83-4853-952e-4c4a4a26333b"
+}

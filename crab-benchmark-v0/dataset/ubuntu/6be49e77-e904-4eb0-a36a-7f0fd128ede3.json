@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to find a code repository about \"pytorch\" in GitHub and copy the URL of the repository to the clipboard.",
+    "tasks": [
+        {
+            "task": "bcd03c9f-62c9-4001-8d86-78358c59ce22",
+            "attribute": {
+                "keyword": "pytorch"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "6be49e77-e904-4eb0-a36a-7f0fd128ede3"
+}

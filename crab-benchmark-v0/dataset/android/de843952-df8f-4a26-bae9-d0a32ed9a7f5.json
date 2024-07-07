@@ -1,0 +1,14 @@
+{
+    "description": "In Android, Using \"Files\" app, find the create date of \"Downloads/meow.jpg\" in the sdk system.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ak",
+            "attribute": {
+                "file_path": "Download/meow.jpg.webp"
+            },
+            "output": "May 28"
+        }
+    ],
+    "adjlist": "0",
+    "id": "de843952-df8f-4a26-bae9-d0a32ed9a7f5"
+}

@@ -1,0 +1,15 @@
+{
+    "description": "Use Firefox to search for the country \"Iceland\" on Wikipedia, extract the capital city and population, and save this information in an ODS file at \"/home/crab/country_iceland.ods\" with LibreOffice Calc. The first column will save the country name, the second will save the capital city name, and the third will save the population. No header is needed in the ODS file.",
+    "tasks": [
+        {
+            "task": "1cd6519a-9ee0-442b-ba5a-9238aeb00ff6",
+            "attribute": {
+                "country": "Iceland",
+                "file_path": "/home/crab/country_iceland.ods"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "d39d40b1-fc26-4169-9d6f-cdf81efe9a3e"
+}

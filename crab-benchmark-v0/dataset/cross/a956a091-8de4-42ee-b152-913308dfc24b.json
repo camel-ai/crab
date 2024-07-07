@@ -1,0 +1,21 @@
+{
+    "description": "In the \"Clock\" app on Android, add Yakarta's time, compare it with the current city's time to determine the time gap, and then submit the information.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ah",
+            "attribute": {
+                "place_name": "yakarta"
+            },
+            "output": "1 hour behind"
+        },
+        {
+            "task": "1c3bedc3-ea5a-453c-a15b-223d72ab756d",
+            "attribute": {
+                "content": "1 hour behind"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "a956a091-8de4-42ee-b152-913308dfc24b"
+}

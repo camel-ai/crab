@@ -1,0 +1,15 @@
+{
+    "description": "Use LibreOffice Impress to adjust the brightness of the image from \"/home/crab/assets/desert.jpg\" to a lower value (darker) and save it to \"/home/crab/assets/desert_edited.png\".",
+    "tasks": [
+        {
+            "task": "434402f3-647a-4a9a-9d8f-10f5bb6c7cf0",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/assets/desert.jpg",
+                "image_path_after_edit": "/home/crab/assets/desert_edited.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "c4106f9a-9348-4a55-9892-782e6f4b3081"
+}

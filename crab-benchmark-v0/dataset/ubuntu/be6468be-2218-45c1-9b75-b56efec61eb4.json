@@ -1,0 +1,14 @@
+{
+    "description": "Paste clipboard content into Visual Studio Code (VS Code) and save it as a file at \"/home/crab/text_result\".",
+    "tasks": [
+        {
+            "task": "8491e674-596b-452b-9e0e-58a44d90f947",
+            "attribute": {
+                "file_path": "/home/crab/text_result"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "be6468be-2218-45c1-9b75-b56efec61eb4"
+}

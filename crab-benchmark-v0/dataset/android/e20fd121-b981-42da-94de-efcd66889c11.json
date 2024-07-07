@@ -1,0 +1,15 @@
+{
+    "description": "In Android, using \"Messages\", send \"The meeting starts from 10am today\" to \"123456789\".",
+    "tasks": [
+        {
+            "task": "caa29623-1811-402d-963a-19f7eecc63d8",
+            "attribute": {
+                "content": "The meeting starts from 10am today",
+                "number": "123456789"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "e20fd121-b981-42da-94de-efcd66889c11"
+}

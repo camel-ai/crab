@@ -1,0 +1,21 @@
+{
+    "description": "On an Android system, open the calendar app and find the title of an event scheduled for \"15 June 2024,\" copy this title, then paste the content into Visual Studio Code (VS Code) on an Ubuntu system and save it as a file named \"reminder.txt\" on the Desktop.",
+    "tasks": [
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "15 June 2024"
+            },
+            "output": "EMNLP24 DDL"
+        },
+        {
+            "task": "8491e674-596b-452b-9e0e-58a44d90f947",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/reminder.txt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "6f95cfa1-e7ae-4a82-912b-0180fc9622f2"
+}

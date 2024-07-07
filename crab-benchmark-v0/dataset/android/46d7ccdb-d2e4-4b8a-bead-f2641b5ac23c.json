@@ -1,0 +1,15 @@
+{
+    "description": "In Android, Using \"Contacts\" app, add a contact with a mail \"{mail}\" with a name \"{name}\".",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ag",
+            "attribute": {
+                "mail": "abcdcly@qq.com",
+                "name": "John Haruhimiya"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "46d7ccdb-d2e4-4b8a-bead-f2641b5ac23c"
+}

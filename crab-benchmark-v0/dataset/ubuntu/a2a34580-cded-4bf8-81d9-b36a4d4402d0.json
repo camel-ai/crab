@@ -1,0 +1,14 @@
+{
+    "description": "Set \"/home/crab/assets/background.png\" as the screen background of the system",
+    "tasks": [
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/assets/background.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "a2a34580-cded-4bf8-81d9-b36a4d4402d0"
+}

@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to search for an image using the keyword \"LLM\" and copy the URL of the image to the clipboard.",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "LLM"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "47b75b21-99a2-461c-9d40-6dddc5c206d0"
+}

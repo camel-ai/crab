@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to find a code repository about \"Open Source Computer Vision Library\" in GitHub and copy the URL of the repository to the clipboard.",
+    "tasks": [
+        {
+            "task": "bcd03c9f-62c9-4001-8d86-78358c59ce22",
+            "attribute": {
+                "keyword": "Open Source Computer Vision Library"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "362c5711-3824-42ff-96a0-7801b03b5f1f"
+}

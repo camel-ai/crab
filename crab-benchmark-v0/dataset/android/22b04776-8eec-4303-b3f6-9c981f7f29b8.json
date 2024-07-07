@@ -1,0 +1,14 @@
+{
+    "description": "In Android, Using \"Setting\" app, rename the device name of bluetooth as \"Sydney\".",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548an",
+            "attribute": {
+                "content": "Sydney"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "22b04776-8eec-4303-b3f6-9c981f7f29b8"
+}

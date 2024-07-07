@@ -1,0 +1,16 @@
+{
+    "description": "Combine two images from Image 1 \"/home/crab/assets/campus.png\" and Image 2 \"/home/crab/assets/desert.jpg\" using LibreOffice Writer and save the resulting ODT file to \"/home/crab/assets/campus_desert.odt\". Image 1 should be placed above Image 2.",
+    "tasks": [
+        {
+            "task": "0111384f-38ca-41a2-9504-cb1c55002b3c",
+            "attribute": {
+                "image_path_1": "/home/crab/assets/campus.png",
+                "image_path_2": "/home/crab/assets/desert.jpg",
+                "output_path": "/home/crab/assets/campus_desert.odt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "0d7c84d2-bbbd-46ab-80d1-52b3a44f3858"
+}

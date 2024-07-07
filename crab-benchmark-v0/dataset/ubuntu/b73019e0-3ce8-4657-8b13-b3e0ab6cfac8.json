@@ -1,0 +1,15 @@
+{
+    "description": "Download a file from \"https://raw.githubusercontent.com/camel-ai/camel/master/misc/primary_logo.png\" to \"/home/crab/camel-logo.png\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://raw.githubusercontent.com/camel-ai/camel/master/misc/primary_logo.png",
+                "file_path": "/home/crab/camel-logo.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "b73019e0-3ce8-4657-8b13-b3e0ab6cfac8"
+}

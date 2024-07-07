@@ -1,0 +1,14 @@
+{
+    "description": "In Android, Using \"Google Map\" app, Find the address of \"University of Oxford\"",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548aw",
+            "attribute": {
+                "content": "University of Oxford"
+            },
+            "output": "Wellington Square, Oxford OX1 2JD, United Kingdom"
+        }
+    ],
+    "adjlist": "0",
+    "id": "d4e0f2b3-d0ff-4efd-856f-9f5e598cfd05"
+}

@@ -1,0 +1,22 @@
+{
+    "description": "Open the \"~/Desktop/contact.txt\" file via the command line interface in Ubuntu to view its content, then use the Gmail app on Android to send a message to crabbb@gmail.com with the content.",
+    "tasks": [
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "~/Desktop/contact.txt"
+            },
+            "output": "crabbb@gmail.com"
+        },
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "Hello, please send me a message back",
+                "mail": "crabbb@gmail.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "760ed27e-b1bd-451f-8659-bdb9845fcb7f"
+}

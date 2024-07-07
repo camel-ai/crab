@@ -1,0 +1,22 @@
+{
+    "description": "In Android, use the \"Google Map\" app to find the city name corresponding to the postal code \"1010021\" in Japan, then use Firefox to search for a code repository about that city on GitHub and copy the URL of the repository to the clipboard.",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "1010021",
+                "country": "Japan"
+            },
+            "output": "Tokyo"
+        },
+        {
+            "task": "bcd03c9f-62c9-4001-8d86-78358c59ce22",
+            "attribute": {
+                "keyword": "Tokyo"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "c5929ef3-ac27-4288-b02f-4f261d5871f9"
+}

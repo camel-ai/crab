@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to search for an image using the keyword \"Elon Musk\" and copy the URL of the image.",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "Elon Musk"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "28963795-d694-4bb4-adaf-f7708a2c6fe5"
+}

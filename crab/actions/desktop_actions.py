@@ -1,16 +1,3 @@
-# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-# Licensed under the Apache License, Version 2.0 (the “License”);
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an “AS IS” BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import base64
 import time
 from enum import Enum
@@ -23,16 +10,13 @@ from crab import action
 from .visual_prompt_actions import get_element_position
 
 DURATION = 0.8
-DELAY = 0.5
+DELAY = 1.0
 
-@action
-def set_screen_size(env) -> None:
-    """Set the screen size to env attribute `width` and `height`."""
-    env.width, env.height = pyautogui.size()
 
 @action
 def click_position(x: int, y: int) -> None:
-    """Click on the current desktop screen.
+    """
+    click on the current desktop screen.
 
     Args:
         x: The X coordinate, as a floating-point number in the range [0.0, 1.0].
@@ -44,7 +28,8 @@ def click_position(x: int, y: int) -> None:
 
 @action(local=True)
 def click(element: int, env) -> None:
-    """Click an UI element shown on the desktop screen. A simple use case can be
+    """
+    Click an UI element shown on the desktop screen. A simple use case can be
     click(5), which clicks the UI element labeled with the number 5.
 
     Args:
@@ -52,12 +37,40 @@ def click(element: int, env) -> None:
     """
     x, y = get_element_position(element, env)
     env._action_endpoint(click_position, {"x": x, "y": y})
+
+
+@action
+def right_click_position(x: int, y: int) -> None:
+    """
+    right-click on the current desktop screen.
+
+    Args:
+        x: The X coordinate, as a floating-point number in the range [0.0, 1.0].
+        y: The Y coordinate, as a floating-point number in the range [0.0, 1.0].
+    """
+    pyautogui.click(x, y, duration=DURATION, button="right")
+
+
+@action(local=True)
+def right_click(element: int, env) -> None:
+    """
+    Right-click an UI element shown on the desktop screen using the mouse, which is
+    usually used for opening the menu of the element. A simple use case can be
+    rght_click(5), which right-clicks the UI element labeled with the number 5 to open
+    up menu on it.
+
+    Args:
+        element: A numeric tag assigned to an UI element shown on the screenshot.
+    """
+    x, y = get_element_position(element, env)
+    env._action_endpoint(right_click_position, {"x": x, "y": y})
     time.sleep(DELAY)
 
 
 @action
 def mouse_scroll(click: int = 1) -> None:
-    """Perform a scroll of the mouse scroll wheel.
+    """
+    Performs a scroll of the mouse scroll wheel.
 
     Args:
         click(int): The amount of scrolling. Default to 1.
@@ -166,7 +179,8 @@ class KeyEnum(str, Enum):
 
 @action
 def key_press(key: KeyEnum) -> None:
-    """Press and release a single keyboard key.
+    """
+    Performs a keyboard key press down, followed by a release.
 
     Args:
         key (str): The key to be pressed.
@@ -177,46 +191,49 @@ def key_press(key: KeyEnum) -> None:
         pyautogui.press(key)
     time.sleep(DELAY)
 
+
 @action
-def hotkey_press(keys: list[KeyEnum]) -> None:
-    """Press and release multiple keyboard keys at the same time.
-    
-    For exmaple, if you want to use Ctrl-C hoykey to copy the selected text, you
-    can call hotkey_press(keys=["ctrl", "c"]).
+def press_hotkey(keys: list[KeyEnum]) -> None:
+    """
+    Press multiple keyboard keys at the same time. For exmaple, if you want to use
+    Ctrl-C hoykey to copy the selected text, you can call
+    press_hotkey(keys=["ctrl", "c"]).
 
     Args:
-        keys: The key list to be pressed together.
+        key (str): The key to be pressed.
     """
     if isinstance(keys[0], KeyEnum):
         keys = [key.value for key in keys]
     pyautogui.hotkey(*keys)
     time.sleep(DELAY)
 
+
 @action
 def write_text(text: str) -> None:
-    """Type the specified text.
-
-    Note: This function does not move the mouse cursor. Ensure the cursor
-    focuses in the correct text input field before calling this function.
+    """
+    Typing the specified text. Note: This function does not move the mouse cursor.
+    Ensure the cursor focuses in the correct text input field before calling this
+    function.
 
     Args:
         text (str): The text to be typed.
     """
-    pyautogui.write(text)
+    pyautogui.write(text, interval=0.03)
     time.sleep(DELAY)
 
 
 @action
 def search_application(name: str) -> None:
-    """Search an application name.
-
-    For exmaple, if you want to open an application named "slack", you can call
-    search_application(name="slack"). You MUST use this action to search for
-    applications.
+    """
+    Search an application name. For exmaple, if you want to open an application named
+    "slack", you can call search_application(name="slack"). You MUST use this action to
+    search for applications.
 
     Args:
         name: the application name.
     """
+    pyautogui.press("esc")
+    time.sleep(DELAY)
     pyautogui.hotkey("win", "a")
     time.sleep(DELAY)
     pyautogui.write(name)

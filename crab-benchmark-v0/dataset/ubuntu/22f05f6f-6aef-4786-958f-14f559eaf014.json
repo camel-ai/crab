@@ -1,0 +1,16 @@
+{
+    "description": "Create a new directory \"/home/crab/example_code\" and copy all files with the specified \"py\" extension from \"/home/crab/crab/examples\" to the directory \"/home/crab/example_code\".",
+    "tasks": [
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "py",
+                "source_dir": "/home/crab/crab/examples",
+                "target_dir": "/home/crab/example_code"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "22f05f6f-6aef-4786-958f-14f559eaf014"
+}

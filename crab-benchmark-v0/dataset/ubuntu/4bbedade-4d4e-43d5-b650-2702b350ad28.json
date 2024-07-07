@@ -1,0 +1,15 @@
+{
+    "description": "Open \"/home/crab/assets/1.txt\" using vim in a terminal, write \"LinkedIn is a business and employment-focused social media platform that works through websites and mobile apps. It was launched on May 5, 2003 by Reid Hoffman and Eric Ly.\", then save and exit vim.",
+    "tasks": [
+        {
+            "task": "0f589bf9-9b26-4581-8b78-2961b115ab49",
+            "attribute": {
+                "file_path": "/home/crab/assets/1.txt",
+                "content": "LinkedIn is a business and employment-focused social media platform that works through websites and mobile apps. It was launched on May 5, 2003 by Reid Hoffman and Eric Ly."
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "4bbedade-4d4e-43d5-b650-2702b350ad28"
+}

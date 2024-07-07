@@ -1,0 +1,14 @@
+{
+    "description": "Paste clipboard content into LibreOffice Writer and save it as an ODT file at \"/home/crab/assets/content.odt\".",
+    "tasks": [
+        {
+            "task": "76de4bdb-c980-4b3a-9bd3-c87db467dffe",
+            "attribute": {
+                "file_path": "/home/crab/assets/content.odt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "7d5613ec-9b67-4255-b766-d9c6e8466464"
+}

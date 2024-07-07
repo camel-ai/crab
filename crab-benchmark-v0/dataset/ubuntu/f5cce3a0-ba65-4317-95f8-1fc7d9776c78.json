@@ -1,0 +1,14 @@
+{
+    "description": "Set \"/home/crab/deepmind.png\" as the screen background of the system",
+    "tasks": [
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/deepmind.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "f5cce3a0-ba65-4317-95f8-1fc7d9776c78"
+}

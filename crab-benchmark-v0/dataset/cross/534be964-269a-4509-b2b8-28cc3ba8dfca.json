@@ -1,0 +1,21 @@
+{
+    "description": "On an Android system, use the calendar app to find the title of an event on the date \"18 September 2024\", then use Firefox to search for an image with the title and copy the URL of the image to the clipboard.",
+    "tasks": [
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "18 September 2024"
+            },
+            "output": "Chile National Day"
+        },
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "Chile National Day"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "534be964-269a-4509-b2b8-28cc3ba8dfca"
+}
