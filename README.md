@@ -49,3 +49,15 @@ You can run the examples using the following command.
 export OPENAI_API_KEY=<your api key>
 python examples/desktop_env.py "Open Firefox"
 ```
+
+## Cite
+Please cite [our paper](https://arxiv.org/abs/2407.01511) if you use anything related in your work:
+```
+@article{xu2024crab,
+  title={CRAB: Cross-environment Agent Benchmark for Multimodal Language Model Agents},
+  author={Xu, Tianqi and Chen, Linyao and Wu, Dai-Jie and Chen, Yanjun and Zhang, Zecheng and Yao, Xiang and Xie, Zhiqiang and Chen, Yongchao and Liu, Shilong and Qian, Bochen and others},
+  journal={arXiv e-prints},
+  pages={arXiv--2407},
+  year={2024}
+}
+```
