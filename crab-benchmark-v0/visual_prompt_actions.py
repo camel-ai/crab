@@ -1,3 +1,16 @@
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import os
 from functools import cache
 from urllib.request import urlretrieve
@@ -15,13 +28,14 @@ try:
     import pytesseract
     import torch
 
-    from thirdparty.groundingdino.datasets import transforms as T
-    from thirdparty.groundingdino.models import build_model
-    from thirdparty.groundingdino.util.slconfig import SLConfig
-    from thirdparty.groundingdino.util.utils import (
+    from .thirdparty.groundingdino.datasets import transforms as T
+    from .thirdparty.groundingdino.models import build_model
+    from .thirdparty.groundingdino.util.slconfig import SLConfig
+    from .thirdparty.groundingdino.util.utils import (
         clean_state_dict,
         get_phrases_from_posmap,
     )
+
 except ImportError:
     pass
 
@@ -234,8 +248,12 @@ def get_model():
     """
 
     WEIGHTS_URL = "https://github.com/IDEA-Research/GroundingDINO/releases/download/v0.1.0-alpha/groundingdino_swint_ogc.pth"
-    WEIGHTS_PATH = "thirdparty/groundingdino/weights/groundingdino_swint_ogc.pth"
-    MODEL_CONFIG_PATH = "thirdparty/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+    WEIGHTS_PATH = (
+        "crab-benchmark-v0/thirdparty/groundingdino/weights/groundingdino_swint_ogc.pth"
+    )
+    MODEL_CONFIG_PATH = (
+        "crab-benchmark-v0/thirdparty/groundingdino/config/GroundingDINO_SwinT_OGC.py"
+    )
 
     if not os.path.isfile(WEIGHTS_PATH):
         download_weights(WEIGHTS_URL, WEIGHTS_PATH)
@@ -274,26 +292,6 @@ def draw_boxes(
             _, _, w, h = draw.textbbox((0, 0), str(idx), font)
         else:
             w, h = draw.textsize(str(idx), font)
-        # bbox = (
-        #     round(center[0] - w / 2),
-        #     round(center[1] - h / 2),
-        #     round(center[0] + w / 2),
-        #     round(center[1] + h / 2),
-        # )
-        # if box[1] >= h:
-        #     bbox = (
-        #         round(box[0]),
-        #         round(box[1] - h),
-        #         round(box[0] + w),
-        #         round(box[1]),
-        #     )
-        # else:
-        #     bbox = (
-        #         round(box[0]),
-        #         round(box[3]),
-        #         round(box[0] + w),
-        #         round(box[3] + h),
-        #     )
         if box[0] >= w:
             bbox = (
                 round(box[0] - w),
@@ -568,14 +566,6 @@ def get_elements_prompt(input: tuple[str, list[tuple[BoxType, str]]], env):
         "these labels by [id|label].\n" + labels
     )
     return image, prompt
-
-
-def get_element_position(element_id, env):
-    """Get element position provided by function `zs_object_detection`"""
-    box = env.element_position_map[element_id]
-    x = (box[0] + box[2]) / 2
-    y = (box[1] + box[3]) / 2
-    return round(x), round(y)
 
 
 def find_text_in_image(

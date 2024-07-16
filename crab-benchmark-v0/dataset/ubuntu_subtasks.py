@@ -1,3 +1,16 @@
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 # ruff: noqa: E501
 import base64
 import hashlib
@@ -275,7 +288,7 @@ def from_env_load_and_save_file(env, file_path, output_dir="/tmp/local_save"):
         str: The path to the saved file.
     """
 
-    @action(env_name="ubuntu2204")
+    @action(env_name="ubuntu")
     def get_encoded_file(file_path: str) -> bytes | None:
         try:
             with open(file_path, "rb") as file:
@@ -558,7 +571,7 @@ def contains_required_strings(clipboard_content: str, required_strings: list) ->
     return True
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def verify_file_content_with_clipboard(file_path: str) -> bool:
     """
     Verify that the content of the file matches the clipboard content line by line.
@@ -597,7 +610,7 @@ def verify_file_content_with_clipboard(file_path: str) -> bool:
     return verify_content_with_clipboard(file_content)
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def verify_odt_file_content_with_clipboard(file_path: str) -> bool:
     """
     Verify that the content of the ODT file matches the clipboard content.
@@ -639,7 +652,7 @@ def verify_odt_file_content_with_clipboard(file_path: str) -> bool:
     return verify_content_with_clipboard(odt_content)
 
 
-@evaluator(env_name="ubuntu2204", local=True)
+@evaluator(env_name="ubuntu", local=True)
 def verify_combined_image(
     image_path_1: str, image_path_2: str, file_path: str, direction: str, env
 ) -> bool:
@@ -699,7 +712,7 @@ def verify_combined_image(
         )
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_image_2_brighter(image_path_1: str, image_path_2: str) -> bool:
     """
     Check if the second image is brighter than the first image.
@@ -726,7 +739,7 @@ def is_image_2_brighter(image_path_1: str, image_path_2: str) -> bool:
     return brightness_2 > brightness_1
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_img_url_in_clipboard() -> bool:
     """
     Check if the clipboard contains a valid URL or a Data URI that is specific to images.
@@ -758,7 +771,7 @@ def is_img_url_in_clipboard() -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_github_repo_url_in_clipboard(keyword: str) -> bool:
     """
     Check if the clipboard contains a valid GitHub repository URL.
@@ -780,7 +793,7 @@ def is_github_repo_url_in_clipboard(keyword: str) -> bool:
     # return is_github_repo_url(clipboard_content)
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_software_installed(package_name: str) -> bool:
     try:
         subprocess.check_call(
@@ -800,7 +813,7 @@ def get_file_url_hash(url):
     return hashlib.sha256(response.content).hexdigest()
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def download_and_verify_file(url: str, file_path: str) -> bool:
     # Check if the file was downloaded
     if not os.path.isfile(file_path):
@@ -821,7 +834,7 @@ def download_and_verify_file(url: str, file_path: str) -> bool:
     return downloaded_file_hash == original_file_hash
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def download_from_clipboard_and_verify_file(file_path: str) -> bool:
     # Check if the file was downloaded
     if not os.path.isfile(file_path):
@@ -848,7 +861,7 @@ def download_from_clipboard_and_verify_file(file_path: str) -> bool:
     return downloaded_file_hash == original_file_hash
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_color_scheme(assmue: str) -> bool:
     out = subprocess.check_output(
         ["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"],
@@ -857,7 +870,7 @@ def check_color_scheme(assmue: str) -> bool:
     return assmue in out
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_text_in_current_window_name(text: str) -> bool:
     try:
         out = subprocess.check_output(
@@ -868,7 +881,7 @@ def check_text_in_current_window_name(text: str) -> bool:
     return text in out
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_current_window_process(assmue: str) -> bool:
     try:
         out = subprocess.check_output(
@@ -887,12 +900,12 @@ def check_current_window_process(assmue: str) -> bool:
     return assmue.strip() == process.name()
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_file_exist(file_path: str) -> bool:
     return os.path.isfile(file_path)
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_file_content(file_path: str, content: str) -> bool:
     if not os.path.isfile(file_path):
         return False
@@ -901,12 +914,12 @@ def check_file_content(file_path: str, content: str) -> bool:
     return content in file_content
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def empty_evaluator() -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_process_open(process_name: str) -> bool:
     """
     Check if the given process is currently running.
@@ -923,7 +936,7 @@ def is_process_open(process_name: str) -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_app_usage_history(app_name: str) -> bool:
     """
     Check if the given application has been in the usage history.
@@ -943,7 +956,7 @@ def check_app_usage_history(app_name: str) -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_process_closed(app_name: str) -> bool:
     """
     Verify that the specified process is not running.
@@ -959,7 +972,7 @@ def check_process_closed(app_name: str) -> bool:
     )
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def verify_background(photo_path: str) -> bool:
     """
     Verify that the specified photo is currently set as the desktop background.
@@ -990,7 +1003,7 @@ def verify_background(photo_path: str) -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_torch_matmul_example_copied_correctly() -> bool:
     """
     Verify if the clipboard contains the correct torch.matmul example snippets from PyTorch 1.13 documentation.
@@ -1026,13 +1039,13 @@ def is_torch_matmul_example_copied_correctly() -> bool:
     return contains_required_strings(clipboard_content, required_strings)
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_directory_exists(dir_path: str) -> bool:
     """Check if the specified directory exists."""
     return os.path.isdir(dir_path)
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def verify_files_copied(source_dir: str, target_dir: str, file_extension: str) -> bool:
     """Verify that files were copied correctly."""
     source_files = {
@@ -1044,7 +1057,7 @@ def verify_files_copied(source_dir: str, target_dir: str, file_extension: str) -
     return source_files == target_files
 
 
-@evaluator(env_name="ubuntu2204", local=True)
+@evaluator(env_name="ubuntu", local=True)
 def check_contain_input_text_list(texts: list[str], env) -> bool:
     """
     Check if all provided search terms were entered in the browser.
@@ -1068,7 +1081,7 @@ def check_contain_input_text_list(texts: list[str], env) -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def is_google_maps_url_in_clipboard() -> bool:
     """
     Check if the clipboard contains a valid shortened Google Maps URL.
@@ -1081,7 +1094,7 @@ def is_google_maps_url_in_clipboard() -> bool:
     return bool(re.match(maps_url_pattern, clipboard_content))
 
 
-@evaluator(env_name="ubuntu2204", local=True)
+@evaluator(env_name="ubuntu", local=True)
 def check_contain_input_text(text: str, env) -> bool:
     """
     Check if the input text is contained in the written text action in a case-insensitive manner.
@@ -1103,7 +1116,7 @@ def check_contain_input_text(text: str, env) -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def verify_country_data_in_ods(country: str, file_path: str) -> bool:
     from bs4 import BeautifulSoup
     from pyexcel_ods import get_data

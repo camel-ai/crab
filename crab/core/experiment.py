@@ -1,9 +1,24 @@
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import json
 import traceback
 from datetime import datetime
 from pathlib import Path
 from time import sleep
 from typing import Literal
+
+from crab.utils.common import base64_to_image
 
 from .agent_policy import AgentPolicy
 from .benchmark import Benchmark
@@ -87,11 +102,12 @@ class Experiment:
             self.main_log = CSVLog(self.log_dir / "main_log.csv", MAIN_LOG_COLUMNS)
 
             self.task_info_dir = self.log_dir / self.task_id
+            self.task_info_dir.mkdir(exist_ok=True, parents=True)
             self.write_task_info_json(self.task_info_dir / "task_info.json")
 
             self.time_now = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
             self.current_experiment_dir = (
-                self.task_info_dir / f"{self.agent_policy.__class__}"
+                self.task_info_dir / f"{self.agent_policy.__class__.__name__}"
                 f"({self.agent_policy.get_backend_model_name()})" / self.time_now
             )
             self.current_experiment_dir.mkdir(parents=True)
@@ -102,11 +118,12 @@ class Experiment:
 
             self.prompt_path = self.current_experiment_dir / "prompt"
             self.image_path = self.current_experiment_dir / "images"
+            self.prompt_path.mkdir()
             self.image_path.mkdir()
 
             self.message_path = self.current_experiment_dir / "messages.txt"
 
-    def get_prompt(self):
+    def get_prompt(self) -> dict[str, list[tuple[str, MessageType]]]:
         return self.benchmark.observe()
 
     def execute_action(self, response: list[ActionOutput]) -> bool:
@@ -124,27 +141,40 @@ class Experiment:
                 return True
             print(
                 "\033[92m"
-                f'Action "{action[0]}" success, stat: {self.metrics}'
+                f'Action "{action.name}" in env "{action.env}" success. current evaluation results: {self.metrics}\n'
                 "\033[0m"
             )
             self.write_current_log_row(action)
             self.step_cnt += 1
         return False
 
+    def log_prompt(self, prompt):
+        for env in prompt:
+            with open(self.prompt_path / f"{env}_prompt.md", "a") as prompt_file:
+                prompt_file.write(f"### Step {self.step_cnt}\n\n")
+                for message, message_type in prompt[env]:
+                    if message_type == MessageType.IMAGE_JPG_BASE64:
+                        file_name = f"{env}_{self.step_cnt}.png"
+                        base64_to_image(message).save(self.image_path / file_name)
+                        prompt_file.write(f"![](./images/{file_name})\n\n")
+                    else:
+                        prompt_file.write(message + "\n\n")
+
     def step(self, it) -> bool:
         print("=" * 40)
         print(f"Start agent step {self.step_cnt}:")
         prompt = self.get_prompt()
+        self.log_prompt(prompt)
         try:
             response = self.agent_policy.chat(prompt)
         except Exception:
             print(traceback.format_exc())
             self.write_main_csv_row("agent_exception")
             return True
-        content = response["content"]
-        self.write_message(str(content), it)
-        print("\033[94m" f"Agent Reponse: {content}" "\033[0m")
-        print(f"So agent take action: {response['action_list']}")
+        # content = response["content"]
+        # self.write_message(str(content), it)
+        # print("\033[94m" f"Agent Reponse: {content}" "\033[0m")
+        print(f"So agent take action: {response}")
         return self.execute_action(response)
 
     def start_benchmark(self):
@@ -205,7 +235,7 @@ class Experiment:
         self.main_log.write_row(
             [
                 self.time_now,
-                self.agent_policy.__class__,
+                self.agent_policy.__class__.__name__,
                 self.agent_policy.get_backend_model_name(),
                 self.task_id,
                 self.step_cnt,

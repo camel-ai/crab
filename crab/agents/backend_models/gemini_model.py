@@ -1,22 +1,34 @@
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import os
 from time import sleep
 from typing import Any
 
 import google.generativeai as genai
-from google.ai.generativelanguage_v1beta import Part, Tool
+from google.ai.generativelanguage_v1beta import FunctionDeclaration, Part, Tool
 from google.api_core.exceptions import ResourceExhausted
 from google.generativeai.types import content_types
 
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
-from crab.utils.agent.gemini_utils import _action_to_funcdec_policy
-from crab.utils.common import base64_to_image
+from crab.utils.common import base64_to_image, json_expand_refs
 
 
 class GeminiModel(BackendModel):
     def __init__(
         self,
         model: str,
-        parameters: dict[str, Any],
+        parameters: dict[str, Any] = dict(),
         history_messages_len: int = 0,
     ) -> None:
         super().__init__(
@@ -115,14 +127,14 @@ class GeminiModel(BackendModel):
             case MessageType.IMAGE_JPG_BASE64:
                 return base64_to_image(message[0])
 
-    @staticmethod
-    def _convert_action_to_schema(action_space):
+    @classmethod
+    def _convert_action_to_schema(cls, action_space):
         if action_space is None:
             return None
         actions = []
         for action in action_space:
             actions.append(
-                Tool(function_declarations=[_action_to_funcdec_policy(action)])
+                Tool(function_declarations=[cls._action_to_funcdec_policy(action)])
             )
         return actions
 
@@ -138,3 +150,28 @@ class GeminiModel(BackendModel):
             ]
         else:
             return None
+
+    @classmethod
+    def _clear_schema(cls, schema_dict: dict):
+        schema_dict.pop("title", None)
+        p_type = schema_dict.pop("type", None)
+        for prop in schema_dict.get("properties", {}).values():
+            cls._clear_schema(prop)
+        if p_type is not None:
+            schema_dict["type_"] = p_type.upper()
+        if "items" in schema_dict:
+            cls._clear_schema(schema_dict["items"])
+
+
+    @classmethod
+    def _action_to_funcdec(cls, action: Action, env: str):
+        "Converts crab Action to google FunctionDeclaration"
+        p_schema = action.parameters.model_json_schema()
+        if "$defs" in p_schema:
+            p_schema = json_expand_refs(p_schema)
+        cls._clear_schema(p_schema)
+        return FunctionDeclaration(
+            name=action.name + "__in__" + env,
+            description="In {} environment, {}".format(env, action.description),
+            parameters=p_schema,
+        )

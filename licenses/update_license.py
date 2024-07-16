@@ -88,6 +88,8 @@ def update_license_in_directory(
             continue
         if any(part.startswith(".") for part in py_files.parts):
             continue
+        if any(part == "thirdparty" for part in py_files.parts):
+            continue
         if update_license_in_file(
             py_files,
             license_template_path,

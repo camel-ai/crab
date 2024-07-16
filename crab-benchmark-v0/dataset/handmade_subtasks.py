@@ -1,3 +1,16 @@
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+# Licensed under the Apache License, Version 2.0 (the “License”);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an “AS IS” BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 # ruff: noqa: E501
 import os
 import re
@@ -42,7 +55,7 @@ def check_calendar_in_today(env) -> bool:
     return True
 
 
-@action(env_name="ubuntu2204")
+@action(env_name="ubuntu")
 def get_file_bullet_points(file_path: str) -> int | None:
     # Check if the file exists
     if not os.path.exists(file_path):
@@ -63,7 +76,7 @@ def get_file_bullet_points(file_path: str) -> int | None:
     return matches
 
 
-@evaluator(env_name="ubuntu2204", local=True)
+@evaluator(env_name="ubuntu", local=True)
 def check_blluet_point_match_calendar(file_path: str, env) -> bool:
     matches = env._action_endpoint(get_file_bullet_points, {"file_path": file_path})
     global _item_count_cache
@@ -83,7 +96,7 @@ def check_node_exist(node_query: str, env) -> bool:
     return True
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_new_jpg_files_in_dir(directory) -> bool:
     # Get the current time
     current_time = time.time()
@@ -100,7 +113,7 @@ def check_new_jpg_files_in_dir(directory) -> bool:
     return False
 
 
-@evaluator(env_name="ubuntu2204")
+@evaluator(env_name="ubuntu")
 def check_text_list_in_current_window_name(texts: list[str]) -> bool:
     try:
         out = subprocess.check_output(
