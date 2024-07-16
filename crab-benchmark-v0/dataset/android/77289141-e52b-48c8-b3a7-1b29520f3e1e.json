@@ -1,0 +1,14 @@
+{
+    "description": "In Android, Using \"Contacts\" app, find out the mail of contact named \"John Haruhimiya\".",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ap",
+            "attribute": {
+                "name": "John Haruhimiya"
+            },
+            "output": "abcdcly@qq.com"  
+        }
+    ],
+    "adjlist": "0",
+    "id": "77289141-e52b-48c8-b3a7-1b29520f3e1e"
+} 

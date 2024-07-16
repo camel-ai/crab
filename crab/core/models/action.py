@@ -11,7 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-import sys
 from functools import partial
 from inspect import Parameter, Signature, signature
 from types import NoneType
@@ -29,9 +28,9 @@ from pydantic.fields import FieldInfo
 
 from crab.utils.common import callable_to_base64
 
-if sys.version_info >= (3, 11):
+try:
     from typing import Self
-else:
+except ImportError:
     from typing_extensions import Self
 
 
@@ -48,20 +47,19 @@ class Action(BaseModel):
     retaining specific parameters.
 
     Attributes:
-        name: The name of the action.
-        entry: The actual entry function of the action.
-        parameters: Definition of input parameters.
-        returns: Definition of the return type.
-        description: A clear and concise description of the function's purpose and
-            behavior. Defaults to :code:`None`.
-        kept_params: Parameters retained for internal use by the Crab system, such as
-            :code:`env` for storing the current environment. These parameters do not
-            appear in :attr:`parameters` and are automatically injected at runtime.
-            Defaults to an empty dictionary.
-        env_name: Specify the environment the action is associated with. Defaults to
-            :code:`None`.
-        local: Specify if the action should take in the local machine. Only use in
-            remote mode. Defaults to :code:`False`.
+        name (str): The name of the action.
+        entry (Callable): The actual entry function of the action.
+        parameters (type[BaseModel]): Definition of input parameters.
+        returns (type[BaseModel]): Definition of the return type. Note: The actual
+            return type is specified by the `returns` attribute in this model.
+        description (str | None): A clear and concise description of the function's
+            purpose and behavior. Defaults to None.
+        kept_params (dict[str, Any]): Parameters retained for internal use by the Crab
+            system, such as 'env' for storing the current environment. These parameters
+            do not appear in the `parameters` field and are automatically injected at
+            runtime. Defaults to an empty dictionary.
+        env_name (Optinal[str]): Specify the environment the action is associated with.
+            Defualts to None.
     """
 
     name: str
@@ -125,6 +123,15 @@ class Action(BaseModel):
                 result.description = self.description + f" Input: {args} {kwargs}"
             return result
 
+    @staticmethod
+    def _check_combinable(a: "Action", b: "Action") -> None:
+        if set(a.kept_params) != set(b.kept_params):
+            raise ValueError("Piped actions should have same kept parameters.")
+        if a.env_name != b.env_name:
+            raise ValueError("Piped actions should have same env_name.")
+        if a.local != b.local:
+            raise ValueError("Piped actions should have same `local` value.")
+
     def __rshift__(self, other_action: "Action") -> "Action":
         """Uses :obj:`>>` to pipe two actions together to form a new action.
 
@@ -138,12 +145,7 @@ class Action(BaseModel):
                 "Return type of the former action must mathces the parameter type "
                 "of the later action."
             )
-        if set(self.kept_params) != set(other_action.kept_params):
-            raise ValueError("Piped actions should have same kept parameters.")
-        if self.env_name != other_action.env_name:
-            raise ValueError("Piped actions should have same env_name.")
-        if self.local != other_action.local:
-            raise ValueError("Piped actions should have same `local` value.")
+        Action._check_combinable(self, other_action)
 
         a_entry = self.entry
         b_entry = other_action.entry
@@ -179,12 +181,7 @@ class Action(BaseModel):
             raise ValueError(
                 '"+" operator only support two action with no required parameters.'
             )
-        if set(self.kept_params) != set(other_action.kept_params):
-            raise ValueError("Combined actions should have same kept parameters.")
-        if self.env_name != other_action.env_name:
-            raise ValueError("Combined actions should have same env_name.")
-        if self.local != other_action.local:
-            raise ValueError("Piped actions should have same `local` value.")
+        Action._check_combinable(self, other_action)
 
         a_entry = self.entry
         b_entry = other_action.entry
@@ -232,6 +229,7 @@ class Action(BaseModel):
             "name": self.name,
             "description": self.description,
             "parameters": self.parameters.model_json_schema(),
+            # "returns": self.returns.model_json_schema()["properties"]["returns"],
         }
 
     def to_raw_action(self) -> dict[str, Any]:

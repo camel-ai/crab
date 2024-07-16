@@ -93,7 +93,7 @@ class Environment:
         self,
         action_name: str,
         parameters: dict[str, Any] = {},
-    ) -> Any:
+    ):
         """
         Executes an action that is in the action space and recorded to the trajectory.
 
@@ -223,6 +223,7 @@ class Environment:
             # or directly execute it
             action = action.set_kept_param(env=self)
             return action.run(**parameters)
+
 
 
 def create_environment(config):

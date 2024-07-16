@@ -1,0 +1,22 @@
+{
+    "description": "Open a terminal in Ubuntu, print the content of \"~/Desktop/contract_reminder.txt\", and then, on an Android device, use the Gmail app to send an email to crabbb@gmail.com, including the printed information.",
+    "tasks": [
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "~/Desktop/contract_reminder.txt"
+            },
+            "output": "uld be end in three days."
+        },
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "uld be end in three days.",
+                "mail": "crabbb@gmail.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "da5911e3-1a99-4735-ba3e-f08c5ca81fdd"
+}

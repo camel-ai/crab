@@ -1,0 +1,16 @@
+{
+    "description": "Create a new directory \"/home/crab/png_folder\" and copy all files with the specified \"png\" extension from \"/home/crab/Pictures\" to the directory \"/home/crab/png_folder\".",
+    "tasks": [
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "png",
+                "source_dir": "/home/crab/Pictures",
+                "target_dir": "/home/crab/png_folder"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "95e347aa-56ab-4d5d-a94c-350ddfddabf9"
+}

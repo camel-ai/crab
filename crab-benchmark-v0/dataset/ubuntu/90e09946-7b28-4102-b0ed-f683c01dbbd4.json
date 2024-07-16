@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to find a code repository about \"W&B\" in GitHub and copy the URL of the repository to the clipboard.",
+    "tasks": [
+        {
+            "task": "bcd03c9f-62c9-4001-8d86-78358c59ce22",
+            "attribute": {
+                "keyword": "W&B"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "90e09946-7b28-4102-b0ed-f683c01dbbd4"
+}

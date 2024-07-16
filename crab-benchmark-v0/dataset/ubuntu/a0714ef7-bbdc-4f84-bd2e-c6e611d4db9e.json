@@ -1,0 +1,14 @@
+{
+    "description": "Get the content of \"/home/crab/ubuntu\" by printing it to the command line interface through a terminal",
+    "tasks": [
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/ubuntu"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "a0714ef7-bbdc-4f84-bd2e-c6e611d4db9e"
+}

@@ -1,0 +1,14 @@
+{
+    "description": "In Android, Using \"Google Drive\" app, create a new folder named \"Journey\".",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ar",
+            "attribute": {
+                "content": "Journey"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "c1b1cfeb-40e7-49a8-a3f5-b8c8ba723601"
+}

@@ -1,0 +1,15 @@
+{
+    "description": "Use Firefox to search for the country \"Canada\" on Wikipedia, extract the capital city and population, and save this information in an ODS file at \"/home/crab/canada.ods\" with LibreOffice Calc. The first column will save the country name, the second will save the capital city name, and the third will save the population. No header is needed in the ODS file.",
+    "tasks": [
+        {
+            "task": "1cd6519a-9ee0-442b-ba5a-9238aeb00ff6",
+            "attribute": {
+                "country": "Canada",
+                "file_path": "/home/crab/canada.ods"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "0e80fd90-0b23-454f-a629-7b6d7baa7542"
+}

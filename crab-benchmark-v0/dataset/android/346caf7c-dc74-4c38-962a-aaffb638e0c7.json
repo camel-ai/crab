@@ -1,0 +1,15 @@
+{
+    "description": "In Android, Using \"Calendar\" app, add a new task with text \"meeting\" in date \"June 5th 2024\".",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ac",
+            "attribute": {
+                "content": "meeting",
+                "date": "05 June 2024"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "346caf7c-dc74-4c38-962a-aaffb638e0c7"
+}

@@ -11,20 +11,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-from crab.actions.desktop_actions import (
-    click,
-    key_press,
-    screenshot,
-    search_application,
-    set_screen_size,
-    write_text,
-)
-from crab.core import EnvironmentConfig
+import csv
+from pathlib import Path
+from typing import Any
 
-UBUNTU_2204 = EnvironmentConfig(
-    name="ubuntu2204",
-    action_space=[click, key_press, write_text, search_application],
-    observation_space=[screenshot],
-    description="A Ubuntu 22.04 desktop environment with a single display.",
-    reset=set_screen_size,
-)
+
+class CSVLog:
+    def __init__(self, csv_path: Path, headers: list[str]) -> None:
+        self.csv_path = csv_path
+        self.header = headers
+        if not csv_path.exists():
+            with open(csv_path, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(headers)
+
+    def write_row(self, data: list[Any]):
+        assert len(data) == len(self.header)
+        with open(self.csv_path, "a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow(data)

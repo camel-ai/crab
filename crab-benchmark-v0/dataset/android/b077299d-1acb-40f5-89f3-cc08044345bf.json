@@ -1,0 +1,14 @@
+{
+    "description": "Using \"Tasks\" app, add a new task with text \"Watch camel tutorial video\".",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548af",
+            "attribute": {
+                "content": "Watch camel tutorial video"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "b077299d-1acb-40f5-89f3-cc08044345bf"
+}

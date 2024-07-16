@@ -1,0 +1,14 @@
+{
+    "description": "Get the content of \"/home/crab/crab/README.md\" by printing it to the command line interface through a terminal",
+    "tasks": [
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/crab/README.md"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "a6b67c2d-d448-4e77-904e-dc7c5f21a5fe"
+}

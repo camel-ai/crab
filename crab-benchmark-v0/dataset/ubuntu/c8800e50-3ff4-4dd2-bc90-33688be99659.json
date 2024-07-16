@@ -1,0 +1,15 @@
+{
+    "description": "Download a file from \"https://raw.githubusercontent.com/facebookresearch/detectron2/main/README.md\" to \"/home/crab/Documents/detectron2.txt\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://raw.githubusercontent.com/facebookresearch/detectron2/main/README.md",
+                "file_path": "/home/crab/Documents/detectron2.txt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "c8800e50-3ff4-4dd2-bc90-33688be99659"
+}

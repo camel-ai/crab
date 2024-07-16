@@ -1,0 +1,22 @@
+{
+    "description": "On an Android device, using the Google Map app, find the address of Dignity Health Sports Park, then use Firefox to search for a university around the address on Google Maps, and copy the Google Maps sharing URL of that university to the clipboard.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548aw",
+            "attribute": {
+                "content": "Dignity Health Sports Park"
+            },
+            "output": "18400 Avalon Blvd, Carson, CA 907, US"
+        },
+        {
+            "task": "2b189dc2-c77f-4fa3-8432-ba4355cc294c",
+            "attribute": {
+                "place_type": "University",
+                "place_name": "18400 Avalon Blvd, Carson, CA 907, US"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "43be6e8e-034d-4277-8346-c4ae7553bf68"
+}

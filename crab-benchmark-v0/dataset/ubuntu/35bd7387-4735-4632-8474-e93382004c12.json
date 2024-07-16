@@ -1,0 +1,15 @@
+{
+    "description": "Use GIMP (GNU Image Manipulation Program) to adjust the brightness of the image from \"/home/crab/assets/campus.png\" to a higher value (brighter) and save it to \"/home/crab/assets/campus_edited.png\".",
+    "tasks": [
+        {
+            "task": "cc1adae7-bef9-4c8a-865d-00d44486dd69",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/assets/campus.png",
+                "image_path_after_edit": "/home/crab/assets/campus_edited.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "35bd7387-4735-4632-8474-e93382004c12"
+}

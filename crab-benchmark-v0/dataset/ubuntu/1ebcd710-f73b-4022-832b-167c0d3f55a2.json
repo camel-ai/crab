@@ -1,0 +1,15 @@
+{
+    "description": "Use Firefox to find out a \"University\" around \"Los Angeles\" on Google Maps and copy the Google Maps sharing URL of that \"University\" to the clipboard",
+    "tasks": [
+        {
+            "task": "2b189dc2-c77f-4fa3-8432-ba4355cc294c",
+            "attribute": {
+                "place_type": "University",
+                "place_name": "Los Angeles"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "1ebcd710-f73b-4022-832b-167c0d3f55a2"
+}

@@ -29,6 +29,11 @@ class EnvironmentConfig(BaseModel):
     extra_attributes: dict[str, Any] = {}
 
 
+class VMEnvironmentConfig(BaseModel):
+    inside_environment: EnvironmentConfig
+    remote_url: str = "http://192.168.0.0:8000"
+
+
 class BenchmarkConfig(BaseModel):
     name: str
     tasks: list[Task]
@@ -37,3 +42,5 @@ class BenchmarkConfig(BaseModel):
     multienv: bool = False
     prompting_tools: dict[str, dict[str, Action]] = {}
     root_action_space: list[Action] = []
+    step_limit: int = 30
+    common_setup: list[ClosedAction] = []

@@ -27,49 +27,33 @@ class Evaluator(Action):
         return v
 
     def __and__(self, other: "Evaluator") -> "Evaluator":
-        def entry(*args, **kwargs):
-            return self.entry(*args, **kwargs) and other.entry(*args, **kwargs)
-
-        return Evaluator(
-            name=f"{self.name}_and_{other.name}",
-            description=f"{self.description} In the same time, {other.description}",
-            parameters=self.parameters,
-            returns=self.returns,
-            entry=entry,
-        )
+        Action._check_combinable(self, other)
+        result = self.model_copy()
+        result.name = (f"{self.name}_and_{other.name}",)
+        result.description = f"{self.description} In the same time, {other.description}"
+        self_entry = self.entry
+        other_entry = other.entry
+        result.entry = lambda: self_entry() and other_entry()
+        return result
 
     def __or__(self, other: "Evaluator") -> "Evaluator":
-        def entry(*args, **kwargs):
-            return self.entry(*args, **kwargs) or other.entry(*args, **kwargs)
-
-        return Evaluator(
-            name=f"{self.name}_or_{other.name}",
-            description=(
-                f"{self.description} If the previous one fails {other.description}"
-            ),
-            parameters=self.parameters,
-            returns=self.returns,
-            entry=entry,
+        Action._check_combinable(self, other)
+        result = self.model_copy()
+        result.name = (f"{self.name}_or_{other.name}",)
+        result.description = (
+            f"{self.description} If the previous one fails {other.description}"
         )
+        self_entry = self.entry
+        other_entry = other.entry
+        result.entry = lambda: self_entry() or other_entry()
+        return result
 
     def __invert__(self) -> "Evaluator":
-        def entry(*args, **kwargs):
-            return not self.entry(*args, **kwargs)
-
-        return Evaluator(
-            name=f"not_{self.name}",
-            description=(
-                f"Check if the following description is False. {self.description}"
-            ),
-            parameters=self.parameters,
-            returns=self.returns,
-            entry=entry,
-        )
-
-    def generate_submit_action(self) -> Action:
         result = self.model_copy()
-        result.name = "_submit"
+        result.name = f"not_{self.name}"
         result.description = (
-            "Use this function to submit you answer and finish the task."
+            f"Check if the following description is False. {self.description}"
         )
+        self_entry = self.entry
+        result.entry = lambda: not self_entry()
         return result

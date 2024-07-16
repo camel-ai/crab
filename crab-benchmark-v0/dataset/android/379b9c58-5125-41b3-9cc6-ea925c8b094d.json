@@ -1,0 +1,15 @@
+{
+    "description": "In Android, Using Google Map app, Find the city name of corresponding post code \"560049\" in the country \"India\".",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "country": "India",
+                "number": "560049"
+            },
+            "output": "Bengaluru"
+        }
+    ],
+    "adjlist": "0",
+    "id": "379b9c58-5125-41b3-9cc6-ea925c8b094d"
+}

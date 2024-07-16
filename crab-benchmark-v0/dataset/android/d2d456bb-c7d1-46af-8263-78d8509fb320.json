@@ -1,0 +1,15 @@
+{
+    "description": "In Android, using \"Gmail\" App, send \"abcdcly@qq.com\" a message \"Hello, nice to meet you!\"",
+    "tasks": [
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "Hello, nice to meet you!",
+                "mail": "abcdcly@qq.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "d2d456bb-c7d1-46af-8263-78d8509fb320"
+}

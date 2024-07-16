@@ -1,0 +1,15 @@
+{
+    "description": "Open \"/home/crab/poem\" using vim in a terminal, write \"If you shed tears when you miss the sun, you also miss the stars.\", then save and exit vim.",
+    "tasks": [
+        {
+            "task": "0f589bf9-9b26-4581-8b78-2961b115ab49",
+            "attribute": {
+                "file_path": "/home/crab/poem",
+                "content": "If you shed tears when you miss the sun, you also miss the stars."
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "05d0e137-7d97-4021-9477-6490a2154c81"
+}

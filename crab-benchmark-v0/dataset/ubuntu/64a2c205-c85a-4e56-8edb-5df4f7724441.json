@@ -1,0 +1,12 @@
+{
+    "description": "Find the example provided of \"torch.matmul\" by official PyTorch version 1.13 documentation using Firefox and copy all the lines of code in the example to the clipboard.",
+    "tasks": [
+        {
+            "task": "49b614c5-c4bb-4c20-aab8-ab9dcc7de1b5",
+            "attribute": {},
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "64a2c205-c85a-4e56-8edb-5df4f7724441"
+}

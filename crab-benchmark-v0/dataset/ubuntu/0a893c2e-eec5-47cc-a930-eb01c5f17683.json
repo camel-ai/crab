@@ -1,0 +1,14 @@
+{
+    "description": "Submit the following content \"If you shed tears when you miss the sun, you also miss the stars.\"",
+    "tasks": [
+        {
+            "task": "1c3bedc3-ea5a-453c-a15b-223d72ab756d",
+            "attribute": {
+                "content": "If you shed tears when you miss the sun, you also miss the stars."
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "0a893c2e-eec5-47cc-a930-eb01c5f17683"
+}

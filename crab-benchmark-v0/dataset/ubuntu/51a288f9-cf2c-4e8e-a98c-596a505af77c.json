@@ -1,0 +1,16 @@
+{
+    "description": "Combine two images from Image 1 \"/home/crab/assets/desert.jpg\" and Image 2 \"/home/crab/assets/campus.png\" using LibreOffice Impress and save the resulting file in PDF format to \"/home/crab/assets/desert_campus.pdf\". Image 1 should be placed on the right side of Image 2.",
+    "tasks": [
+        {
+            "task": "467f17a6-c42f-4eda-996f-a53385eb3efd",
+            "attribute": {
+                "image_path_1": "/home/crab/assets/desert.jpg",
+                "image_path_2": "/home/crab/assets/campus.png",
+                "output_path": "/home/crab/assets/desert_campus.pdf"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "51a288f9-cf2c-4e8e-a98c-596a505af77c"
+}

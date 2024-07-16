@@ -1,0 +1,15 @@
+{
+    "description": "Download a file from \"https://github.com/open-mmlab/mmdetection/archive/refs/tags/v3.3.0.zip\" to \"/home/crab/mmdetection_v3.3.0.zip\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://github.com/open-mmlab/mmdetection/archive/refs/tags/v3.3.0.zip",
+                "file_path": "/home/crab/mmdetection_v3.3.0.zip"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "98a360d8-0f95-44cd-bb9d-442fca2918d4"
+}

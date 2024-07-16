@@ -26,7 +26,7 @@ def _decorator(func, cls: type[Action], options: dict | None = None) -> Action:
 
 
 def action(*args: Callable, env_name: str | None = None, local=False):
-    """Use @action to create an Action from a function"""
+    """Use @action to change a function to an Action"""
     if args and callable(args[0]):
         return _decorator(args[0], Action)
 
@@ -39,7 +39,7 @@ def evaluator(
     env_name: str | None = None,
     local=False,
 ):
-    """Use @evaluator to create an Evaluator from a function"""
+    """Use @evaluator to change a function to an Evaluator"""
     if args and callable(args[0]):
         return _decorator(args[0], Evaluator)
 

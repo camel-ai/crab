@@ -1,0 +1,14 @@
+{
+    "description": "Submit content \"OpenAI is an American artificial intelligence (AI) research organization founded in December 2015, researching artificial intelligence with the goal of developing \"safe and beneficial\" artificial general intelligence, which it defines as \"highly autonomous systems that outperform humans at most economically valuable work.\"",
+    "tasks": [
+        {
+            "task": "1c3bedc3-ea5a-453c-a15b-223d72ab756d",
+            "attribute": {
+                "content": "OpenAI is an American artificial intelligence (AI) research organization founded in December 2015, researching artificial intelligence with the goal of developing \"safe and beneficial\" artificial general intelligence, which it defines as \"highly autonomous systems that outperform humans at most economically valuable work."
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "125f7bae-e931-4190-8737-5f1ea7227772"
+}

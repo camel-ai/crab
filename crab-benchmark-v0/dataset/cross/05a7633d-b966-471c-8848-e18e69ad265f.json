@@ -1,0 +1,22 @@
+{
+    "description": "In Android, use the \"Google Map\" app to find the city name corresponding to the postal code \"1010021\" in Japan, then paste the name into LibreOffice Writer on an Ubuntu system and save it as an ODT file at \"/home/crab/Desktop\".",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "44145",
+                "country": "Germany"
+            },
+            "output": "Dortmund"
+        },
+        {
+            "task": "76de4bdb-c980-4b3a-9bd3-c87db467dffe",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/target.odt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "05a7633d-b966-471c-8848-e18e69ad265f"
+}

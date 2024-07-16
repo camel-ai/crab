@@ -11,22 +11,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-from crab import EnvironmentConfig
-from crab.actions.android_actions import (
-    key_press,
-    open_application_panel,
-    screenshot,
-    setup,
-    swipe,
-    tap,
-    write_text,
-)
+from enum import IntEnum
+from typing import Any
 
-android_env = EnvironmentConfig(
-    name="android",
-    action_space=[tap, key_press, write_text, swipe, open_application_panel],
-    observation_space=[screenshot],
-    description="An Android device",
-    extra_attributes={"device": None},
-    reset=setup,
-)
+from pydantic import BaseModel
+
+from .action import Action
+
+
+class MessageType(IntEnum):
+    TEXT = 0
+    IMAGE_JPG_BASE64 = 1
+
+
+class ActionOutput(BaseModel):
+    name: str
+    arguments: dict[str, Any]
+    env: str | None = None
+
+
+class BackendOutput(BaseModel):
+    message: str | None
+    action_list: list[ActionOutput] | None
+
+class EnvironmentInfo(BaseModel):
+    description: str
+    action_space: list[Action]

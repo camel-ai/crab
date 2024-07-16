@@ -1,0 +1,15 @@
+{
+    "description": "Use Firefox to find out a \"hiking trail\" around \"Munich\" on Google Maps and copy the Google Maps sharing URL of that \"hiking trail\" to the clipboard",
+    "tasks": [
+        {
+            "task": "2b189dc2-c77f-4fa3-8432-ba4355cc294c",
+            "attribute": {
+                "place_type": "hiking trail",
+                "place_name": "Munich"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "77aa4dd3-5a68-4686-9cac-26d0ab77c7b4"
+}

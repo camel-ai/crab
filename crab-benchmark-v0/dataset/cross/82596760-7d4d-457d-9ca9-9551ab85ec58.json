@@ -1,0 +1,22 @@
+{
+    "description": "Using the \"Google Map\" app on an Android device, find the city name corresponding to the postal code \"10179\" in Germany, and then submit the discovered city name.",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "10179",
+                "country": "German"
+            },
+            "output": "Berlin"
+        },
+        {
+            "task": "1c3bedc3-ea5a-453c-a15b-223d72ab756d",
+            "attribute": {
+                "content": "Berlin"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "82596760-7d4d-457d-9ca9-9551ab85ec58"
+}

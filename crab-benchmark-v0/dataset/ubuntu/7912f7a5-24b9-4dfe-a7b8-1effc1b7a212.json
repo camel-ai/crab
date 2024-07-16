@@ -1,0 +1,16 @@
+{
+    "description": "Combine two images from Image 1 \"/home/crab/assets/campus.png\" and Image 2 \"/home/crab/assets/desert.jpg using GIMP (GNU Image Manipulation Program) and save the resulting image to \"/home/crab/assets/campus_desert.png\". Image 1 should be placed on the left side of Image 2.",
+    "tasks": [
+        {
+            "task": "4cf246ea-0a7f-43da-84b6-61d74a2699af",
+            "attribute": {
+                "image_path_1": "/home/crab/assets/campus.png",
+                "image_path_2": "/home/crab/assets/desert.jpg",
+                "output_path": "/home/crab/assets/campus_desert.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "7912f7a5-24b9-4dfe-a7b8-1effc1b7a212"
+}

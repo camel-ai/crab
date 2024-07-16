@@ -1,0 +1,14 @@
+{
+    "description": "Use Firefox to search for an image using the keyword \"The Colosseum\" and copy the URL of the image to the clipboard.",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "The Colosseum"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "a78177f5-6cc6-48d7-8c6f-df53399d7759"
+}

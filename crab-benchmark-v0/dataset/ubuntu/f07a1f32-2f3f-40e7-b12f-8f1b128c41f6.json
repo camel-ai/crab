@@ -1,0 +1,16 @@
+{
+    "description": "Create a new directory \"/home/crab/assets_copy\" and copy all files with the specified \"txt\" extension from \"/home/crab/assets\" to the directory \"/home/crab/assets_copy\".",
+    "tasks": [
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "txt",
+                "source_dir": "/home/crab/assets",
+                "target_dir": "/home/crab/assets_copy"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "f07a1f32-2f3f-40e7-b12f-8f1b128c41f6"
+}

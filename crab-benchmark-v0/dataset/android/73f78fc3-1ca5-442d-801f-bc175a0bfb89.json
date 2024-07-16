@@ -1,0 +1,15 @@
+{
+    "description": "In Android, using \"Google Map\" App, find the distance of the shortest route from \"Southern University of Science and Technology\" to \"Lianhuashan Park\"",
+    "tasks": [
+        {
+            "task": "1a1b72d7-78c9-4027-8278-86083ae01045",
+            "attribute": {
+                "place_name_1": "Southern University of Science and Technology",
+                "place_name_2": "Lianhuashan Park"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "73f78fc3-1ca5-442d-801f-bc175a0bfb89"
+}

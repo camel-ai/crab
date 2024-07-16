@@ -1,0 +1,15 @@
+{
+    "description": "Use Firefox to find out a \"restaurant\" around \"kaust\" on Google Maps and copy the Google Maps sharing URL of that \"restaurant\" to the clipboard",
+    "tasks": [
+        {
+            "task": "2b189dc2-c77f-4fa3-8432-ba4355cc294c",
+            "attribute": {
+                "place_type": "restaurant",
+                "place_name": "kaust"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0",
+    "id": "0d178388-8166-4b66-93c1-278861f9897c"
+}

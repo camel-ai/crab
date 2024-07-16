@@ -1,0 +1,21 @@
+{
+    "description": "Open the terminal on Ubuntu, print the content of \"/home/crab/Desktop/kolakov.txt\" to the command line interface, and then, in the Android \"Keep Notes\" app, record the content in a new note without adding a title.",
+    "tasks": [
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/kolakov.txt"
+            },
+            "output": "The flight to warsaw is from kolakov"
+        },
+        {
+            "task": "eb92a1e6-4c86-4d56-baac-95fc8397732e",
+            "attribute": {
+                "content": "The flight to warsaw is from kolakov"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "1e92db38-501e-429b-ac31-453d1af10a25"
+}

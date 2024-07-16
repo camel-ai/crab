@@ -11,16 +11,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+import traceback
+from time import sleep
 from typing import Any
 
 from crab.core.graph_evaluator import GraphEvaluator
 
 from .environment import Environment, create_environment
 from .exceptions import TaskNotFound
-from .models import Action, BenchmarkConfig, StepResult, Task
+from .models import Action, BenchmarkConfig, ClosedAction, MessageType, StepResult, Task
 
 
-# TODO: Add termination step numbers
 class Benchmark:
     """The crab benchmark controller managing environments and agent evaluation.
 
@@ -30,8 +31,7 @@ class Benchmark:
 
     This class introduces a "root" environment with no action or observation
     capabilities, intended as a utility for evaluations not directly tied to a specific
-    environment. For example, it facilitates evaluators that require the agent to submit
-    content for comparison against a predefined answer through a `_submit` action.
+    environment.
 
     This class operates in two distinct modes: "multi-environment" and
     "single-environment".  In multi-environment mode, observations and action results
@@ -50,6 +50,8 @@ class Benchmark:
         multienv: bool = False,
         prompting_tools: dict[str, dict[str, Action]] = {},
         root_action_space: list[Action] = [],
+        step_limit: int = 30,
+        common_setup: list[ClosedAction] = [],
     ) -> None:
         """Initializes the instance.
 
@@ -71,6 +73,8 @@ class Benchmark:
         self.tasks = tasks
         self.multienv = multienv
         self.prompting_tools = prompting_tools
+        self.step_limit = step_limit
+        self.common_setup = common_setup
 
         if isinstance(environments, Environment):
             environments = [environments]
@@ -78,7 +82,8 @@ class Benchmark:
             name="root",
             action_space=root_action_space,
             observation_space=[],
-            description="The crab root server",
+            description="The crab benchmark root. You can submit your answer or "
+            "complete the task using this environment.",
         )
         self.root_env.contained_envs = {env.name: env for env in environments}  # A hack
         environments.append(self.root_env)
@@ -105,6 +110,7 @@ class Benchmark:
 
         self.current_task: Task | None = None
         self.current_evaluator: GraphEvaluator | None = None
+        self.step_cnt = 0
 
     def start_task(self, task_id: str) -> tuple[Task, dict[str, list[Action]]]:
         """Initializes and starts a specified task.
@@ -124,6 +130,9 @@ class Benchmark:
         # reset all environments
         self._reset_environments()
 
+        for action in self.common_setup:
+            self._take_env_action(action)
+
         # select environment by Action.env_name
         for action in self.current_task.setup:
             self._take_env_action(action)
@@ -135,6 +144,8 @@ class Benchmark:
         self.current_evaluator = GraphEvaluator(self.current_task.evaluator)
         # put submit action to corresponding env space
         # For now, only the last node can be the submit task
+
+        self.step_cnt = 0
         return self.current_task, self.export_action_space()
 
     def close_task(self) -> None:
@@ -144,6 +155,13 @@ class Benchmark:
         for action in self.current_task.teardown:
             self._take_env_action(action)
         self.current_task = None
+
+    def get_env_descriptions(self) -> dict[str, str]:
+        """Get environment descriptions as a dict structure."""
+        return {
+            name: self.environment_map[name].description
+            for name in self.environment_map
+        }
 
     def observe(self) -> dict[str, dict[str, Any]]:
         """Collects observations from all environments.
@@ -159,7 +177,7 @@ class Benchmark:
 
     def observe_with_prompt(
         self,
-    ) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
+    ) -> tuple[dict[str, dict[str, Any]], dict[str, tuple[str, MessageType]]]:
         """Collects observations and applies prompting tools.
 
         Returns:
@@ -181,6 +199,10 @@ class Benchmark:
             return observations, prompts
         return self._merge_dicts(observations), self._merge_dicts(prompts)
 
+    def evaluate(self):
+        self.current_evaluator.step(self.environment_map, self.default_env)
+        return self.current_evaluator.stat()
+
     def step(
         self,
         action: str,
@@ -198,14 +220,64 @@ class Benchmark:
             The result of the step including observations and evaluation metrics. Notice
             that the `truncated` field in the result is not meaningful for now.
         """
+        terminated = False
+        info = {}
         if self.current_evaluator is None or self.current_task is None:
             raise RuntimeError("There is no started task.")
 
-        environment = self._get_env(env_name=env_name, action_name=action)
-        action_returns = environment.step(action, parameters)
+        if action == "complete":
+            terminated = True
+            info["terminate_reason"] = "agent_complete"
+            return StepResult(
+                truncated=False,
+                terminated=True,
+                action_returns=None,
+                evaluation_results=self.current_evaluator.stat(),
+                info=info,
+            )
 
-        self.current_evaluator.step(self.environment_map, self.default_env)
-        terminated = self.current_evaluator.is_complete()
+        try:
+            environment = self._get_env(env_name=env_name, action_name=action)
+            action_returns = environment.step(action, parameters)
+        except Exception:
+            print(traceback.format_exc())
+            terminated = True
+            info["terminate_reason"] = "env_exception"
+            info["exception_detail"] = traceback.format_exc()
+            environment.reset()
+            self.close_task()
+            return StepResult(
+                truncated=False,
+                terminated=True,
+                action_returns=None,
+                evaluation_results=self.current_evaluator.stat(),
+                info=info,
+            )
+
+        try:
+            evaluation_results = self.evaluate()
+        except Exception:
+            print(traceback.format_exc())
+            terminated = True
+            info["terminate_reason"] = "evaluator_exception"
+            info["exception_detail"] = traceback.format_exc()
+            environment.reset()
+            self.close_task()
+            return StepResult(
+                truncated=False,
+                terminated=True,
+                action_returns=action_returns,
+                evaluation_results=self.current_evaluator.stat(),
+                info=info,
+            )
+
+        self.step_cnt += 1
+        if self.current_evaluator.is_complete():
+            terminated = True
+            info["terminate_reason"] = "success"
+        if self.step_cnt >= self.step_limit:
+            terminated = True
+            info["terminate_reason"] = "reach_max_step"
         if terminated:
             environment.reset()
             self.close_task()
@@ -213,14 +285,28 @@ class Benchmark:
             truncated=False,
             terminated=terminated,
             action_returns=action_returns,
-            evaluation_results=self.current_evaluator.stat(),
-            info={},
+            evaluation_results=evaluation_results,
+            info=info,
         )
 
     def reset(self) -> None:
         """Resets all environments and the current task."""
         self.current_evaluator = None
         self._reset_environments()
+
+    def human_evaluation(self, task_id: str) -> None:
+        task, _ = self.start_task(task_id)
+        print(task.description)
+
+        self.current_evaluator.human_mode = True
+
+        evaluation_results = self.evaluate()
+        print(evaluation_results, end="")
+        while evaluation_results["completeness"] != 1.0:
+            sleep(2)
+            evaluation_results = self.evaluate()
+            print("\r" + str(evaluation_results), end="")
+        self.close_task()
 
     def export_action_space(self) -> dict[str, list[Action]]:
         """Returns the action spaces from all environments.
@@ -315,7 +401,7 @@ class Benchmark:
         return {self.default_env: result}
 
 
-def create_benchmark(config: BenchmarkConfig):
+def create_benchmark(config: BenchmarkConfig) -> Benchmark:
     """Creates a benchmark by BenchmarkConfig"""
     if isinstance(config, BenchmarkConfig):
         environments = [
