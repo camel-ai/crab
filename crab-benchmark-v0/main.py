@@ -35,7 +35,7 @@ from crab.core.benchmark import Benchmark
 
 from .android_env import ANDROID_ENV
 from .dataset.android_subtasks import android_subtasks
-from .dataset.handmade_subtasks import handmade_subtasks
+from .dataset.handmade_tasks import handmade_tasks
 from .dataset.ubuntu_subtasks import ubuntu_subtasks
 from .ubuntu_env import UBUNTU_ENV
 from .visual_prompt_actions import (
@@ -134,7 +134,7 @@ def get_benchmark(env: str, ubuntu_url: str):
     benchmark_config.tasks.extend(tasks)
 
     # Load from handmade tasks
-    benchmark_config.tasks.extend(handmade_subtasks)
+    benchmark_config.tasks.extend(handmade_tasks)
 
     benchmark_config.step_limit = 15
     return create_benchmark(benchmark_config)

@@ -156,7 +156,7 @@ class Experiment:
                     if message_type == MessageType.IMAGE_JPG_BASE64:
                         file_name = f"{env}_{self.step_cnt}.png"
                         base64_to_image(message).save(self.image_path / file_name)
-                        prompt_file.write(f"![](./images/{file_name})\n\n")
+                        prompt_file.write(f"![](../images/{file_name})\n\n")
                     else:
                         prompt_file.write(message + "\n\n")
 
