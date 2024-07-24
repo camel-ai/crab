@@ -1,4 +1,4 @@
-# 🦀 Crab: Cross-platform Agent Benchmark for Multimodal Embodied Language Model Agents
+# 🦀 CRAB: Cross-platform Agent Benchmark for Multimodal Embodied Language Model Agents
 
 [![arXiv][arxiv-image]][arxiv-url]
 [![Slack][slack-image]][slack-url]
@@ -8,11 +8,11 @@
 
 ## Overview
 
-Crab is a framework for building LLM agent benchmark environments in a Python-centric way.
+CRAB is a framework for building LLM agent benchmark environments in a Python-centric way.
 
 #### Key Features
 
-🌐 Cross-platform
+🌐 Cross-platform and Multi-environment
 * Create build agent environments that support various deployment options including in-memory, Docker-hosted, virtual machines, or distributed physical machines, provided they are accessible via Python functions.
 * Let the agent access all the environments in the same time through a unified interface.
 
@@ -29,17 +29,18 @@ Crab is a framework for building LLM agent benchmark environments in a Python-ce
 #### Prerequisites
 
 - Python 3.10 or newer
-- pip
 
 ```bash
 pip install crab-framework[visual-prompt]
 ```
 
+## Experiment on CRAB-Benchmark-v0
+
+All datasets and experiment code are in [crab-benchmark-v0](./crab-benchmark-v0/) directory. Please carefully read the [experiment instructions](./crab-benchmark-v0/README.md) before using our benchmark.
+
 ## Examples
 
 #### Run template environment with openai agent
-
-You can run the examples using the following command.
 
 ```bash
 export OPENAI_API_KEY=<your api key>
@@ -48,8 +49,6 @@ python examples/multi_env.py
 ```
 
 #### Run desktop environment with openai agent
-
-You can run the examples using the following command.
 
 ```bash
 export OPENAI_API_KEY=<your api key>
