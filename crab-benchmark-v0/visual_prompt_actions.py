@@ -21,11 +21,8 @@ from crab import action
 from crab.utils.common import base64_to_image, image_to_base64
 
 try:
-    import cv2
     import easyocr
     import numpy as np
-    import PIL
-    import pytesseract
     import torch
 
     from .thirdparty.groundingdino.datasets import transforms as T
@@ -566,98 +563,3 @@ def get_elements_prompt(input: tuple[str, list[tuple[BoxType, str]]], env):
         "these labels by [id|label].\n" + labels
     )
     return image, prompt
-
-
-def find_text_in_image(
-    image: Image.Image, target_text: str, debug=False
-) -> tuple[Image.Image, list[tuple[float, float]]]:
-    """
-    Detects target text in a given image, draw rectangle on it and calculate center
-    points
-
-    Args:
-        image: The input image.
-        target_text: The text we wish to search for.
-
-    Returns:
-        A tuple containing the visual prompt and a list of corresponding box center
-        points.
-    """
-    # convert PIL to numpy array
-    image_array = np.array(image)
-    image_array_rgb = cv2.cvtColor(image_array, cv2.COLOR_BGR2RGB)
-    image_array_gray = cv2.cvtColor(image_array, cv2.COLOR_BGR2GRAY)
-
-    # get tesseract ocr output
-    ocr_output = pytesseract.image_to_data(
-        image_array_gray, output_type=pytesseract.Output.DICT
-    )
-    ocr_output = list(
-        zip(
-            ocr_output["left"],
-            ocr_output["top"],
-            ocr_output["height"],
-            ocr_output["width"],
-            ocr_output["text"],
-        )
-    )
-
-    # iterate over each box
-    # draw rectangle on target text and calculate its center point
-    center_points = []
-    text_id = 0
-    epsilon = 5
-    for left, top, height, width, text in ocr_output:
-        # draw every box
-        if debug:
-            cv2.rectangle(
-                image_array_rgb,
-                (left - epsilon, top - epsilon),
-                (left + width + epsilon, top + height + epsilon),
-                (255, 255, 0),
-                thickness=3,
-            )
-            cv2.putText(
-                image_array_rgb,
-                text,
-                (left, top - epsilon * 2),
-                fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                fontScale=1,
-                color=(255, 255, 0),
-                thickness=3,
-            )
-        # check whether including text
-        index_start = text.lower().find(target_text.lower())
-        if index_start == -1:
-            pass
-        else:
-            percent_start = index_start / len(str(text))
-            percent_end = (index_start + len(target_text)) / len(str(text))
-            adjusted_left = int(left + width * percent_start)
-            adjusted_right = int(left + width * percent_end)
-            cv2.rectangle(
-                image_array_rgb,
-                (adjusted_left - epsilon, top - epsilon),
-                (adjusted_right + epsilon, top + height + epsilon),
-                (255, 255, 0),
-                thickness=3,
-            )
-            t = str(text_id)
-            cv2.putText(
-                image_array_rgb,
-                t,
-                (adjusted_left, top - epsilon * 2),
-                fontFace=cv2.FONT_HERSHEY_DUPLEX,
-                fontScale=1,
-                color=(255, 255, 0),
-                thickness=3,
-            )
-            text_id += 1
-
-            center_points.append(
-                ((adjusted_left + adjusted_right) / 2, (top + top + height) / 2)
-            )
-
-    output_image = PIL.Image.fromarray(image_array_rgb)
-
-    return output_image, center_points
