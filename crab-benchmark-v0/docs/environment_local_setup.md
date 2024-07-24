@@ -8,7 +8,7 @@ Then pull the crab repo and install:
 git clone https://github.com/camel-ai/crab
 
 cd crab
-poetry install -E visual-prompt
+poetry install -E client
 ```
 
 ## Install Ubuntu VM
@@ -24,7 +24,8 @@ After install Ubuntu, you should install crab-server on it and do necessary init
 ```bash
 git clone https://github.com/camel-ai/crab.git ~/crab/
 cd ~/crab/crab-benchmark-v0/scripts
-bash ubuntu_env_init.sh
+chmod +x ubuntu_env_init.sh
+./ubuntu_env_init.sh
 ```
 
 The VM will reboot after initilization. After rebooting, remember its ip address.

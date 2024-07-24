@@ -31,7 +31,7 @@ CRAB is a framework for building LLM agent benchmark environments in a Python-ce
 - Python 3.10 or newer
 
 ```bash
-pip install crab-framework[visual-prompt]
+pip install crab-framework[client]
 ```
 
 ## Experiment on CRAB-Benchmark-v0
