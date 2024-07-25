@@ -1,5 +1,11 @@
 # 🦀 Crab: Cross-platform Agent Benchmark for Multimodal Embodied Language Model Agents
 
+[![arXiv][arxiv-image]][arxiv-url]
+[![Slack][slack-image]][slack-url]
+[![Discord][discord-image]][discord-url]
+[![Wechat][wechat-image]][wechat-url]
+[![Twitter][twitter-image]][twitter-url]
+
 ## Overview
 
 Crab is a framework for building LLM agent benchmark environments in a Python-centric way.
@@ -63,3 +69,14 @@ Please cite [our paper](https://arxiv.org/abs/2407.01511) if you use anything re
       url={https://arxiv.org/abs/2407.01511}, 
 }
 ```
+
+[slack-url]: https://join.slack.com/t/camel-kwr1314/shared_invite/zt-1vy8u9lbo-ZQmhIAyWSEfSwLCl2r2eKA
+[slack-image]: https://img.shields.io/badge/Slack-CAMEL--AI-blueviolet?logo=slack
+[discord-url]: https://discord.gg/CNcNpquyDc
+[discord-image]: https://img.shields.io/badge/Discord-CAMEL--AI-7289da?logo=discord&logoColor=white&color=7289da
+[wechat-url]: https://ghli.org/camel/wechat.png
+[wechat-image]: https://img.shields.io/badge/WeChat-CamelAIOrg-brightgreen?logo=wechat&logoColor=white
+[twitter-url]: https://twitter.com/CamelAIOrg
+[twitter-image]: https://img.shields.io/twitter/follow/CamelAIOrg?style=social&color=brightgreen&logo=twitter
+[arxiv-image]: https://img.shields.io/badge/arXiv-2407.01511-b31b1b.svg
+[arxiv-url]: https://arxiv.org/abs/2407.01511
