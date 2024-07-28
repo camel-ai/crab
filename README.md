@@ -36,7 +36,7 @@ pip install crab-framework[client]
 
 ## Experiment on CRAB-Benchmark-v0
 
-All datasets and experiment code are in [crab-benchmark-v0](./crab-benchmark-v0/) directory. Please carefully read the [experiment instructions](./crab-benchmark-v0/README.md) before using our benchmark.
+All datasets and experiment code are in [crab-benchmark-v0](./crab-benchmark-v0/) directory. Please carefully read the [benchmark tutorial](./crab-benchmark-v0/README.md) before using our benchmark.
 
 ## Examples
 
@@ -48,12 +48,6 @@ python examples/single_env.py
 python examples/multi_env.py
 ```
 
-#### Run desktop environment with openai agent
-
-```bash
-export OPENAI_API_KEY=<your api key>
-python examples/desktop_env.py "Open Firefox"
-```
 
 ## Cite
 Please cite [our paper](https://arxiv.org/abs/2407.01511) if you use anything related in your work:

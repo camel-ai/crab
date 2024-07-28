@@ -11,58 +11,59 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-from crab import create_benchmark
-from crab.agents.single_agent.openai_agent import OpenAIAgent
+from termcolor import colored
+
+from crab import Benchmark, create_benchmark
+from crab.agents.backend_models import OpenAIModel
+from crab.agents.policies import SingleAgentPolicy
 from crab.benchmarks.template import multienv_template_benchmark_config
 
 
-def start_benchmark(benchmark, agent):
+def start_benchmark(benchmark: Benchmark, agent: SingleAgentPolicy):
     for step in range(20):
         print("=" * 40)
         print(f"Start agent step {step}:")
         observation = benchmark.observe()
         print(f"Current enviornment observation: {observation}")
-        response = agent.chat(
-            [
-                (f"Current enviornment observation: {observation}", 0),
-                ("Tell me the next action.", 0),
-            ]
-        )
-        print("\033[94m" f"Agent Reponse: {response['content']}" "\033[0m")
-        print(f"So agent take action: {response['action_list']}")
-
-        for action in response["action_list"]:
-            try:
-                response = benchmark.step(*action[0], action[1])
-            except Exception:
+        prompt = {}
+        for env, obs in observation.items():
+            if env == "root":
                 continue
+            state = obs["current_state"]
+            prompt[env] = [(f"The state of {env} is {state}", 0)]
+        response = agent.chat(observation=prompt)
+        print(colored(f"Agent take action: {response}", "blue"))
+
+        for action in response:
+            response = benchmark.step(
+                action=action.name,
+                parameters=action.arguments,
+                env_name=action.env,
+            )
+            print(
+                colored(
+                    f'Action "{action.name}" success, stat: '
+                    f"{response.evaluation_results}",
+                    "green",
+                )
+            )
             if response.terminated:
+                print("=" * 40)
                 print(
-                    "\033[92m"
-                    f"Task finished, result: {response.evaluation_results}"
-                    "\033[0m"
+                    colored(
+                        f"Task finished, result: {response.evaluation_results}", "green"
+                    )
                 )
                 return
-            print(
-                "\033[92m"
-                f'Action "{action[0]}" success, stat: {response.evaluation_results}'
-                "\033[0m"
-            )
 
 
 if __name__ == "__main__":
     benchmark = create_benchmark(multienv_template_benchmark_config)
     task, action_space = benchmark.start_task("0")
-    agent = OpenAIAgent(
-        task.description,
-        action_space,
-        multienv=True,
-        model="gpt-4-turbo-preview",
-    )
-    print(
-        "\033[92m"
-        f"Start performing task: \"{task.description}\""
-        "\033[0m"
-    )
+    env_descriptions = benchmark.get_env_descriptions()
+
+    agent = SingleAgentPolicy(model_backend=OpenAIModel("gpt-4o"))
+    agent.reset(task.description, action_space, env_descriptions)
+    print("Start performing task: " + colored(f'"{task.description}"', "green"))
     start_benchmark(benchmark, agent)
     benchmark.reset()

@@ -236,8 +236,8 @@ class Benchmark:
                 info=info,
             )
 
+        environment = self._get_env(env_name=env_name, action_name=action)
         try:
-            environment = self._get_env(env_name=env_name, action_name=action)
             action_returns = environment.step(action, parameters)
         except Exception:
             print(traceback.format_exc())
