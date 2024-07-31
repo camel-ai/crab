@@ -162,7 +162,7 @@ def open_app_drawer(env) -> None:
     """
     execute_adb("shell input keyevent KEYCODE_HOME", env)
     sleep(0.5)
-    execute_adb("shell input swipe 800 2000 800 100 200", env)
+    execute_adb("shell input swipe 800 2000 800 100 500", env)
     sleep(_DURATION)
 
 
