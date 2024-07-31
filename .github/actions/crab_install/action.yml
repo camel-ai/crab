@@ -26,7 +26,7 @@ runs:
         path: ./.venv
         key: venv-${{ hashFiles('poetry.lock') }}
     - name: Install the project dependencies
-      run: poetry install -E visual-prompt -E server
+      run: poetry install -E client -E server
       shell: bash
     - uses: actions/cache/save@v3
       name: Save caches based on poetry.lock 

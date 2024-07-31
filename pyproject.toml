@@ -3,14 +3,18 @@ requires = ["poetry-core>=1.2.0", "wheel"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "agent-crab"
-version = "0.0.1"
-description = "Cross-platfrom Agent Benchmark for Multimodal Embodied Language Model Agents"
+name = "crab-framework"
+version = "0.1.2"
+description = "Cross-platform Agent Benchmark for Multimodal Embodied Language Model Agents."
 
-authors = ["Tianqi Xu <tianqi.xu@kaust.edu.sa>"]
+authors = ["CAMEL-AI.org"]
 maintainers = ["Tianqi Xu <tianqi.xu@kaust.edu.sa>"]
 
 packages = [{ include = "crab" }]
+
+readme = "README.md"
+license = "Apache License 2.0"
+repository = "https://github.com/camel-ai/crab"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -21,6 +25,7 @@ networkx = "^3"
 dill = "^0.3.8"
 pydantic = "^2.6"
 lxml = "^5.2.2"
+openai = "^1.12.0"
 
 # desktop actions
 pillow = "^10.2.0"
@@ -32,26 +37,29 @@ pyperclip = "^1.8.2"
 # environment
 python-vagrant = "^1.0.0"
 
+# evaluation
+pyexcel-ods = "^0.6.0"
+odfpy = "^1.4.1"
+beautifulsoup4 = "^4.12.3"
+termcolor = "^2.4.0"
+opencv-python = "^4.9.0.80"
 
 # client
-httpx = "*"
+httpx = { version = "*", optional = true }
 
 # agent
-openai = "^1.12.0"
-google-generativeai = "^0.5.2"
-anthropic = "^0.26.0"
-groq = "^0.5.0"
-ollama = "^0.2.0"
+google-generativeai = { version = "^0.5.2", optional = true }
+anthropic = { version = "^0.26.0", optional = true }
+groq = { version = "^0.5.0", optional = true }
+ollama = { version = "^0.2.0", optional = true }
 
 # text ocr
-pytesseract = { version = "^0.3.10", optional = true }
-easyocr = "^1.7.1"
+easyocr = { version = "^1.7.1", optional = true }
 
 # groundingdino object detection
 torch = { version = "^2.2.1", optional = true }
 torchvision = { version = "^0.17.1", optional = true }
 numpy = { version = "^1.26.4", optional = true }
-opencv-python = { version = "^4.9.0.80", optional = true }
 transformers = { version = "4.42.4", optional = true }
 addict = { version = "^2.4.0", optional = true }
 yapf = { version = "^0.40.2", optional = true }
@@ -71,15 +79,18 @@ plotly = { version = "^5.20.0", optional = true }
 types-pyautogui = "^0.9.3.20240106"
 types-psutil = "^5.9.5.20240205"
 types-networkx = "^3.2.1.20240210"
-pyexcel-ods = "^0.6.0"
-odfpy = "^1.4.1"
-beautifulsoup4 = "^4.12.3"
-termcolor = "^2.4.0"
 
 [tool.poetry.extras]
 server = ["fastapi", "pydantic-settings", "uvicorn"]
-visual-prompt = [
-    "pytesseract",
+client = [
+    "httpx",
+    "openai",
+    "google-generativeai",
+    "anthropic",
+    "groq",
+    "ollama",
+    "easyocr",
+    "plotly",
     "torch",
     "torchvision",
     "numpy",
@@ -97,9 +108,18 @@ mypy = "^1.8.0"
 pytest = "^8.0.0"
 ruff = "^0.1.14"
 ipykernel = "^6.29.3"
-pandas = "^1"
+pandas = "^2.2.2"
+sphinx = "^7.3.7"
+pre-commit = "^3.7.0"
+sphinx-rtd-theme = "^2.0.0"
+certifi = "^2024.2.2"
 
 [tool.ruff]
-select = ["E501", "E4", "E7", "E9", "F", "I"]
-ignore = ["E731"]
-ignore-init-module-imports = true
+lint.select = ["E501", "E4", "E7", "E9", "F", "I"]
+lint.ignore = ["E731"]
+lint.ignore-init-module-imports = true
+exclude = ["docs/"]
+
+[[tool.mypy.overrides]]
+module = ["dill", "easyocr"]
+ignore_missing_imports = true

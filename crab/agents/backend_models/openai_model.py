@@ -14,10 +14,15 @@
 import json
 from typing import Any
 
-import openai
-from openai.types.chat import ChatCompletion
-
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
+
+try:
+    import openai
+    from openai.types.chat import ChatCompletion
+
+    openai_model_enable = True
+except ImportError:
+    openai_model_enable = False
 
 
 class OpenAIModel(BackendModel):
@@ -27,6 +32,8 @@ class OpenAIModel(BackendModel):
         parameters: dict[str, Any] = dict(),
         history_messages_len: int = 0,
     ) -> None:
+        if not openai_model_enable:
+            raise ImportError("Please install openai to use OpenAIModel")
         super().__init__(
             model,
             parameters,

@@ -15,13 +15,18 @@ import os
 from time import sleep
 from typing import Any
 
-import google.generativeai as genai
-from google.ai.generativelanguage_v1beta import FunctionDeclaration, Part, Tool
-from google.api_core.exceptions import ResourceExhausted
-from google.generativeai.types import content_types
-
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
 from crab.utils.common import base64_to_image, json_expand_refs
+
+try:
+    import google.generativeai as genai
+    from google.ai.generativelanguage_v1beta import FunctionDeclaration, Part, Tool
+    from google.api_core.exceptions import ResourceExhausted
+    from google.generativeai.types import content_types
+
+    gemini_model_enable = True
+except ImportError:
+    gemini_model_enable = False
 
 
 class GeminiModel(BackendModel):
@@ -31,6 +36,8 @@ class GeminiModel(BackendModel):
         parameters: dict[str, Any] = dict(),
         history_messages_len: int = 0,
     ) -> None:
+        if gemini_model_enable is False:
+            raise ImportError("Please install google.generativeai to use GeminiModel")
         super().__init__(
             model,
             parameters,
@@ -161,7 +168,6 @@ class GeminiModel(BackendModel):
             schema_dict["type_"] = p_type.upper()
         if "items" in schema_dict:
             cls._clear_schema(schema_dict["items"])
-
 
     @classmethod
     def _action_to_funcdec(cls, action: Action, env: str):

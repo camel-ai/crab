@@ -15,11 +15,16 @@ from copy import deepcopy
 from time import sleep
 from typing import Any
 
-import anthropic
-from anthropic.types import TextBlock
-from anthropic.types.beta.tools import ToolUseBlock
-
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
+
+try:
+    import anthropic
+    from anthropic.types import TextBlock
+    from anthropic.types.beta.tools import ToolUseBlock
+
+    anthropic_model_enable = True
+except ImportError:
+    anthropic_model_enable = False
 
 
 class ClaudeModel(BackendModel):
@@ -29,6 +34,8 @@ class ClaudeModel(BackendModel):
         parameters: dict[str, Any] = dict(),
         history_messages_len: int = 0,
     ) -> None:
+        if anthropic_model_enable is False:
+            raise ImportError("Please install anthropic to use ClaudeModel")
         super().__init__(
             model,
             parameters,

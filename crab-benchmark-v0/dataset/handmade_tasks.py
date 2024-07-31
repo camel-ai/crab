@@ -370,7 +370,7 @@ def evaluator_ca79febf():
 # * Make sure the init page of "Calendar" app is "Day" view. There should be at least one element today.
 
 
-handmade_subtasks = [
+handmade_tasks = [
     Task(
         id="79832e15-5fd3-43b8-b3e3-66249edfe1db",
         description='Open slack in Ubuntu desktop, summarize the last two messages in current channel, then use "Messages" app in android phone to send the summary to the first contact in the list.',
