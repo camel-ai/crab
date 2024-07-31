@@ -1,20 +1,21 @@
-Reminder: This method is currently under preparation and is not available.
-
 ## Setup and Start the VM Instance
 
-The development image is hosted in the project `capable-vista-420022` with image name `crab-benchmark-v0-0`.
+The development image is hosted in the project `capable-vista-420022` with image name `crab-benchmark-v0-1`.
 
 You can use [gcloud](https://cloud.google.com/sdk/docs/install) to create an instance from this image.
+
+First install [gcloud](https://cloud.google.com/sdk/docs/install), then create an instance using the following command:
 
 ```bash
 gcloud compute instances create \
 crab-instance \
 --zone=us-central1-a \
 --machine-type=n2-standard-8 \
---image=https://www.googleapis.com/compute/v1/projects/capable-vista-420022/global/images/crab-benchmark-v0-0 \
+--image=https://www.googleapis.com/compute/v1/projects/capable-vista-420022/global/images/crab-benchmark-v0-1 \
 --enable-nested-virtualization
 # You can change instance name, zone, machine type as you want.
 # Remember that the CPU must support nested virtualization and should have at least 32G memory.
+# This setting costs around 0.4$ per hour.
 ```
 
 After creating the instance, you can connect it using SSH.
