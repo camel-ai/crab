@@ -21,6 +21,7 @@ from crab import (
     BenchmarkConfig,
     Experiment,
     MessageType,
+    Task,
     TaskGenerator,
     create_benchmark,
 )
