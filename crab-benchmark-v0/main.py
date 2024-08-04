@@ -15,13 +15,16 @@ import argparse
 import warnings
 from pathlib import Path
 from typing import Literal
+from uuid import uuid4
 
 from crab import (
     BenchmarkConfig,
     Experiment,
     MessageType,
+    Task,
     TaskGenerator,
     create_benchmark,
+    evaluator,
 )
 from crab.actions.crab_actions import complete
 from crab.agents.backend_models import ClaudeModel, GeminiModel, OpenAIModel
@@ -140,6 +143,11 @@ def get_benchmark(env: str, ubuntu_url: str):
     return create_benchmark(benchmark_config)
 
 
+@evaluator(env_name="ubuntu")
+def empty_evaluator() -> bool:
+    return False
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Script for running benchmark with an agent."
@@ -168,18 +176,44 @@ if __name__ == "__main__":
         help="ubuntu, android or cross",
         default="cross",
     )
-    parser.add_argument("--task-id", type=str, help="task id")
+    parser.add_argument("--task-id", type=str, help="task id", default=None)
+    parser.add_argument(
+        "--task-description",
+        type=str,
+        help="task description. If provided, will overwrite the task id.",
+        default=None,
+    )
     args = parser.parse_args()
     benchmark = get_benchmark(args.env, args.remote_url)
 
+    if args.task_description is not None:
+        task_id = str(uuid4())
+        benchmark.tasks = [
+            Task(
+                id=task_id,
+                description=args.task_description,
+                evaluator=empty_evaluator,
+            )
+        ]
+    else:
+        task_id = args.task_id
+
+    history_messages_len = 2
+
     if args.model == "gpt4o":
-        model = OpenAIModel(model="gpt-4o")
+        model = OpenAIModel(model="gpt-4o", history_messages_len=history_messages_len)
     elif args.policy == "gpt4turbo":
-        model = OpenAIModel(model="gpt-4-turbo")
+        model = OpenAIModel(
+            model="gpt-4-turbo", history_messages_len=history_messages_len
+        )
     elif args.policy == "gemini":
-        model = GeminiModel(model="gemini-1.5-pro-latest")
+        model = GeminiModel(
+            model="gemini-1.5-pro-latest", history_messages_len=history_messages_len
+        )
     elif args.policy == "claude":
-        model = ClaudeModel(model="claude-3-opus-20240229")
+        model = ClaudeModel(
+            model="claude-3-opus-20240229", history_messages_len=history_messages_len
+        )
     else:
         print("Unsupported model: ", args.model)
         exit()
@@ -201,7 +235,7 @@ if __name__ == "__main__":
     log_dir = (Path(__file__).parent / "logs").resolve()
     expeirment = CrabBenchmarkV0(
         benchmark=benchmark,
-        task_id=args.task_id,
+        task_id=task_id,
         agent_policy=agent_policy,
         log_dir=log_dir,
     )
