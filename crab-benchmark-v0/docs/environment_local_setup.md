@@ -44,7 +44,7 @@ To create a new virtual device, open Android Studio and use its built-in device 
 system image release "R".
 
 > Note that the benchmark on our side runs on a Google Pixel 8 Pro with system image release "R". However, cases are
-> noticed that Google API Level 30 may not work properly when trying to enable USB debugging mode. If such issue is 
+> noticed that Google API Level 30 may not work properly when trying to enable USB debugging mode. If such issues are 
 > encountered, you can try switch to releases of lower API levels (e.g. "Q").
 
 ![](./assets/android_1.png)
