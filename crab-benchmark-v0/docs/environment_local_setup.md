@@ -30,18 +30,34 @@ chmod +x ubuntu_env_init.sh
 
 The VM will reboot after initilization. After rebooting, remember its ip address.
 
+
+## Install ADB
+
+Download and install ADB from its [official website](https://developer.android.com/tools/releases/platform-tools).
+
 ## Install Android Emulator
 
-Download the newest version of [Android Studio](https://developer.android.com/studio). Install it.
+You can use emulators in [Android Studio](https://developer.android.com/studio) to simulate an Android device if you
+don't want to use a physical one.
 
-Open Android studio and use build-in device manager to create a Pixel 8 Pro with system image release "R".
+To create a new virtual device, open Android Studio and use its built-in device manager to create a Pixel 8 Pro with
+system image release "R".
+
+> Note that the benchmark on our side runs on a Google Pixel 8 Pro with system image release "R". However, cases are
+> noticed that Google API Level 30 may not work properly when trying to enable USB debugging mode. If such issue is 
+> encountered, you can try switch to releases of lower API levels (e.g. "Q").
 
 ![](./assets/android_1.png)
 
 ![](./assets/android_2.png)
 
-Then boot it.
+Then you can boot the device. To check if it's all set, run
 
-## Install ADB
+```shell
+adb devices
+```
 
-Download and install ADB from its [official website](https://developer.android.com/tools/releases/platform-tools)
+You should see the device in the list.
+
+> Important: ADB won't work normally if you see an `unauthorized` tag after the device ID. To solve this, enable both
+> the developer mode and USB debugging mode in the device.

@@ -105,7 +105,7 @@ class Experiment:
             self.task_info_dir.mkdir(exist_ok=True, parents=True)
             self.write_task_info_json(self.task_info_dir / "task_info.json")
 
-            self.time_now = datetime.now().strftime("%Y-%m-%d_%H:%M:%S")
+            self.time_now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             self.current_experiment_dir = (
                 self.task_info_dir / f"{self.agent_policy.__class__.__name__}"
                 f"({self.agent_policy.get_backend_model_name()})" / self.time_now
