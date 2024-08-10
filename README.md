@@ -6,6 +6,17 @@
 [![Wechat][wechat-image]][wechat-url]
 [![Twitter][twitter-image]][twitter-url]
 
+<p align="center">
+  <a href="https://crab.camel-ai.org/">Website & Demos</a> |
+  <a href="https://www.camel-ai.org/post/crab">Blog</a> |
+  <a href="https://dandansamax.github.io/posts/crab-paper/">Chinese Blog</a> |
+  <a href="https://www.camel-ai.org/">CAMEL-AI</a>
+</p>
+
+<p align="center">
+  <img src='https://raw.githubusercontent.com/camel-ai/crab/main/assets/CRAB_logo1.png' width=800>
+</p>
+
 ## Overview
 
 CRAB is a framework for building LLM agent benchmark environments in a Python-centric way.
