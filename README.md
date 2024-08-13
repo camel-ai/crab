@@ -29,7 +29,7 @@ CRAB is a framework for building LLM agent benchmark environments in a Python-ce
 
 ⚙ ️Easy-to-use Configuration
 * Add a new action by simply adding a `@action` decorator on a Python function.
-* Deine the environment by integrating several actions together.
+* Define the environment by integrating several actions together.
 
 📐 Novel Benchmarking Suite
 * Define tasks and the corresponding evlauators in an intuitive Python-native way.
