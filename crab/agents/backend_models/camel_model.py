@@ -112,6 +112,7 @@ class CamelModel(BackendModel):
     def _convert_tool_calls_to_action_list(tool_calls) -> List[ActionOutput]:
         if tool_calls is None:
             return tool_calls
+
         return [
             ActionOutput(
                 name=call.function.name,
@@ -121,7 +122,7 @@ class CamelModel(BackendModel):
         ]
 
     def chat(self, messages: List[Tuple[str, MessageType]]):
-        # TODO: handle multiple text messages?
+        # TODO: handle multiple text messages after message refactoring
         image_list: List[Image] = []
         content = ""
         for message in messages:
@@ -136,13 +137,13 @@ class CamelModel(BackendModel):
             image_list=image_list,
         )
         response = self.client.step(usermsg)
-        # TODO: which one indicates usage in one response?
         self.token_usage += response.info["usage"]["total_tokens"]
+        tool_calls = response.info.get("tool_calls")
 
-        # TODO: can delete this after record_message is refactored
+        # TODO: delete this after record_message is refactored
         self.client.record_message(response.msg)
 
-        # TODO: function calls will not be exposed in CAMEL
         return BackendOutput(
             message=response.msg.content,
+            action_list=self._convert_tool_calls_to_action_list(tool_calls),
         )
