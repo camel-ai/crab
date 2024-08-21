@@ -19,8 +19,7 @@ from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
 
 try:
     import anthropic
-    from anthropic.types import TextBlock
-    from anthropic.types.beta.tools import ToolUseBlock
+    from anthropic.types import TextBlock, ToolUseBlock
 
     anthropic_model_enable = True
 except ImportError:

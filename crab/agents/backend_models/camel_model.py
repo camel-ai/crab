@@ -21,7 +21,7 @@ from PIL import Image
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
 
 try:
-    from camel.agents import ChatAgent
+    from camel.agents import ExternalToolAgent
     from camel.messages import BaseMessage
     from camel.models import ModelFactory
     from camel.toolkits import OpenAIFunction
@@ -65,23 +65,23 @@ class CamelModel(BackendModel):
         if not CAMEL_ENABLED:
             raise ImportError("Please install camel-ai to use CamelModel")
         parameters = parameters or {}
+        # TODO: a better way?
+        model_type = find_model_type(model)
+        model_platform_type = find_model_platform_type(model_platform)
+
+        self.backend_model = ModelFactory.create(
+            model_platform_type, model_type, model_config_dict=parameters or {}
+        )
+
+        self.client: Optional[ExternalToolAgent] = None
+        self.token_usage = 0
+        self.action_schema: Optional[List[OpenAIFunction]] = None
+
         super().__init__(
             model,
             parameters,
             history_messages_len,
         )
-        # TODO: a better way?
-        model_type = find_model_type(model)
-        model_platform_type = find_model_platform_type(model_platform)
-
-        # TODO: model_config_dict can't be None?
-        self.camel_model = ModelFactory.create(
-            model_platform_type, model_type, model_config_dict=parameters or {}
-        )
-
-        self.client: Optional[ChatAgent] = None
-        self.token_usage = 0
-        self.action_schema: Optional[List[OpenAIFunction]] = None
 
     def get_token_usage(self):
         return self.token_usage
@@ -92,10 +92,11 @@ class CamelModel(BackendModel):
             content=system_message,
         )
         self.action_schema = self._convert_action_to_schema(action_space)
-        self.client = ChatAgent(
-            model=self.camel_model,
+        self.client = ExternalToolAgent(
+            model=self.backend_model,
             system_message=sysmsg,
-            tools=self.action_schema,
+            external_tools=self.action_schema,
+            message_window_size=self.history_messages_len
         )
         self.token_usage = 0
 
@@ -123,7 +124,7 @@ class CamelModel(BackendModel):
 
     def chat(self, messages: List[Tuple[str, MessageType]]):
         # TODO: handle multiple text messages after message refactoring
-        image_list: List[Image] = []
+        image_list: List[Image.Image] = []
         content = ""
         for message in messages:
             if message[1] == MessageType.IMAGE_JPG_BASE64:
