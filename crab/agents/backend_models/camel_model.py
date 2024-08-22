@@ -22,6 +22,7 @@ from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
 
 try:
     from camel.agents import ExternalToolAgent
+    from camel.configs import ChatGPTConfig
     from camel.messages import BaseMessage
     from camel.models import ModelFactory
     from camel.toolkits import OpenAIFunction
@@ -64,18 +65,12 @@ class CamelModel(BackendModel):
     ) -> None:
         if not CAMEL_ENABLED:
             raise ImportError("Please install camel-ai to use CamelModel")
-        parameters = parameters or {}
+        self.parameters = parameters or {}
         # TODO: a better way?
-        model_type = find_model_type(model)
-        model_platform_type = find_model_platform_type(model_platform)
-
-        self.backend_model = ModelFactory.create(
-            model_platform_type, model_type, model_config_dict=parameters or {}
-        )
-
+        self.model_type = find_model_type(model)
+        self.model_platform_type = find_model_platform_type(model_platform)
         self.client: Optional[ExternalToolAgent] = None
         self.token_usage = 0
-        self.action_schema: Optional[List[OpenAIFunction]] = None
 
         super().__init__(
             model,
@@ -87,16 +82,24 @@ class CamelModel(BackendModel):
         return self.token_usage
 
     def reset(self, system_message: str, action_space: Optional[List[Action]]) -> None:
+        action_schema = self._convert_action_to_schema(action_space)
+        config = ChatGPTConfig(
+            tool_choice="required", tools=action_schema, **self.parameters
+        )
+        backend_model = ModelFactory.create(
+            self.model_platform_type,
+            self.model_type,
+            model_config_dict=config.as_dict(),
+        )
         sysmsg = BaseMessage.make_assistant_message(
             role_name="Assistant",
             content=system_message,
         )
-        self.action_schema = self._convert_action_to_schema(action_space)
         self.client = ExternalToolAgent(
-            model=self.backend_model,
+            model=backend_model,
             system_message=sysmsg,
-            external_tools=self.action_schema,
-            message_window_size=self.history_messages_len
+            external_tools=action_schema,
+            message_window_size=self.history_messages_len,
         )
         self.token_usage = 0
 
@@ -107,7 +110,12 @@ class CamelModel(BackendModel):
     ) -> Optional[List[OpenAIFunction]]:
         if action_space is None:
             return None
-        return [OpenAIFunction(action.entry) for action in action_space]
+        return [
+            OpenAIFunction(
+                action.entry,
+            )
+            for action in action_space
+        ]
 
     @staticmethod
     def _convert_tool_calls_to_action_list(tool_calls) -> List[ActionOutput]:

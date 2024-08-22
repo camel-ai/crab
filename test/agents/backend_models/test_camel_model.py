@@ -13,8 +13,9 @@
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import pytest
 
-from crab import MessageType, action
+from crab import action
 from crab.agents.backend_models import CamelModel
+
 
 @pytest.fixture
 def camel_model_text():
@@ -37,34 +38,14 @@ def add(a: int, b: int):
     return a + b
 
 
-@pytest.mark.skip(reason="Mock data to be added")
-def test_text_chat(camel_model_text):
-    message = ("Hello!", MessageType.TEXT)
-    output = camel_model_text.chat(message)
-    assert output.message
-    assert output.action_list is None
-    assert camel_model_text.token_usage > 0
-
-    # Send another message to check accumulated tokens and history length
-    message2 = ("Give me five!", MessageType.TEXT)
-    output = camel_model_text.chat(message2)
-    assert camel_model_text.token_usage > 0
-    assert output.message
-    assert len(camel_model_text.chat_history) == 2
-
-    # Send another message to check accumulated tokens and chat history
-    output = camel_model_text.chat(message2)
-    assert output.message
-    assert len(camel_model_text.chat_history) == 3
-
 def test_action_chat(camel_model_text):
     camel_model_text.reset("You are a helpful assistant.", [add])
     message = (
         "I had 10 dollars. Miss Polaris gave me 15 dollars. How many money do I have now.",
         0,
     )
-    output = camel_model_text.chat(message)
-    assert output.message is None
+    output = camel_model_text.chat([message])
+    assert not output.message
     assert len(output.action_list) == 1
     assert output.action_list[0].arguments == {"a": 10, "b": 15}
     assert output.action_list[0].name == "add"
