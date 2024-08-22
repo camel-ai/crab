@@ -6,6 +6,17 @@
 [![Wechat][wechat-image]][wechat-url]
 [![Twitter][twitter-image]][twitter-url]
 
+<p align="center">
+  <a href="https://crab.camel-ai.org/">Website & Demos</a> |
+  <a href="https://www.camel-ai.org/post/crab">Blog</a> |
+  <a href="https://dandansamax.github.io/posts/crab-paper/">Chinese Blog</a> |
+  <a href="https://www.camel-ai.org/">CAMEL-AI</a>
+</p>
+
+<p align="center">
+  <img src='https://raw.githubusercontent.com/camel-ai/crab/main/assets/CRAB_logo1.png' width=800>
+</p>
+
 ## Overview
 
 CRAB is a framework for building LLM agent benchmark environments in a Python-centric way.
@@ -18,10 +29,10 @@ CRAB is a framework for building LLM agent benchmark environments in a Python-ce
 
 ⚙ ️Easy-to-use Configuration
 * Add a new action by simply adding a `@action` decorator on a Python function.
-* Deine the environment by integrating several actions together.
+* Define the environment by integrating several actions together.
 
 📐 Novel Benchmarking Suite
-* Define tasks and the corresponding evlauators in an intuitive Python-native way.
+* Define tasks and the corresponding evaluators in an intuitive Python-native way.
 * Introduce a novel graph evaluator method providing fine-grained metrics.
 
 ## Installation
