@@ -110,12 +110,7 @@ class CamelModel(BackendModel):
     ) -> Optional[List[OpenAIFunction]]:
         if action_space is None:
             return None
-        return [
-            OpenAIFunction(
-                action.entry,
-            )
-            for action in action_space
-        ]
+        return [OpenAIFunction(action.entry) for action in action_space]
 
     @staticmethod
     def _convert_tool_calls_to_action_list(tool_calls) -> List[ActionOutput]:
