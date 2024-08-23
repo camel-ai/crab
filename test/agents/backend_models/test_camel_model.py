@@ -38,10 +38,12 @@ def add(a: int, b: int):
     return a + b
 
 
+@pytest.mark.skip(reason="Mock data to be added")
 def test_action_chat(camel_model_text):
     camel_model_text.reset("You are a helpful assistant.", [add])
     message = (
-        "I had 10 dollars. Miss Polaris gave me 15 dollars. How many money do I have now.",
+        "I had 10 dollars. Miss Polaris gave me 15 dollars. "
+        "How many money do I have now.",
         0,
     )
     output = camel_model_text.chat([message])
