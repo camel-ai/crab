@@ -38,7 +38,7 @@ def add(a: int, b: int):
     return a + b
 
 
-@pytest.mark.skip(reason="Mock data to be added")
+# @pytest.mark.skip(reason="Mock data to be added")
 def test_action_chat(camel_model_text):
     camel_model_text.reset("You are a helpful assistant.", [add])
     message = (

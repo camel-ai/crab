@@ -19,6 +19,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from PIL import Image
 
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
+from crab.utils.common import base64_to_image
 
 try:
     from camel.agents import ExternalToolAgent
@@ -83,13 +84,18 @@ class CamelModel(BackendModel):
 
     def reset(self, system_message: str, action_space: Optional[List[Action]]) -> None:
         action_schema = self._convert_action_to_schema(action_space)
-        config = ChatGPTConfig(
-            tool_choice="required", tools=action_schema, **self.parameters
+        config = self.parameters.copy()
+        if action_schema is not None:
+            config["tool_choice"] = "required"
+            config["tools"] = action_schema
+
+        chatgpt_config = ChatGPTConfig(
+            **config,
         )
         backend_model = ModelFactory.create(
             self.model_platform_type,
             self.model_type,
-            model_config_dict=config.as_dict(),
+            model_config_dict=chatgpt_config.as_dict(),
         )
         sysmsg = BaseMessage.make_assistant_message(
             role_name="Assistant",
@@ -103,7 +109,6 @@ class CamelModel(BackendModel):
         )
         self.token_usage = 0
 
-    # TODO: convert Action into OpenAIFunction
     @staticmethod
     def _convert_action_to_schema(
         action_space: Optional[List[Action]],
@@ -131,7 +136,7 @@ class CamelModel(BackendModel):
         content = ""
         for message in messages:
             if message[1] == MessageType.IMAGE_JPG_BASE64:
-                image = decode_image(message[0])
+                image = base64_to_image(message[0])
                 image_list.append(image)
             else:
                 content = message[0]
