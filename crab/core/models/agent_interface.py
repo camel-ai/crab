@@ -34,6 +34,7 @@ class BackendOutput(BaseModel):
     message: str | None
     action_list: list[ActionOutput] | None
 
+
 class EnvironmentInfo(BaseModel):
     description: str
     action_space: list[Action]

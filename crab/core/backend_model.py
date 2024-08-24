@@ -30,7 +30,7 @@ class BackendModel(ABC):
 
         assert self.history_messages_len >= 0
 
-        self.reset("You are a helpfu assistant.", None)
+        self.reset("You are a helpful assistant.", None)
 
     @abstractmethod
     def chat(self, contents: list[tuple[str, MessageType]]) -> BackendOutput:

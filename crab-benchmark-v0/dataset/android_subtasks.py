@@ -197,7 +197,6 @@ def check_bluetooth_name(content: str, env) -> bool:
     return False
 
 
-
 @evaluator(env_name="android")
 def check_map_direction_page(from_des: str, to_des: str, env) -> bool:
     root = get_xml_etree(env)
@@ -374,31 +373,28 @@ def check_event_registered(date: str, content: str, env) -> bool:
     root = get_xml_etree(env)
     if root is None:
         return False
-    event_nodes = root.xpath(
-        '//node[@class="android.support.v7.widget.RecyclerView"]'
-    )
+    event_nodes = root.xpath('//node[@class="android.support.v7.widget.RecyclerView"]')
     if not event_nodes:
         return False
-    time_reg=False
-    content_reg=False
+    time_reg = False
+    content_reg = False
     for node in event_nodes[0]:
         text = node.get("content-desc")
         if date.lower() in text.lower():
-            time_reg=True
+            time_reg = True
         if content.lower() in text.lower():
-            content_reg=True
+            content_reg = True
     if time_reg and content_reg:
         return True
     return False
+
 
 @evaluator(env_name="android")
 def check_location(content: str, env) -> bool:
     root = get_xml_etree(env)
     if root is None:
         return False
-    checked_node = root.xpath(
-        f'//node[@content-desc="{content}"]'
-    )
+    checked_node = root.xpath(f'//node[@content-desc="{content}"]')
     if not checked_node:
         return False
     return True
@@ -472,14 +468,16 @@ def check_mail_sent(mail: str, content: str, env) -> bool:
     root = get_xml_etree(env)
     if root is None:
         return False
-    to_node = root.xpath('//node[@resource-id="com.google.android.gm:id/peoplekit_chip"]')
+    to_node = root.xpath(
+        '//node[@resource-id="com.google.android.gm:id/peoplekit_chip"]'
+    )
     if not to_node:
         return False
-    checked=False
+    checked = False
     for node in to_node:
-        text=node.get("content-desc")
+        text = node.get("content-desc")
         if mail in text:
-            checked=True
+            checked = True
     if not checked:
         return False
     # check the mail information-> Done
@@ -720,7 +718,7 @@ android_subtasks = [
     SubTask(
         id="2394b768-2ca7-45e9-b41e-2aa4e9573192",
         description='In android system, use the calendar app, find the title of an event in the date "{date}".',
-        attribute_dict={"date":"date"},
+        attribute_dict={"date": "date"},
         output_type="content",
         evaluator_generator=lambda date: path_graph(
             [

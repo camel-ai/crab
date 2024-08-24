@@ -12,7 +12,7 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 # ruff: noqa: F401
+from .camel_model import CamelModel
 from .claude_model import ClaudeModel
 from .gemini_model import GeminiModel
 from .openai_model import OpenAIModel
-
