@@ -57,7 +57,7 @@ html_theme = 'sphinx_book_theme'
 html_favicon = '_static/favicon.png'
 html_static_path = ['_static']
 html_logo = "_static/CRAB_logo1.png"
-html_title = f"CRAB Documentation"
+html_title = "CRAB Documentation"
 html_theme_options = {
     "repository_url": "https://github.com/camel-ai/crab",
     "use_repository_button": True,

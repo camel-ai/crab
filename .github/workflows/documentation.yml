@@ -1,4 +1,4 @@
-name: Build and deploy camel documents
+name: Build and deploy CRAB documents
 on:
   push:
     branches: [ "main" ]
