@@ -7,6 +7,7 @@
 [![Twitter][twitter-image]][twitter-url]
 
 <p align="center">
+  <a href="https://camel-ai.github.io/crab/">Documentation</a> |
   <a href="https://crab.camel-ai.org/">Website & Demos</a> |
   <a href="https://www.camel-ai.org/post/crab">Blog</a> |
   <a href="https://dandansamax.github.io/posts/crab-paper/">Chinese Blog</a> |
