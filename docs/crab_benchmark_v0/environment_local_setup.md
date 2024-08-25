@@ -1,3 +1,5 @@
+# Local setup
+
 ## Install CRAB
 
 First you should install `poetry`, a modern python dependency management tool.
