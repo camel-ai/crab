@@ -111,9 +111,10 @@ pytest = "^8.0.0"
 ruff = "^0.1.14"
 ipykernel = "^6.29.3"
 pandas = "^2.2.2"
-sphinx = "^7.3.7"
+sphinx = "^7"
+myst-parser = "^4"
+sphinx-book-theme = "*"
 pre-commit = "^3.7.0"
-sphinx-rtd-theme = "^2.0.0"
 certifi = "^2024.2.2"
 
 [tool.ruff]

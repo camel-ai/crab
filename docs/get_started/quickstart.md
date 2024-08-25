@@ -1,4 +1,4 @@
-# Getting Started with the Benchmark Class
+# Quickstart
 
 The `Benchmark` class is a comprehensive framework for evaluating language model agents across various tasks and environments. It provides a flexible structure to manage multiple environments and tasks, offering single and multi-environment execution modes.
 

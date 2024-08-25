@@ -1,3 +1,5 @@
+# Google cloud platform setup
+
 ## Setup and Start the VM Instance
 
 The development image is hosted in the project `capable-vista-420022` with image name `crab-benchmark-v0-1`.
