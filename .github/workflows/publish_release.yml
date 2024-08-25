@@ -1,4 +1,4 @@
-name: Publish camel to PyPI / GitHub
+name: Publish CRAB to PyPI / GitHub
 
 on:
   push:
