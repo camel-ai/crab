@@ -14,7 +14,7 @@
 import base64
 import io
 import json
-from typing import Any
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from PIL import Image
 
@@ -44,7 +44,7 @@ def find_model_platform_type(model_platform_name: str) -> ModelPlatformType:
     )
 
 
-def find_model_type(model_name: str) -> ModelType | str:
+def find_model_type(model_name: str) -> Union[ModelType, str]:
     for model in ModelType:
         if model.value.lower() == model_name.lower():
             return model
@@ -61,7 +61,7 @@ class CamelModel(BackendModel):
         self,
         model: str,
         model_platform: str,
-        parameters: dict[str, Any] | None = None,
+        parameters: Optional[Dict[str, Any]] = None,
         history_messages_len: int = 0,
     ) -> None:
         if not CAMEL_ENABLED:
@@ -70,7 +70,7 @@ class CamelModel(BackendModel):
         # TODO: a better way?
         self.model_type = find_model_type(model)
         self.model_platform_type = find_model_platform_type(model_platform)
-        self.client: ExternalToolAgent | None = None
+        self.client: Optional[ExternalToolAgent] = None
         self.token_usage = 0
 
         super().__init__(
@@ -82,7 +82,7 @@ class CamelModel(BackendModel):
     def get_token_usage(self):
         return self.token_usage
 
-    def reset(self, system_message: str, action_space: list[Action] | None) -> None:
+    def reset(self, system_message: str, action_space: Optional[List[Action]]) -> None:
         action_schema = self._convert_action_to_schema(action_space)
         config = self.parameters.copy()
         if action_schema is not None:
@@ -111,14 +111,14 @@ class CamelModel(BackendModel):
 
     @staticmethod
     def _convert_action_to_schema(
-        action_space: list[Action] | None,
-    ) -> list[OpenAIFunction] | None:
+        action_space: Optional[List[Action]],
+    ) -> Optional[List[OpenAIFunction]]:
         if action_space is None:
             return None
         return [OpenAIFunction(action.entry) for action in action_space]
 
     @staticmethod
-    def _convert_tool_calls_to_action_list(tool_calls) -> list[ActionOutput]:
+    def _convert_tool_calls_to_action_list(tool_calls) -> List[ActionOutput]:
         if tool_calls is None:
             return tool_calls
 
@@ -130,9 +130,9 @@ class CamelModel(BackendModel):
             for call in tool_calls
         ]
 
-    def chat(self, messages: list[tuple[str, MessageType]]):
+    def chat(self, messages: List[Tuple[str, MessageType]]):
         # TODO: handle multiple text messages after message refactoring
-        image_list: list[Image.Image] = []
+        image_list: List[Image.Image] = []
         content = ""
         for message in messages:
             if message[1] == MessageType.IMAGE_JPG_BASE64:
