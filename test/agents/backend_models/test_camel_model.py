@@ -18,7 +18,7 @@ from crab.agents.backend_models import CamelModel
 
 
 @pytest.fixture
-def camel_model_text():
+def camel_model():
     return CamelModel(
         model_platform="openai",
         model="gpt-4o",
@@ -39,16 +39,16 @@ def add(a: int, b: int):
 
 
 @pytest.mark.skip(reason="Mock data to be added")
-def test_action_chat(camel_model_text):
-    camel_model_text.reset("You are a helpful assistant.", [add])
+def test_action_chat(camel_model):
+    camel_model.reset("You are a helpful assistant.", [add])
     message = (
         "I had 10 dollars. Miss Polaris gave me 15 dollars. "
         "How many money do I have now.",
         0,
     )
-    output = camel_model_text.chat([message])
+    output = camel_model.chat([message])
     assert not output.message
     assert len(output.action_list) == 1
     assert output.action_list[0].arguments == {"a": 10, "b": 15}
     assert output.action_list[0].name == "add"
-    assert camel_model_text.token_usage > 0
+    assert camel_model.token_usage > 0
