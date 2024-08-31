@@ -60,6 +60,9 @@ python examples/single_env.py
 python examples/multi_env.py
 ```
 
+## Demo Video
+
+[![demo_video](https://i.ytimg.com/vi_webp/PNqrHNQlU6I/maxresdefault.webp)](https://www.youtube.com/watch?v=PNqrHNQlU6I&ab_channel=CamelAI)
 
 ## Cite
 Please cite [our paper](https://arxiv.org/abs/2407.01511) if you use anything related in your work:
