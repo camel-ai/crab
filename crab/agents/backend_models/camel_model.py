@@ -22,7 +22,7 @@ from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
 from crab.utils.common import base64_to_image
 
 try:
-    from camel.agents import ExternalToolAgent
+    from camel.agents import ChatAgent
     from camel.configs import ChatGPTConfig
     from camel.messages import BaseMessage
     from camel.models import ModelFactory
@@ -70,7 +70,7 @@ class CamelModel(BackendModel):
         # TODO: a better way?
         self.model_type = find_model_type(model)
         self.model_platform_type = find_model_platform_type(model_platform)
-        self.client: Optional[ExternalToolAgent] = None
+        self.client: Optional[ChatAgent] = None
         self.token_usage = 0
 
         super().__init__(
@@ -101,7 +101,7 @@ class CamelModel(BackendModel):
             role_name="Assistant",
             content=system_message,
         )
-        self.client = ExternalToolAgent(
+        self.client = ChatAgent(
             model=backend_model,
             system_message=sysmsg,
             external_tools=action_schema,
@@ -147,12 +147,12 @@ class CamelModel(BackendModel):
         )
         response = self.client.step(usermsg)
         self.token_usage += response.info["usage"]["total_tokens"]
-        tool_calls = response.info.get("tool_call_requests")
+        tool_call_request = response.info.get("tool_call_request")
 
         # TODO: delete this after record_message is refactored
         self.client.record_message(response.msg)
 
         return BackendOutput(
             message=response.msg.content,
-            action_list=self._convert_tool_calls_to_action_list(tool_calls),
+            action_list=self._convert_tool_calls_to_action_list([tool_call_request]),
         )
