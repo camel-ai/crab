@@ -11,8 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+
+import pytest
 from fastapi.testclient import TestClient
 
+from crab import create_environment
 from crab.environments.template import (
     current_state,
     set_state,
@@ -21,53 +24,27 @@ from crab.environments.template import (
 from crab.server.main import init
 
 
-def test_raw_action():
-    app = init(template_environment_config)
-    client = TestClient(app)
-    response = client.post(
-        "/raw_action",
-        json={
-            "action": set_state.to_raw_action(),
-            "parameters": {"value": True},
-        },
-    )
-    assert response.json()["action_returns"] is None
+@pytest.fixture
+def mock_env():
+    mock_app = init(template_environment_config)
+    mock_cli = TestClient(mock_app)
+    mock_env = create_environment(template_environment_config)
+    mock_env._client = mock_cli
+    return mock_env
 
-    response = client.post(
-        "/raw_action",
-        json={
-            "action": current_state.to_raw_action(),
-            "parameters": {},
-        },
-    )
-    assert response.json()["action_returns"] is True
 
-    action = set_state(True)
-    response = client.post(
-        "/raw_action",
-        json={
-            "action": action.to_raw_action(),
-            "parameters": {},
-        },
-    )
-    assert response.json()["action_returns"] is None
+def test_raw_action_unencrypted(mock_env):
+    assert mock_env._action_endpoint(set_state, {"value": True}) is None
+    assert mock_env._action_endpoint(current_state, {}) is True
+    assert mock_env._action_endpoint(set_state(True), {}) is None
+    assert mock_env._action_endpoint(current_state >> set_state, {}) is None
+    assert mock_env._action_endpoint(set_state(True) + current_state, {}) is True
 
-    action = current_state >> set_state
-    response = client.post(
-        "/raw_action",
-        json={
-            "action": action.to_raw_action(),
-            "parameters": {},
-        },
-    )
-    assert response.json()["action_returns"] is None
 
-    action = set_state(True) + current_state
-    response = client.post(
-        "/raw_action",
-        json={
-            "action": action.to_raw_action(),
-            "parameters": {},
-        },
-    )
-    assert response.json()["action_returns"] is True
+def test_raw_action_encrypted(mock_env, monkeypatch):
+    monkeypatch.setenv("ENCRYPTION_KEY", "the-cake-is-a-lie")
+    assert mock_env._action_endpoint(set_state, {"value": True}) is None
+    assert mock_env._action_endpoint(current_state, {}) is True
+    assert mock_env._action_endpoint(set_state(True), {}) is None
+    assert mock_env._action_endpoint(current_state >> set_state, {}) is None
+    assert mock_env._action_endpoint(set_state(True) + current_state, {}) is True

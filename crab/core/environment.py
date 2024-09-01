@@ -11,10 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+import json
 import logging
 from typing import Any
 
 from httpx import Client
+
+from crab.utils import decrypt_message, encrypt_message, generate_key_from_env
 
 from .exceptions import ActionNotFound
 from .models import Action, ClosedAction, EnvironmentConfig
@@ -88,6 +91,8 @@ class Environment:
             self._client = Client(base_url=remote_url)
         for key, value in extra_attributes.items():
             setattr(self, key, value)
+
+        self._enc_key = generate_key_from_env()
 
     def step(
         self,
@@ -210,15 +215,30 @@ class Environment:
     def _action_endpoint(self, action: Action, parameters: dict[str, Any]):
         """Rewrite to support different environments."""
         if self._client is not None and not action.local:
+            data = json.dumps(
+                {
+                    "action": action.to_raw_action(),
+                    "parameters": action.parameters(**parameters).model_dump(),
+                }
+            )
+            content_type = "application/json"
+            if self._enc_key is not None:
+                data = encrypt_message(data, self._enc_key)
+                content_type = "text/plain"
+
             # send action to remote machine
             response = self._client.post(
                 "/raw_action",
-                json={
-                    "action": action.to_raw_action(),
-                    "parameters": action.parameters(**parameters).model_dump(),
-                },
+                content=data,
+                headers={"Content-Type": content_type},
             )
-            return response.json()["action_returns"]
+
+            resp_content = response.content.decode("utf-8")
+            if self._enc_key is not None:
+                resp_content = decrypt_message(resp_content, self._enc_key)
+
+            resp_json = json.loads(resp_content)
+            return resp_json["action_returns"]
         else:
             # or directly execute it
             action = action.set_kept_param(env=self)
