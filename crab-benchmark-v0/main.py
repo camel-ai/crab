@@ -24,6 +24,10 @@ from crab import (
     create_benchmark,
 )
 from crab.actions.crab_actions import complete
+from crab.actions.visual_prompt_actions import (
+    get_elements_prompt,
+    groundingdino_easyocr,
+)
 from crab.agents.backend_models import ClaudeModel, GeminiModel, OpenAIModel
 from crab.agents.policies import (
     MultiAgentByEnvPolicy,
@@ -38,10 +42,6 @@ from .dataset.android_subtasks import android_subtasks
 from .dataset.handmade_tasks import handmade_tasks
 from .dataset.ubuntu_subtasks import ubuntu_subtasks
 from .ubuntu_env import UBUNTU_ENV
-from .visual_prompt_actions import (
-    get_elements_prompt,
-    groundingdino_easyocr,
-)
 
 warnings.filterwarnings("ignore")
 
