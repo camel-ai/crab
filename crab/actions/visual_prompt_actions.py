@@ -202,9 +202,22 @@ def _get_easyocr_model():
 def get_groundingdino_boxes(
     images: Image.Image | list[Image.Image],
     text_prompt: str,
-    box_threshold=0.05,
-    text_threshold=0.5,
+    box_threshold: float = 0.05,
+    text_threshold: float = 0.5,
 ) -> list[list[tuple[BoxType, str | None]]]:
+    """Get the bounding boxes of the objects in the image using GroundingDino.
+
+    Args:
+        images: The image or list of images.
+        text_prompt: The text prompt to use for all the images.
+        box_threshold (float, optional): The box threshold. Defaults to 0.05.
+        text_threshold (float, optional): The text threshold. Defaults to 0.5.
+
+    Returns:
+        The first level list is for each image, and the second level list contains
+            tuples (detected boxes, its sementical representation) as the result of the
+            image.
+    """
     processor, model = _get_grounding_dino_model()
     if isinstance(images, Image.Image):
         images = [images]
@@ -236,7 +249,15 @@ def get_groundingdino_boxes(
 
 def get_easyocr_boxes(
     image: Image.Image,
-) -> tuple[list[BoxType], list[str]]:
+) -> list[tuple[BoxType, str]]:
+    """Get the bounding boxes of the text in the image using EasyOCR.
+
+    Args:
+        image: The taget image.
+
+    Returns:
+        The list of tuple of bounding boxes and their corresponding text.
+    """
     reader = _get_easyocr_model()
     result = reader.readtext(np.array(image), text_threshold=0.9)
     boxes = []
@@ -261,6 +282,20 @@ def groundingdino_easyocr(
     font_size: int,
     env,
 ) -> tuple[str, list[tuple[BoxType, str]]]:
+    """Get the interative elements in the image.
+
+    Using GroundingDino and EasyOCR to detect the interactive elements in the image.
+    Mark the detected elements with bounding boxes and labels. Store the labels and
+    boxes in the environment to be used in other actions.
+
+    Args:
+        input_base64_image: The base64 encoded image.
+        font_size: The font size of the label.
+
+    Returns:
+        (base64_image, boxes): A tuple of the base64 encoded image with bounding boxes
+            and labels, and the list of detected boxes and labels.
+    """
     check_transformers_import()
     image = base64_to_image(input_base64_image)
     od_boxes = get_groundingdino_boxes(image, "icon . logo .", box_threshold=0.02)[0]
@@ -281,6 +316,14 @@ def groundingdino_easyocr(
 
 @action(local=True)
 def get_elements_prompt(input: tuple[str, list[tuple[BoxType, str]]], env):
+    """Get the text prompt passing to the agent for the image.
+
+    Args:
+        input: The base64 encoded image and the list of detected boxes and labels.
+
+    Returns:
+        (image, prompt): A tuple contains the base64 encoded image and the prompt.
+    """
     image, boxes = input
     labels = ""
     for id, box in enumerate(boxes):
