@@ -142,7 +142,7 @@ def _filter_boxes_by_iou(
     return boxes_filt
 
 
-def draw_boxes(
+def _draw_boxes(
     image: Image.Image,
     boxes: list[BoxType],
     font_size: int = 30,
@@ -215,7 +215,8 @@ def get_groundingdino_boxes(
         text=[text_prompt] * image_number,
         return_tensors="pt",
     ).to(device)
-    outputs = model(**inputs)
+    with torch.no_grad():
+        outputs = model(**inputs)
 
     target_sizes = [image.size[::-1] for image in images]
     detection_results = processor.post_process_grounded_object_detection(
@@ -272,7 +273,7 @@ def groundingdino_easyocr(
     filtered_boxes = _filter_boxes_by_center(filtered_boxes, center_dis)
     env.element_label_map = [box[1] for box in filtered_boxes]
     result_boxes = [box[0] for box in filtered_boxes]
-    draw_boxes(image, result_boxes, font_size)
+    _draw_boxes(image, result_boxes, font_size)
     env.element_position_map = result_boxes
     env.ocr_results = "".join([box[1] for box in ocr_boxes])
     return image_to_base64(image), filtered_boxes
