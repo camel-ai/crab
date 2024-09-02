@@ -44,7 +44,7 @@ def check_transformers_import():
         )
 
 
-def calculate_iou(box1, box2):
+def _calculate_iou(box1, box2):
     xA = max(box1[0], box2[0])
     yA = max(box1[1], box2[1])
     xB = min(box1[2], box2[2])
@@ -59,15 +59,11 @@ def calculate_iou(box1, box2):
     return iou
 
 
-def calculate_size(box):
-    return (box[2] - box[0]) * (box[3] - box[1])
-
-
-def calculate_center(box) -> tuple[int, int]:
+def _calculate_center(box) -> tuple[int, int]:
     return (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
 
 
-def remove_invalid_boxes(boxes_with_label, width, height):
+def _remove_invalid_boxes(boxes_with_label, width, height):
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for idx, box in enumerate(boxes):
@@ -84,15 +80,15 @@ def remove_invalid_boxes(boxes_with_label, width, height):
     return boxes_filt
 
 
-def filter_boxes_by_center(boxes_with_label, center_dis_thresh):
+def _filter_boxes_by_center(boxes_with_label, center_dis_thresh):
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for i in range(len(boxes)):
         if i in boxes_to_remove:
             continue
-        center_i = calculate_center(boxes[i])
+        center_i = _calculate_center(boxes[i])
         for j in range(i + 1, len(boxes)):
-            center_j = calculate_center(boxes[j])
+            center_j = _calculate_center(boxes[j])
             # fmt: off
             center_close = ((center_i[0] - center_j[0]) ** 2 + 
                             (center_i[1] - center_j[1]) ** 2 < 
@@ -107,18 +103,18 @@ def filter_boxes_by_center(boxes_with_label, center_dis_thresh):
     return boxes_filt
 
 
-def box_a_in_b(a: BoxType, b: BoxType):
+def _box_a_in_b(a: BoxType, b: BoxType):
     return a[0] > b[0] and a[1] > b[1] and a[2] < b[2] and a[3] < b[3]
 
 
-def filter_boxes_by_overlap(boxes_with_label):
+def _filter_boxes_by_overlap(boxes_with_label):
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for i in range(len(boxes)):
         if i in boxes_to_remove:
             continue
         for j in range(len(boxes)):
-            if box_a_in_b(boxes[i], boxes[j]):
+            if _box_a_in_b(boxes[i], boxes[j]):
                 boxes_to_remove.add(j)
 
     boxes_filt = [
@@ -127,14 +123,16 @@ def filter_boxes_by_overlap(boxes_with_label):
     return boxes_filt
 
 
-def filter_boxes_by_iou(boxes_with_label: list[tuple[BoxType, str]], iou_threshold=0.5):
+def _filter_boxes_by_iou(
+    boxes_with_label: list[tuple[BoxType, str]], iou_threshold=0.5
+):
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for i in range(len(boxes)):
         if i in boxes_to_remove:
             continue
         for j in range(i + 1, len(boxes)):
-            iou = calculate_iou(boxes[i], boxes[j])
+            iou = _calculate_iou(boxes[i], boxes[j])
             if iou >= iou_threshold:
                 boxes_to_remove.add(j)
 
@@ -142,22 +140,6 @@ def filter_boxes_by_iou(boxes_with_label: list[tuple[BoxType, str]], iou_thresho
         box for idx, box in enumerate(boxes_with_label) if idx not in boxes_to_remove
     ]
     return boxes_filt
-
-
-@cache
-def get_grounding_dino_model(type="tiny"):
-    """Get the grounding dino model.
-
-    Args:
-        type (str, optional): "tiny" or "base". Defaults to "tiny".
-
-    Returns:
-        tuple[processer, model]: Tuple of processor and model
-    """
-    model_name = f"IDEA-Research/grounding-dino-{type}"
-    processor = AutoProcessor.from_pretrained(model_name)
-    model = GroundingDinoForObjectDetection.from_pretrained(model_name).to(device)
-    return processor, model
 
 
 def draw_boxes(
@@ -169,7 +151,7 @@ def draw_boxes(
     for idx, box in enumerate(boxes):
         color = tuple(np.random.randint(64, 191, size=3).tolist())
         font = ImageFont.load_default(font_size)
-        center = calculate_center(box)
+        center = _calculate_center(box)
 
         draw.rectangle([box[0], box[1], box[2], box[3]], outline=color, width=2)
 
@@ -196,13 +178,34 @@ def draw_boxes(
         draw.text((bbox[0], bbox[1]), str(idx), fill="white", font=font)
 
 
+@cache
+def _get_grounding_dino_model(type="tiny"):
+    """Get the grounding dino model.
+
+    Args:
+        type (str, optional): "tiny" or "base". Defaults to "tiny".
+
+    Returns:
+        tuple[processer, model]: Tuple of processor and model.
+    """
+    model_name = f"IDEA-Research/grounding-dino-{type}"
+    processor = AutoProcessor.from_pretrained(model_name)
+    model = GroundingDinoForObjectDetection.from_pretrained(model_name).to(device)
+    return processor, model
+
+
+@cache
+def _get_easyocr_model():
+    return easyocr.Reader(["en"])
+
+
 def get_groundingdino_boxes(
     images: Image.Image | list[Image.Image],
     text_prompt: str,
     box_threshold=0.05,
     text_threshold=0.5,
 ) -> list[list[tuple[BoxType, str | None]]]:
-    processor, model = get_grounding_dino_model()
+    processor, model = _get_grounding_dino_model()
     if isinstance(images, Image.Image):
         images = [images]
     image_number = len(images)
@@ -230,15 +233,10 @@ def get_groundingdino_boxes(
     return final_output
 
 
-@cache
-def get_easyocr_model():
-    return easyocr.Reader(["en"])
-
-
 def get_easyocr_boxes(
     image: Image.Image,
 ) -> tuple[list[BoxType], list[str]]:
-    reader = get_easyocr_model()
+    reader = _get_easyocr_model()
     result = reader.readtext(np.array(image), text_threshold=0.9)
     boxes = []
     for detect in result:
@@ -265,13 +263,13 @@ def groundingdino_easyocr(
     check_transformers_import()
     image = base64_to_image(input_base64_image)
     od_boxes = get_groundingdino_boxes(image, "icon . logo .", box_threshold=0.02)[0]
-    od_boxes = filter_boxes_by_iou(od_boxes, iou_threshold=0.5)
+    od_boxes = _filter_boxes_by_iou(od_boxes, iou_threshold=0.5)
     ocr_boxes = get_easyocr_boxes(image)
     boxes_with_label = ocr_boxes + od_boxes
-    filtered_boxes = remove_invalid_boxes(boxes_with_label, image.width, image.height)
-    filtered_boxes = filter_boxes_by_overlap(filtered_boxes)
+    filtered_boxes = _remove_invalid_boxes(boxes_with_label, image.width, image.height)
+    filtered_boxes = _filter_boxes_by_overlap(filtered_boxes)
     center_dis = round(max(image.height, image.width) / 80.0)
-    filtered_boxes = filter_boxes_by_center(filtered_boxes, center_dis)
+    filtered_boxes = _filter_boxes_by_center(filtered_boxes, center_dis)
     env.element_label_map = [box[1] for box in filtered_boxes]
     result_boxes = [box[0] for box in filtered_boxes]
     draw_boxes(image, result_boxes, font_size)
