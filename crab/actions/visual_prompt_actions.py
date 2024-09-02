@@ -11,26 +11,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+import logging
 from functools import cache
 
-import torch
 from PIL import Image, ImageDraw, ImageFont
-from transformers import AutoProcessor, GroundingDinoForObjectDetection
 
 from crab import action
 from crab.utils.common import base64_to_image, image_to_base64
+
+logger = logging.getLogger(__name__)
 
 try:
     import easyocr
     import numpy as np
     import torch
+    from transformers import AutoProcessor, GroundingDinoForObjectDetection
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
+    TRANSFORMERS_ENABLE = True
 except ImportError:
-    pass
+    TRANSFORMERS_ENABLE = False
 
 BoxType = tuple[int, int, int, int]
+
+
+def check_transformers_import():
+    if not TRANSFORMERS_ENABLE:
+        raise ImportError(
+            "Please install the required dependencies to use this function by running"
+            " `pip install crab-framework[client]`"
+        )
 
 
 def calculate_iou(box1, box2):
@@ -251,6 +262,7 @@ def groundingdino_easyocr(
     font_size: int,
     env,
 ) -> tuple[str, list[tuple[BoxType, str]]]:
+    check_transformers_import()
     image = base64_to_image(input_base64_image)
     od_boxes = get_groundingdino_boxes(image, "icon . logo .", box_threshold=0.02)[0]
     od_boxes = filter_boxes_by_iou(od_boxes, iou_threshold=0.5)
