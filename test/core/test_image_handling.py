@@ -1,19 +1,27 @@
 import pytest
+from typing import Any
 from PIL import Image
 import io
 import base64
 from crab.utils.common import base64_to_image, image_to_base64
-# from crab.actions.file_actions import save_image  # Comment out this import
+from crab.actions.file_actions import save_image  # Comment out this import
+from PIL import Image
+from pydantic import GetCoreSchemaHandler
+from pydantic_core import core_schema
 
-# Add this function to replace the imported save_image
-def save_image(image, path):
-    image.save(path)
+class PILImageType(Image.Image):
+    @classmethod
+    def __get_pydantic_core_schema__(
+        cls, source_type: Any, handler: GetCoreSchemaHandler
+    ) -> core_schema.CoreSchema:
+        return core_schema.any_schema()
 
 class TestImageHandling:
     @pytest.fixture(autouse=True)
     def setup(self):
         # Create a sample image for testing
-        self.test_image = Image.new('RGB', (100, 100), color='red')
+        self.test_image: PILImageType = Image.new('RGB', (100, 100), color='red')
+        self.test_image_base64 = image_to_base64(self.test_image)
         
     def test_base64_to_image(self):
         # Convert image to base64
@@ -38,7 +46,7 @@ class TestImageHandling:
     def test_save_image(self, tmp_path):
         # Test save_image function
         test_path = tmp_path / "test_image.png"
-        save_image(self.test_image, str(test_path))
+        save_image(self.test_image_base64, str(test_path))
         
         # Verify that the image was saved correctly
         saved_image = Image.open(test_path)
