@@ -20,6 +20,7 @@ from crab import (
     BenchmarkConfig,
     Experiment,
     MessageType,
+    Task,
     TaskGenerator,
     create_benchmark,
 )
@@ -32,6 +33,8 @@ from crab.agents.policies import (
 )
 from crab.core.agent_policy import AgentPolicy
 from crab.core.benchmark import Benchmark
+from crab.core.decorators import evaluator
+from crab.environments.macos import mac_env
 
 from .android_env import ANDROID_ENV
 from .dataset.android_subtasks import android_subtasks
@@ -78,6 +81,11 @@ class CrabBenchmarkV0(Experiment):
         return result_prompt
 
 
+@evaluator(env_name="macos")
+def empty_evaluator() -> bool:
+    return False
+
+
 def get_benchmark(env: str, ubuntu_url: str):
     ubuntu_env = UBUNTU_ENV.model_copy()
     ubuntu_env.remote_url = ubuntu_url
@@ -86,6 +94,9 @@ def get_benchmark(env: str, ubuntu_url: str):
     }
     android_tool = {
         "screenshot": groundingdino_easyocr(font_size=40) >> get_elements_prompt
+    }
+    mac_tool = {
+        "screenshot": groundingdino_easyocr(font_size=24) >> get_elements_prompt
     }
 
     if env == "ubuntu":
@@ -117,6 +128,18 @@ def get_benchmark(env: str, ubuntu_url: str):
             name="ubuntu_android_benchmark",
             tasks=[],
             environments=[ubuntu_env, ANDROID_ENV],
+            prompting_tools=prompting_tools,
+            root_action_space=[complete],
+            multienv=True,
+        )
+    elif env == "mac":
+        task = Task(description="Open firefox in both macos and android.", id="0",evaluator=empty_evaluator)
+        prompting_tools = {"macos": mac_tool, "android": android_tool}
+        mac_env.remote_url = "http://10.85.170.240:8000"
+        benchmark_config = BenchmarkConfig(
+            name="mac_benchmark",
+            tasks=[task],
+            environments=[mac_env, ANDROID_ENV],
             prompting_tools=prompting_tools,
             root_action_space=[complete],
             multienv=True,
