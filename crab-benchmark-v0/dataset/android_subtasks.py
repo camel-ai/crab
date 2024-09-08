@@ -13,15 +13,301 @@
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 # ruff: noqa: E501
 
+import base64
+import io
+import os
 import re
+from typing import Callable, List, Optional, Tuple
 
+import cv2
 import networkx as nx
+import numpy as np
+import torch
 from lxml import etree
 from lxml.etree import _Element
 from networkx import DiGraph, path_graph
+from PIL import Image
 
 from crab import SubTask, evaluator
-from crab.actions.android_actions import execute_adb
+from crab.actions.android_actions import execute_adb, screenshot
+
+
+class ImageMatcher:
+    """
+    A class to handle image matching, resizing, and cropping operations using accelerated feature matching.
+    See https://github.com/verlab/accelerated_features.
+    """
+
+    def __init__(self, top_k: int = 4096):
+        """
+        Initializes the ImageMatcher with a pretrained XFeat model.
+
+        Parameters:
+        top_k (int): The number of top features to use for matching.
+        """
+        self.xfeat = torch.hub.load(
+            "verlab/accelerated_features", "XFeat", pretrained=True, top_k=top_k
+        )
+        self.top_k = top_k
+
+    def warp_corners_and_draw_matches(
+        self,
+        ref_points: np.ndarray,
+        dst_points: np.ndarray,
+        img1: np.ndarray,
+        img2: np.ndarray,
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Calculates the homography matrix and warps the corners of the first image to the second image space.
+
+        Parameters:
+        ref_points (np.ndarray): Reference points from the first image.
+        dst_points (np.ndarray): Destination points from the second image.
+        img1 (np.ndarray): The first image.
+        img2 (np.ndarray): The second image.
+
+        Returns:
+        Tuple[np.ndarray, np.ndarray]: Image with warped corners and the warped corners coordinates.
+        """
+        H, mask = cv2.findHomography(
+            ref_points,
+            dst_points,
+            cv2.USAC_MAGSAC,
+            3.5,
+            maxIters=1000,
+            confidence=0.999,
+        )
+        mask = mask.flatten()
+
+        h, w = img1.shape[:2]
+        corners_img1 = np.array(
+            [[0, 0], [w - 1, 0], [w - 1, h - 1], [0, h - 1]], dtype=np.float32
+        ).reshape(-1, 1, 2)
+        warped_corners = cv2.perspectiveTransform(corners_img1, H)
+
+        img2_with_corners = img2.copy()
+        for i in range(len(warped_corners)):
+            start_point = tuple(warped_corners[i - 1][0].astype(int))
+            end_point = tuple(warped_corners[i][0].astype(int))
+            cv2.line(img2_with_corners, start_point, end_point, (0, 255, 0), 4)
+
+        keypoints1 = [cv2.KeyPoint(p[0], p[1], 5) for p in ref_points]
+        keypoints2 = [cv2.KeyPoint(p[0], p[1], 5) for p in dst_points]
+        matches = [cv2.DMatch(i, i, 0) for i in range(len(mask)) if mask[i]]
+
+        img_matches = cv2.drawMatches(
+            img1,
+            keypoints1,
+            img2_with_corners,
+            keypoints2,
+            matches,
+            None,
+            matchColor=(0, 255, 0),
+            flags=2,
+        )
+
+        return img_matches, warped_corners
+
+    def _get_bounding_box(
+        self, warped_corners: np.ndarray, img_shape: Tuple[int, int]
+    ) -> List[int]:
+        """
+        Computes the bounding box around the warped corners.
+
+        Parameters:
+        warped_corners (np.ndarray): The warped corners coordinates.
+        img_shape (Tuple[int, int]): The shape of the image as (height, width).
+
+        Returns:
+        List[int]: Bounding box coordinates [x_min, x_max, y_min, y_max].
+        """
+        h, w = img_shape
+
+        x_min = np.min(warped_corners[:, 0, 0])
+        x_max = np.max(warped_corners[:, 0, 0])
+        y_min = np.min(warped_corners[:, 0, 1])
+        y_max = np.max(warped_corners[:, 0, 1])
+
+        x_min = max(0, x_min)
+        x_max = min(w - 1, x_max)
+        y_min = max(0, y_min)
+        y_max = min(h - 1, y_max)
+
+        return [int(x_min), int(x_max), int(y_min), int(y_max)]
+
+    def _resize_image(
+        self, img1: np.ndarray, img2: np.ndarray, scale: float, match_dimension: str
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Resizes img1 to match a scaled dimension of img2.
+
+        Parameters:
+        img1 (np.ndarray): The first image to be resized.
+        img2 (np.ndarray): The reference image.
+        scale (float): The scale factor (0.5 for half size).
+        match_dimension (str): The dimension to match ('height' or 'width').
+
+        Returns:
+        Tuple[np.ndarray, np.ndarray]: Resized img1 and original img2.
+        """
+        h1, w1 = img1.shape[:2]
+        h2, w2 = img2.shape[:2]
+
+        if match_dimension == "height":
+            new_height = int(h2 * scale)
+            new_width = int(w1 * (new_height / h1))
+        elif match_dimension == "width":
+            new_width = int(w2 * scale)
+            new_height = int(h1 * (new_width / w1))
+        else:
+            raise ValueError("match_dimension must be either 'height' or 'width'.")
+
+        resized_img1 = cv2.resize(img1, (new_width, new_height))
+        return resized_img1, img2
+
+    def get_resizing_functions(
+        self,
+    ) -> List[Callable[[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]]:
+        """
+        Provides a list of resizing functions.
+
+        Returns:
+        List[Callable[[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]]: List of resizing functions.
+        """
+        return [
+            lambda x, y: (x, y),
+            lambda x, y: self._resize_image(x, y, 1.0, "height"),
+            lambda x, y: self._resize_image(x, y, 1.0, "width"),
+            lambda x, y: self._resize_image(x, y, 0.5, "height"),
+            lambda x, y: self._resize_image(x, y, 0.5, "width"),
+        ]
+
+    def match_images(
+        self,
+        im1_path: str,
+        im2_path: str,
+        top_k: int = 4096,
+        match_num_threshold: int = 80,
+    ) -> Tuple[Optional[List[int]], Optional[np.ndarray], int]:
+        """
+        Matches two images and finds the bounding box around the matched area if sufficient matches are found.
+
+        Parameters:
+        im1_path (str): Path to the first image.
+        im2_path (str): Path to the second image.
+        top_k (int): The number of top features to use for matching.
+        match_num_threshold (int): The minimum number of matches required to consider the match valid.
+
+        Returns:
+        Tuple[Optional[List[int]], Optional[np.ndarray], int]: Bounding box, image with matched keypoints drawn, and the number of matches found.
+        """
+        im1 = self.load_and_convert_image(im1_path)
+        im2 = self.load_and_convert_image(im2_path)
+
+        best_matches = {
+            "count": 0,
+            "im1_resized": None,
+            "im2_resized": None,
+            "mkpts_0": None,
+            "mkpts_1": None,
+        }
+
+        for resize_func in self.get_resizing_functions():
+            try:
+                im1_resized, im2_resized = resize_func(im1, im2)
+                mkpts_0, mkpts_1 = self.xfeat.match_xfeat_star(
+                    im1_resized, im2_resized, top_k=top_k
+                )
+
+                if len(mkpts_0) > best_matches["count"]:
+                    best_matches.update(
+                        {
+                            "count": len(mkpts_0),
+                            "im1_resized": im1_resized,
+                            "im2_resized": im2_resized,
+                            "mkpts_0": mkpts_0,
+                            "mkpts_1": mkpts_1,
+                        }
+                    )
+            except Exception:
+                continue
+
+        if best_matches["count"] >= match_num_threshold:
+            canvas, warped_corners = self.warp_corners_and_draw_matches(
+                best_matches["mkpts_0"],
+                best_matches["mkpts_1"],
+                best_matches["im1_resized"],
+                best_matches["im2_resized"],
+            )
+            bbox = self._get_bounding_box(warped_corners, im2_resized.shape[:2])
+        else:
+            bbox, canvas = None, None
+
+        return bbox, canvas, best_matches["count"]
+
+    def load_and_convert_image(self, filepath: str) -> np.ndarray:
+        """
+        Loads an image from a file and converts it to JPG format if necessary.
+
+        Parameters:
+        filepath (str): The path to the image file.
+
+        Returns:
+        np.ndarray: The loaded and converted image.
+        """
+        image = Image.open(filepath)
+        if image.mode != "RGB":
+            image = image.convert("RGB")
+        with io.BytesIO() as output:
+            image.save(output, format="JPEG")
+            converted_image = np.copy(np.array(Image.open(output))[..., ::-1])
+        return converted_image
+
+
+image_matcher = ImageMatcher()
+
+
+def cleanup_files(files: List[str]):
+    """
+    Delete the list of files.
+
+    Args:
+        files (List[str]): List of paths to the files to be deleted.
+    """
+    for file in files:
+        os.remove(file)
+
+
+def from_env_load_and_save_screenshot(env, output_dir="/tmp/local_save"):
+    """
+    Load a file, convert it to bytes, and save it to a local directory with the same basename.
+
+    Args:
+        env: The environment object with the _action_endpoint method.
+        output_dir (str): The directory where the file should be saved (default is "/tmp/local_save").
+
+    Returns:
+        str: The path to the saved file.
+    """
+
+    # Create output directory if it does not exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Load the file and convert to bytes
+    encoded_string = env._action_endpoint(screenshot, {"env": env})
+
+    # Decode the Base64 string back to bytes
+    decoded_bytes = base64.b64decode(encoded_string.encode("utf-8"))
+
+    # Create the output file path
+    file_name = "temp_file.png"  # Replace with an appropriate file name
+    output_file_path = os.path.join(output_dir, file_name)
+
+    # Save the decoded bytes to the output path
+    with open(output_file_path, "wb") as file:
+        file.write(decoded_bytes)
+
+    return output_file_path
 
 
 def get_xml_etree(env) -> _Element | None:
@@ -30,6 +316,38 @@ def get_xml_etree(env) -> _Element | None:
         return None
     xml_str = xml_str.removesuffix("UI hierchary dumped to: /dev/tty")
     return etree.fromstring(xml_str.encode("utf-8"))
+
+
+@evaluator(env_name="ubuntu2204", local=True)
+def verify_screenshot_containing_image(image_path: str, env) -> bool:
+    """
+    Verifies whether a given image is contained within a screenshot taken from the current environment.
+
+    This function captures a screenshot of the current environment using the `screenshot` action and checks
+    if the image at `image_path` is contained within the screenshot. If the image is found within the
+    screenshot, it returns True; otherwise, it returns False.
+
+    Parameters:
+    - image_path (str): The path to the image file that needs to be checked against the screenshot.
+    - env: The environment object that contains methods to interact with the environment (e.g., capturing screenshots).
+
+    Returns:
+    - bool: True if the image is found within the screenshot, False otherwise.
+    """
+
+    # Capture and save the screenshot from the environment to a local path
+    screenshot_path = from_env_load_and_save_screenshot(env)
+
+    try:
+        # Match the given image against the captured screenshot
+        bbox, _, _ = image_matcher.match_images(image_path, screenshot_path)
+
+        # If a bounding box is found, the image is contained within the screenshot
+        return bbox is not None
+
+    finally:
+        # Clean up the saved screenshot file to free up resources
+        cleanup_files([screenshot_path])
 
 
 @evaluator(env_name="android", local=True)
@@ -529,6 +847,20 @@ def contact_evaluator_generator(mail: str, name: str):
 
 
 android_subtasks = [
+    SubTask(
+        id="e5b05095-7167-4c6b-ba8d-ad8df2e2d12f",
+        description='In Android, using "XXXX" App, to put the latest image in "Photos" App "XXXX doing whatX XXX"',  # TODO: replace with actual app name and operation
+        attribute_dict={},
+        output_type="None",
+        evaluator_generator=lambda content: path_graph(
+            [
+                verify_screenshot_containing_image(
+                    "image_path_on_host"
+                )  # TODO: replace with actual image path, this image path is on the host (not in the Android environment), and the image should be the same as the latest image put in the "Photos" app
+            ],
+            create_using=DiGraph,
+        ),
+    ),
     SubTask(
         id="1a1b72d7-78c9-4027-8278-86083ae01045",
         description='In Android, using "Google Map" App, find the distance of the shortest route from "{place_name_1}" to "{place_name_2}"',
