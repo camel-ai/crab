@@ -25,7 +25,11 @@ try:
     import easyocr
     import numpy as np
     import torch
-    from transformers import AutoProcessor, GroundingDinoForObjectDetection
+    from transformers import (
+        AutoProcessor,
+        GroundingDinoForObjectDetection,
+        GroundingDinoProcessor,
+    )
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -104,7 +108,7 @@ def _filter_boxes_by_center(boxes_with_label, center_dis_thresh):
 
 
 def _box_a_in_b(a: BoxType, b: BoxType):
-    return a[0] > b[0] and a[1] > b[1] and a[2] < b[2] and a[3] < b[3]
+    return a[0] >= b[0] and a[1] >= b[1] and a[2] <= b[2] and a[3] <= b[3]
 
 
 def _filter_boxes_by_overlap(boxes_with_label):
@@ -114,7 +118,7 @@ def _filter_boxes_by_overlap(boxes_with_label):
         if i in boxes_to_remove:
             continue
         for j in range(len(boxes)):
-            if _box_a_in_b(boxes[i], boxes[j]):
+            if i != j and _box_a_in_b(boxes[i], boxes[j]):
                 boxes_to_remove.add(j)
 
     boxes_filt = [
@@ -179,14 +183,16 @@ def _draw_boxes(
 
 
 @cache
-def _get_grounding_dino_model(type="tiny"):
+def _get_grounding_dino_model(
+    type: str = "tiny",
+) -> tuple[GroundingDinoProcessor, GroundingDinoForObjectDetection]:
     """Get the grounding dino model.
 
     Args:
         type (str, optional): "tiny" or "base". Defaults to "tiny".
 
     Returns:
-        tuple[processer, model]: Tuple of processor and model.
+        A tuple (processor, model).
     """
     model_name = f"IDEA-Research/grounding-dino-{type}"
     processor = AutoProcessor.from_pretrained(model_name)

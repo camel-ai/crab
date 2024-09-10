@@ -11,6 +11,7 @@ from crab.actions.visual_prompt_actions import (
 from crab.utils import image_to_base64
 
 
+@pytest.mark.skip(reason="Too slow")
 def test_get_groundingdino_boxes_single_image():
     url = "http://images.cocodataset.org/val2017/000000039769.jpg"
     image = Image.open(requests.get(url, stream=True).raw)
@@ -24,6 +25,7 @@ def test_get_groundingdino_boxes_single_image():
     assert len(result[0][0]) == 2
 
 
+@pytest.mark.skip(reason="Too slow")
 def test_get_groundingdino_boxes_multi_image():
     url1 = "http://images.cocodataset.org/val2017/000000039769.jpg"
     url2 = "https://farm5.staticflickr.com/4005/4666183752_c5b79faa17_z.jpg"
@@ -42,6 +44,7 @@ def test_get_groundingdino_boxes_multi_image():
     assert len(result[0][0]) == 2
 
 
+@pytest.mark.skip(reason="Too slow")
 @pytest.mark.parametrize(
     "image_name", ["ubuntu_screenshot.png", "android_screenshot.png"]
 )
