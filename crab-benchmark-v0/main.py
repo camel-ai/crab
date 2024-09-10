@@ -12,6 +12,7 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import argparse
+import logging
 import warnings
 from pathlib import Path
 from typing import Literal
@@ -169,7 +170,20 @@ if __name__ == "__main__":
         default="cross",
     )
     parser.add_argument("--task-id", type=str, help="task id")
+    parser.add_argument(
+        "--loglevel",
+        type=str,
+        help="logger level, debug, info, warning, or error",
+        default="warning",
+    )
     args = parser.parse_args()
+    loglevel = args.loglevel
+    numeric_level = getattr(logging, loglevel.upper(), None)
+    if not isinstance(numeric_level, int):
+        raise ValueError('Invalid log level: %s' % loglevel)
+    logging.basicConfig(level=numeric_level)
+
+
     benchmark = get_benchmark(args.env, args.remote_url)
 
     if args.model == "gpt4o":
