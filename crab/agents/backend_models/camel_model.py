@@ -140,10 +140,7 @@ class CamelModel(BackendModel):
         )
         response = self.client.step(usermsg)
         self.token_usage += response.info["usage"]["total_tokens"]
-        tool_call_request = response.info.get("tool_call_request")
-
-        # TODO: delete this after record_message is refactored
-        self.client.record_message(response.msg)
+        tool_call_request = response.info.get("external_tool_request")
 
         return BackendOutput(
             message=response.msg.content,
