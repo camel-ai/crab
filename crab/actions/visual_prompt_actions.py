@@ -38,9 +38,10 @@ except ImportError:
     TRANSFORMERS_ENABLE = False
 
 BoxType = tuple[int, int, int, int]
+AnnotatedBoxType = tuple[BoxType, str | None]
 
 
-def check_transformers_import():
+def check_transformers_import() -> None:
     if not TRANSFORMERS_ENABLE:
         raise ImportError(
             "Please install the required dependencies to use this function by running"
@@ -48,7 +49,7 @@ def check_transformers_import():
         )
 
 
-def _calculate_iou(box1, box2):
+def _calculate_iou(box1: BoxType, box2: BoxType) -> float:
     xA = max(box1[0], box2[0])
     yA = max(box1[1], box2[1])
     xB = min(box1[2], box2[2])
@@ -67,7 +68,9 @@ def _calculate_center(box) -> tuple[int, int]:
     return (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
 
 
-def _remove_invalid_boxes(boxes_with_label, width, height):
+def _remove_invalid_boxes(
+    boxes_with_label: AnnotatedBoxType, width: int, height: int
+) -> AnnotatedBoxType:
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for idx, box in enumerate(boxes):
@@ -84,7 +87,9 @@ def _remove_invalid_boxes(boxes_with_label, width, height):
     return boxes_filt
 
 
-def _filter_boxes_by_center(boxes_with_label, center_dis_thresh):
+def _filter_boxes_by_center(
+    boxes_with_label: list[AnnotatedBoxType], center_dis_thresh: float
+) -> list[AnnotatedBoxType]:
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for i in range(len(boxes)):
@@ -107,7 +112,7 @@ def _filter_boxes_by_center(boxes_with_label, center_dis_thresh):
     return boxes_filt
 
 
-def _box_a_in_b(a: BoxType, b: BoxType):
+def _box_a_in_b(a: BoxType, b: BoxType) -> bool:
     return a[0] >= b[0] and a[1] >= b[1] and a[2] <= b[2] and a[3] <= b[3]
 
 
@@ -128,8 +133,8 @@ def _filter_boxes_by_overlap(boxes_with_label):
 
 
 def _filter_boxes_by_iou(
-    boxes_with_label: list[tuple[BoxType, str]], iou_threshold=0.5
-):
+    boxes_with_label: list[AnnotatedBoxType], iou_threshold=0.5
+) -> list[AnnotatedBoxType]:
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for i in range(len(boxes)):
@@ -201,7 +206,7 @@ def _get_grounding_dino_model(
 
 
 @cache
-def _get_easyocr_model():
+def _get_easyocr_model() -> easyocr.Reader:
     return easyocr.Reader(["en"])
 
 
@@ -210,7 +215,7 @@ def get_groundingdino_boxes(
     text_prompt: str,
     box_threshold: float = 0.05,
     text_threshold: float = 0.5,
-) -> list[list[tuple[BoxType, str | None]]]:
+) -> list[list[AnnotatedBoxType]]:
     """Get the bounding boxes of the objects in the image using GroundingDino.
 
     Args:
@@ -255,7 +260,7 @@ def get_groundingdino_boxes(
 
 def get_easyocr_boxes(
     image: Image.Image,
-) -> list[tuple[BoxType, str]]:
+) -> list[AnnotatedBoxType]:
     """Get the bounding boxes of the text in the image using EasyOCR.
 
     Args:
@@ -287,7 +292,7 @@ def groundingdino_easyocr(
     input_base64_image: str,
     font_size: int,
     env,
-) -> tuple[str, list[tuple[BoxType, str]]]:
+) -> tuple[str, list[AnnotatedBoxType]]:
     """Get the interative elements in the image.
 
     Using GroundingDino and EasyOCR to detect the interactive elements in the image.
@@ -299,8 +304,9 @@ def groundingdino_easyocr(
         font_size: The font size of the label.
 
     Returns:
-        (base64_image, boxes): A tuple of the base64 encoded image with bounding boxes
-            and labels, and the list of detected boxes and labels.
+        A tuple (base64_image, boxes), where base64_image is the base64 encoded image
+        drawn with bounding boxes and labels, and box is the list of detected boxes and
+        labels.
     """
     check_transformers_import()
     image = base64_to_image(input_base64_image)
@@ -321,7 +327,7 @@ def groundingdino_easyocr(
 
 
 @action(local=True)
-def get_elements_prompt(input: tuple[str, list[tuple[BoxType, str]]], env):
+def get_elements_prompt(input: tuple[str, list[AnnotatedBoxType]], env):
     """Get the text prompt passing to the agent for the image.
 
     Args:
