@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-# ruff: noqa: E501
+# ruff: noqa: E501 F405
 import os
 import re
 import subprocess
@@ -28,7 +28,7 @@ from .android_subtasks import (
     check_message_text_box_empty,
     get_xml_etree,
 )
-from .ubuntu_subtasks import *
+from .ubuntu_subtasks import *  # noqa: F403
 
 _item_count_cache = None
 

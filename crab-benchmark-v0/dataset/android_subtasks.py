@@ -71,7 +71,7 @@ def check_contain_contact(name: str, env) -> bool:
         desc = node.get("content-desc")
         if "Email" in desc:
             mail_node = node
-    if mail_node == None:
+    if mail_node is None:
         return False
     real_mail_node = mail_node.xpath(
         '//*[@resource-id="com.android.contacts:id/header"]'
