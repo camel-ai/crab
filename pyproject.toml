@@ -27,6 +27,7 @@ pydantic = "^2.6"
 lxml = "^5.2.2"
 openai = "^1.12.0"
 cryptography = "^43.0.0"
+setuptools = "^73.0.1"
 
 # desktop actions
 pillow = "^10.2.0"
@@ -58,16 +59,9 @@ camel-ai = { version="^0.1.8", extras=["all"], optional=true }
 # text ocr
 easyocr = { version = "^1.7.1", optional = true }
 
-# groundingdino object detection
-torch = { version = "^2.2.1", optional = true }
-torchvision = { version = "^0.17.1", optional = true }
-numpy = { version = "^1.26.4", optional = true }
-transformers = { version = "4.42.4", optional = true }
-addict = { version = "^2.4.0", optional = true }
-yapf = { version = "^0.40.2", optional = true }
-matplotlib = { version = "^3.8.3", optional = true }
-pycocotools = { version = "^2.0.7", optional = true }
-timm = { version = "^0.9.16", optional = true }
+# visual prompt
+transformers = { version = "4.44.1", optional = true }
+torch = { version = "^2.4.0", optional = true }
 
 # server
 fastapi = { extras = ["all"], version = "0.109.1", optional = true }
