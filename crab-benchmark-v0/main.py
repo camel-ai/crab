@@ -180,9 +180,8 @@ if __name__ == "__main__":
     loglevel = args.loglevel
     numeric_level = getattr(logging, loglevel.upper(), None)
     if not isinstance(numeric_level, int):
-        raise ValueError('Invalid log level: %s' % loglevel)
+        raise ValueError("Invalid log level: %s" % loglevel)
     logging.basicConfig(level=numeric_level)
-
 
     benchmark = get_benchmark(args.env, args.remote_url)
 
