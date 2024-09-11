@@ -16,11 +16,13 @@ import logging
 import warnings
 from pathlib import Path
 from typing import Literal
+from uuid import uuid4
 
 from crab import (
     BenchmarkConfig,
     Experiment,
     MessageType,
+    Task,
     TaskGenerator,
     create_benchmark,
 )
@@ -37,6 +39,8 @@ from crab.agents.policies import (
 )
 from crab.core.agent_policy import AgentPolicy
 from crab.core.benchmark import Benchmark
+from crab.core.decorators import evaluator
+from crab.environments.macos import mac_env
 
 from .android_env import ANDROID_ENV
 from .dataset.android_subtasks import android_subtasks
@@ -79,6 +83,11 @@ class CrabBenchmarkV0(Experiment):
         return result_prompt
 
 
+@evaluator(env_name="macos")
+def empty_evaluator() -> bool:
+    return False
+
+
 def get_benchmark(env: str, ubuntu_url: str):
     ubuntu_env = UBUNTU_ENV.model_copy()
     ubuntu_env.remote_url = ubuntu_url
@@ -87,6 +96,9 @@ def get_benchmark(env: str, ubuntu_url: str):
     }
     android_tool = {
         "screenshot": groundingdino_easyocr(font_size=40) >> get_elements_prompt
+    }
+    mac_tool = {
+        "screenshot": groundingdino_easyocr(font_size=24) >> get_elements_prompt
     }
 
     if env == "ubuntu":
@@ -118,6 +130,22 @@ def get_benchmark(env: str, ubuntu_url: str):
             name="ubuntu_android_benchmark",
             tasks=[],
             environments=[ubuntu_env, ANDROID_ENV],
+            prompting_tools=prompting_tools,
+            root_action_space=[complete],
+            multienv=True,
+        )
+    elif env == "mac":
+        task = Task(
+            description="Open firefox in both macos and android.",
+            id="0",
+            evaluator=empty_evaluator,
+        )
+        prompting_tools = {"macos": mac_tool, "android": android_tool}
+        mac_env.remote_url = "http://10.85.170.240:8000"
+        benchmark_config = BenchmarkConfig(
+            name="mac_benchmark",
+            tasks=[task],
+            environments=[mac_env, ANDROID_ENV],
             prompting_tools=prompting_tools,
             root_action_space=[complete],
             multienv=True,
@@ -169,7 +197,13 @@ if __name__ == "__main__":
         help="ubuntu, android or cross",
         default="cross",
     )
-    parser.add_argument("--task-id", type=str, help="task id")
+    parser.add_argument("--task-id", type=str, help="task id", default=None)
+    parser.add_argument(
+        "--task-description",
+        type=str,
+        help="task description. If provided, will overwrite the task id.",
+        default=None,
+    )
     parser.add_argument(
         "--loglevel",
         type=str,
@@ -180,20 +214,39 @@ if __name__ == "__main__":
     loglevel = args.loglevel
     numeric_level = getattr(logging, loglevel.upper(), None)
     if not isinstance(numeric_level, int):
-        raise ValueError('Invalid log level: %s' % loglevel)
+        raise ValueError("Invalid log level: %s" % loglevel)
     logging.basicConfig(level=numeric_level)
-
 
     benchmark = get_benchmark(args.env, args.remote_url)
 
+    if args.task_description is not None:
+        task_id = str(uuid4())
+        benchmark.tasks = [
+            Task(
+                id=task_id,
+                description=args.task_description,
+                evaluator=empty_evaluator,
+            )
+        ]
+    else:
+        task_id = args.task_id
+
+    history_messages_len = 2
+
     if args.model == "gpt4o":
-        model = OpenAIModel(model="gpt-4o")
+        model = OpenAIModel(model="gpt-4o", history_messages_len=history_messages_len)
     elif args.policy == "gpt4turbo":
-        model = OpenAIModel(model="gpt-4-turbo")
+        model = OpenAIModel(
+            model="gpt-4-turbo", history_messages_len=history_messages_len
+        )
     elif args.policy == "gemini":
-        model = GeminiModel(model="gemini-1.5-pro-latest")
+        model = GeminiModel(
+            model="gemini-1.5-pro-latest", history_messages_len=history_messages_len
+        )
     elif args.policy == "claude":
-        model = ClaudeModel(model="claude-3-opus-20240229")
+        model = ClaudeModel(
+            model="claude-3-opus-20240229", history_messages_len=history_messages_len
+        )
     else:
         print("Unsupported model: ", args.model)
         exit()
@@ -215,7 +268,7 @@ if __name__ == "__main__":
     log_dir = (Path(__file__).parent / "logs").resolve()
     expeirment = CrabBenchmarkV0(
         benchmark=benchmark,
-        task_id=args.task_id,
+        task_id=task_id,
         agent_policy=agent_policy,
         log_dir=log_dir,
     )

@@ -93,10 +93,10 @@ def mouse_scroll(click: int = 1) -> None:
 
 
 class KeyEnum(str, Enum):
-    KEY_TAB = "\t"
+    KEY_TAB = "tab"
     KEY_LB = "\n"
     KEY_RR = "\r"
-    KEY_SPACE = " "
+    KEY_SPACE = "space"
     KEY_EXCLAMATION = "!"
     KEY_DQUOTE = '"'
     KEY_SHARP = "#"
@@ -188,6 +188,7 @@ class KeyEnum(str, Enum):
     KEY_UP = "up"
     KEY_RIGHT = "right"
     KEY_DOWN = "down"
+    KEY_CMD = "command"
 
 
 @action
@@ -217,7 +218,7 @@ def press_hotkey(keys: list[KeyEnum]) -> None:
     """
     if isinstance(keys[0], KeyEnum):
         keys = [key.value for key in keys]
-    pyautogui.hotkey(*keys)
+    pyautogui.hotkey(*keys, interval=0.25)
     time.sleep(DELAY)
 
 
