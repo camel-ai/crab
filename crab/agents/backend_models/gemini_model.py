@@ -117,7 +117,8 @@ class GeminiModel(BackendModel):
                     )
             except ResourceExhausted:
                 print(
-                    "ResourceExhausted: 429 Resource has been exhausted. Please waiting..."
+                    "ResourceExhausted: 429 Resource has been exhausted.",
+                    " Please waiting...",
                 )
                 sleep(10)
             else:

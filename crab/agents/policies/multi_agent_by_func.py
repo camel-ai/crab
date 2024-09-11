@@ -23,19 +23,19 @@ from crab.core.backend_model import (
 
 class MultiAgentByFuncPolicy(AgentPolicy):
     _system_prompt = """You are a helpful assistant. Now you have to do a task as
-    described below: {task_description}. And this is the description of each given environment: 
-    {env_description}. A unit operation you can perform is called action in a
-    given environment. For each environment, you are given a limited action space as
+    described below: {task_description}. And this is the description of each given
+    environment: {env_description}. A unit operation you can perform is called action in
+    a given environment. For each environment, you are given a limited action space as
     function calls:
     {action_descriptions}
-    You may receive a screenshot of the current system. The interactive UI elements on the
-    screenshot are labeled with numeric tags starting from 1. For each step, You must state
-    what actions to take, what the parameters are, and you MUST provide in which environment
-    to perform these actions. """
+    You may receive a screenshot of the current system. The interactive UI elements on
+    the screenshot are labeled with numeric tags starting from 1. For each step, You
+    must state what actions to take, what the parameters are, and you MUST provide in
+    which environment to perform these actions. """
 
-    _tool_prompt = """You are a helpful assistant in generating function calls. I will give
-    you a detailed description of what actions to take next, you should translate it into 
-    function calls. please do not output any other information.
+    _tool_prompt = """You are a helpful assistant in generating function calls. I will
+    give you a detailed description of what actions to take next, you should translate
+    it into function calls. please do not output any other information.
     """
 
     def __init__(
