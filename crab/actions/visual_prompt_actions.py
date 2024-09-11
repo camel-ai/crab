@@ -13,6 +13,7 @@
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import logging
 from functools import cache
+from typing import Literal
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -64,7 +65,7 @@ def _calculate_iou(box1: BoxType, box2: BoxType) -> float:
     return iou
 
 
-def _calculate_center(box) -> tuple[int, int]:
+def _calculate_center(box: BoxType) -> tuple[int, int]:
     return (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
 
 
@@ -116,7 +117,9 @@ def _box_a_in_b(a: BoxType, b: BoxType) -> bool:
     return a[0] >= b[0] and a[1] >= b[1] and a[2] <= b[2] and a[3] <= b[3]
 
 
-def _filter_boxes_by_overlap(boxes_with_label):
+def _filter_boxes_by_overlap(
+    boxes_with_label: list[AnnotatedBoxType],
+) -> list[AnnotatedBoxType]:
     boxes = [box[0] for box in boxes_with_label]
     boxes_to_remove = set()
     for i in range(len(boxes)):
@@ -189,12 +192,12 @@ def _draw_boxes(
 
 @cache
 def _get_grounding_dino_model(
-    type: str = "tiny",
+    type: Literal["tiny", "base"] = "tiny",
 ) -> tuple[GroundingDinoProcessor, GroundingDinoForObjectDetection]:
     """Get the grounding dino model.
 
     Args:
-        type (str, optional): "tiny" or "base". Defaults to "tiny".
+        type: "tiny" or "base". Defaults to "tiny".
 
     Returns:
         A tuple (processor, model).
@@ -327,7 +330,9 @@ def groundingdino_easyocr(
 
 
 @action(local=True)
-def get_elements_prompt(input: tuple[str, list[AnnotatedBoxType]], env):
+def get_elements_prompt(
+    input: tuple[str, list[AnnotatedBoxType]], env
+) -> tuple[str, str]:
     """Get the text prompt passing to the agent for the image.
 
     Args:
