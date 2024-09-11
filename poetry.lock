@@ -523,13 +523,13 @@ lxml = ["lxml"]
 
 [[package]]
 name = "botocore"
-version = "1.35.15"
+version = "1.35.16"
 description = "Low-level, data-driven core of boto 3."
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.35.15-py3-none-any.whl", hash = "sha256:a01a7668941c9276ca7697fb0b09a47ab1f13e585c5ca6551270528f4e086de8"},
-    {file = "botocore-1.35.15.tar.gz", hash = "sha256:bbfe4f6cd417d1d097900db062f1017e5185775acdeccd0eff1ec0f499633242"},
+    {file = "botocore-1.35.16-py3-none-any.whl", hash = "sha256:3564a980d95ff2861a6ca74313173d8778aa659125c63cf49c93ad23896c63b1"},
+    {file = "botocore-1.35.16.tar.gz", hash = "sha256:1b48c94e8a4bbe23143f3d1c21a32b9ffc7476b651ef42371ab45d678f6dbfbc"},
 ]
 
 [package.dependencies]
@@ -538,7 +538,7 @@ python-dateutil = ">=2.1,<3.0.0"
 urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.21.2)"]
+crt = ["awscrt (==0.21.5)"]
 
 [[package]]
 name = "cachetools"
@@ -553,77 +553,79 @@ files = [
 
 [[package]]
 name = "camel-ai"
-version = "0.1.7.2"
+version = "0.1.8"
 description = "Communicative Agents for AI Society Study"
 optional = true
-python-versions = ">=3.10.0,<3.12"
-files = []
-develop = false
+python-versions = "<3.12,>=3.10.0"
+files = [
+    {file = "camel_ai-0.1.8-py3-none-any.whl", hash = "sha256:3c88adf7deccf465f2c155679d6e1d8cbdb7955e366533b3441581ba72ba7b4b"},
+    {file = "camel_ai-0.1.8.tar.gz", hash = "sha256:b7d29a482c3713b58bc554cf97924b83077a6f02c25a7228cf7dd2c0b86767b5"},
+]
 
 [package.dependencies]
-accelerate = {version = "^0", optional = true}
-agentops = {version = "^0.3.6", optional = true}
-anthropic = "^0.29.0"
-azure-storage-blob = {version = "^12.21.0", optional = true}
-beautifulsoup4 = {version = "^4", optional = true}
-botocore = {version = "^1.35.3", optional = true}
-cohere = {version = "^4.56", optional = true}
-colorama = "^0"
+accelerate = {version = ">=0,<1", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+agentops = {version = ">=0.3.6,<0.4.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+anthropic = ">=0.29.0,<0.30.0"
+azure-storage-blob = {version = ">=12.21.0,<13.0.0", optional = true, markers = "extra == \"object-storages\" or extra == \"all\""}
+beautifulsoup4 = {version = ">=4,<5", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+botocore = {version = ">=1.35.3,<2.0.0", optional = true, markers = "extra == \"object-storages\" or extra == \"all\""}
+cohere = {version = ">=4.56,<5.0", optional = true, markers = "extra == \"retrievers\" or extra == \"all\""}
+colorama = ">=0,<1"
 curl_cffi = "0.6.2"
-datasets = {version = "^2", optional = true}
-diffusers = {version = "^0", optional = true}
-"discord.py" = {version = "^2.3.2", optional = true}
-docker = {version = "^7.1.0", optional = true}
-docstring-parser = "^0.15"
-docx2txt = {version = "^0.8", optional = true}
-duckduckgo-search = {version = "^6.1.0", optional = true}
+datasets = {version = ">=2,<3", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+diffusers = {version = ">=0,<1", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+"discord.py" = {version = ">=2.3.2,<3.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+docker = {version = ">=7.1.0,<8.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+docstring-parser = ">=0.15,<0.16"
+docx2txt = {version = ">=0.8,<0.9", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+duckduckgo-search = {version = ">=6.1.0,<7.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
 eval-type-backport = "0.2.0"
-firecrawl-py = {version = "^1.0.0", optional = true}
-google-cloud-storage = {version = "^2.18.0", optional = true}
-google-generativeai = {version = "^0.6.0", optional = true}
-googlemaps = {version = "^4.10.0", optional = true}
-groq = "^0.5.0"
-imageio = {version = "^2.34.2", extras = ["pyav"]}
-ipykernel = "^6.0.0"
-jsonschema = "^4"
-jupyter_client = "^8.6.2"
-litellm = {version = "^1.38.1", optional = true}
-mistralai = {version = "^1.0.0", optional = true}
-neo4j = {version = "^5.18.0", optional = true}
-newspaper3k = {version = "^0.2.8", optional = true}
-nltk = {version = "3.8.1", optional = true}
-numpy = "^1"
-openai = "^1.2.3"
-openapi-spec-validator = {version = "^0.7.1", optional = true}
-opencv-python = {version = "^4", optional = true}
-pathlib = "^1.0.1"
-pillow = "^10.2.0"
-prance = {version = "^23.6.21.0", optional = true}
-praw = {version = "^7.7.1", optional = true}
-protobuf = "^4"
+firecrawl-py = {version = ">=1.0.0,<2.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+google-cloud-storage = {version = ">=2.18.0,<3.0.0", optional = true, markers = "extra == \"object-storages\" or extra == \"all\""}
+google-generativeai = {version = ">=0.6.0,<0.7.0", optional = true, markers = "extra == \"model-platforms\" or extra == \"all\""}
+googlemaps = {version = ">=4.10.0,<5.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+groq = ">=0.5.0,<0.6.0"
+imageio = {version = ">=2.34.2,<3.0.0", extras = ["pyav"], optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+ipykernel = ">=6.0.0,<7.0.0"
+jsonschema = ">=4,<5"
+jupyter_client = {version = ">=8.6.2,<9.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+litellm = {version = ">=1.38.1,<2.0.0", optional = true, markers = "extra == \"model-platforms\" or extra == \"all\""}
+mistralai = {version = ">=1.0.0,<2.0.0", optional = true, markers = "extra == \"model-platforms\" or extra == \"all\""}
+neo4j = {version = ">=5.18.0,<6.0.0", optional = true, markers = "extra == \"graph-storages\" or extra == \"all\""}
+newspaper3k = {version = ">=0.2.8,<0.3.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+nltk = {version = "3.8.1", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+numpy = ">=1,<2"
+openai = ">=1.2.3,<2.0.0"
+openapi-spec-validator = {version = ">=0.7.1,<0.8.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+opencv-python = {version = ">=4,<5", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+pathlib = ">=1.0.1,<2.0.0"
+pillow = {version = ">=10.2.0,<11.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+prance = {version = ">=23.6.21.0,<24.0.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+praw = {version = ">=7.7.1,<8.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+protobuf = ">=4,<5"
 pydantic = ">=1.9,<3"
-pydub = {version = "^0.25.1", optional = true}
-pygithub = {version = "^2.3.0", optional = true}
-pymilvus = {version = "^2.4.0", optional = true}
-PyMuPDF = {version = "^1.22.5", optional = true}
-pyowm = {version = "^3.3.0", optional = true}
-pyTelegramBotAPI = {version = "^4.18.0", optional = true}
-qdrant-client = {version = "^1.9.0", optional = true}
-rank-bm25 = {version = "^0.2.2", optional = true}
-redis = {version = "^5.0.6", optional = true}
-reka-api = {version = "^3.0.8", optional = true}
-requests_oauthlib = {version = "^1.3.1", optional = true}
-sentence-transformers = {version = "^3.0.1", optional = true}
-sentencepiece = {version = "^0", optional = true}
-slack-sdk = {version = "^3.27.2", optional = true}
-soundfile = {version = "^0", optional = true}
-textblob = {version = "^0.18.0.post0", optional = true}
-tiktoken = "^0.7.0"
-torch = {version = "^2", optional = true}
-transformers = {version = "^4", optional = true}
-unstructured = {version = "^0.10", extras = ["all-docs"], optional = true}
-wikipedia = {version = "^1", optional = true}
-wolframalpha = {version = "^5.0.0", optional = true}
+pydub = {version = ">=0.25.1,<0.26.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+pygithub = {version = ">=2.3.0,<3.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+pymilvus = {version = ">=2.4.0,<3.0.0", optional = true, markers = "extra == \"vector-databases\" or extra == \"all\""}
+PyMuPDF = {version = ">=1.22.5,<2.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+pyowm = {version = ">=3.3.0,<4.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+pyTelegramBotAPI = {version = ">=4.18.0,<5.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+qdrant-client = {version = ">=1.9.0,<2.0.0", optional = true, markers = "extra == \"vector-databases\" or extra == \"all\""}
+rank-bm25 = {version = ">=0.2.2,<0.3.0", optional = true, markers = "extra == \"retrievers\" or extra == \"all\""}
+redis = {version = ">=5.0.6,<6.0.0", optional = true, markers = "extra == \"kv-stroages\" or extra == \"all\""}
+reka-api = {version = ">=3.0.8,<4.0.0", optional = true, markers = "extra == \"model-platforms\" or extra == \"all\""}
+requests_oauthlib = {version = ">=1.3.1,<2.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+sentence-transformers = {version = ">=3.0.1,<4.0.0", optional = true, markers = "extra == \"encoders\" or extra == \"all\""}
+sentencepiece = {version = ">=0,<1", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+slack-sdk = {version = ">=3.27.2,<4.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+soundfile = {version = ">=0,<1", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+textblob = {version = ">=0.18.0.post0,<0.19.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+tiktoken = ">=0.7.0,<0.8.0"
+torch = {version = ">=2,<3", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+transformers = {version = ">=4,<5", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+unstructured = {version = ">=0.10,<0.11", extras = ["all-docs"], optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+wikipedia = {version = ">=1,<2", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
+wolframalpha = {version = ">=5.0.0,<6.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
 
 [package.extras]
 all = ["PyMuPDF (>=1.22.5,<2.0.0)", "accelerate (>=0,<1)", "agentops (>=0.3.6,<0.4.0)", "azure-storage-blob (>=12.21.0,<13.0.0)", "beautifulsoup4 (>=4,<5)", "botocore (>=1.35.3,<2.0.0)", "cohere (>=4.56,<5.0)", "datasets (>=2,<3)", "diffusers (>=0,<1)", "discord.py (>=2.3.2,<3.0.0)", "docker (>=7.1.0,<8.0.0)", "docx2txt (>=0.8,<0.9)", "duckduckgo-search (>=6.1.0,<7.0.0)", "firecrawl-py (>=1.0.0,<2.0.0)", "google-cloud-storage (>=2.18.0,<3.0.0)", "google-generativeai (>=0.6.0,<0.7.0)", "googlemaps (>=4.10.0,<5.0.0)", "imageio[pyav] (>=2.34.2,<3.0.0)", "jupyter_client (>=8.6.2,<9.0.0)", "litellm (>=1.38.1,<2.0.0)", "mistralai (>=1.0.0,<2.0.0)", "neo4j (>=5.18.0,<6.0.0)", "newspaper3k (>=0.2.8,<0.3.0)", "nltk (==3.8.1)", "openapi-spec-validator (>=0.7.1,<0.8.0)", "opencv-python (>=4,<5)", "pillow (>=10.2.0,<11.0.0)", "prance (>=23.6.21.0,<24.0.0.0)", "praw (>=7.7.1,<8.0.0)", "pyTelegramBotAPI (>=4.18.0,<5.0.0)", "pydub (>=0.25.1,<0.26.0)", "pygithub (>=2.3.0,<3.0.0)", "pymilvus (>=2.4.0,<3.0.0)", "pyowm (>=3.3.0,<4.0.0)", "qdrant-client (>=1.9.0,<2.0.0)", "rank-bm25 (>=0.2.2,<0.3.0)", "redis (>=5.0.6,<6.0.0)", "reka-api (>=3.0.8,<4.0.0)", "requests_oauthlib (>=1.3.1,<2.0.0)", "sentence-transformers (>=3.0.1,<4.0.0)", "sentencepiece (>=0,<1)", "slack-sdk (>=3.27.2,<4.0.0)", "soundfile (>=0,<1)", "textblob (>=0.18.0.post0,<0.19.0)", "torch (>=2,<3)", "transformers (>=4,<5)", "unstructured[all-docs] (>=0.10,<0.11)", "wikipedia (>=1,<2)", "wolframalpha (>=5.0.0,<6.0.0)"]
@@ -637,12 +639,6 @@ retrievers = ["cohere (>=4.56,<5.0)", "rank-bm25 (>=0.2.2,<0.3.0)"]
 test = ["mock (>=5,<6)", "pytest (>=7,<8)", "pytest-asyncio (>=0.23.0,<0.24.0)"]
 tools = ["PyMuPDF (>=1.22.5,<2.0.0)", "agentops (>=0.3.6,<0.4.0)", "beautifulsoup4 (>=4,<5)", "discord.py (>=2.3.2,<3.0.0)", "docker (>=7.1.0,<8.0.0)", "docx2txt (>=0.8,<0.9)", "duckduckgo-search (>=6.1.0,<7.0.0)", "firecrawl-py (>=1.0.0,<2.0.0)", "googlemaps (>=4.10.0,<5.0.0)", "imageio[pyav] (>=2.34.2,<3.0.0)", "jupyter_client (>=8.6.2,<9.0.0)", "newspaper3k (>=0.2.8,<0.3.0)", "nltk (==3.8.1)", "openapi-spec-validator (>=0.7.1,<0.8.0)", "pillow (>=10.2.0,<11.0.0)", "prance (>=23.6.21.0,<24.0.0.0)", "praw (>=7.7.1,<8.0.0)", "pyTelegramBotAPI (>=4.18.0,<5.0.0)", "pydub (>=0.25.1,<0.26.0)", "pygithub (>=2.3.0,<3.0.0)", "pyowm (>=3.3.0,<4.0.0)", "requests_oauthlib (>=1.3.1,<2.0.0)", "slack-sdk (>=3.27.2,<4.0.0)", "textblob (>=0.18.0.post0,<0.19.0)", "unstructured[all-docs] (>=0.10,<0.11)", "wikipedia (>=1,<2)", "wolframalpha (>=5.0.0,<6.0.0)"]
 vector-databases = ["pymilvus (>=2.4.0,<3.0.0)", "qdrant-client (>=1.9.0,<2.0.0)"]
-
-[package.source]
-type = "git"
-url = "https://github.com/camel-ai/camel.git"
-reference = "feature/adapt-crab"
-resolved_reference = "4967b0ca02d832d0c65550a968526ad6f5528edb"
 
 [[package]]
 name = "certifi"
@@ -1134,45 +1130,41 @@ typing-inspect = ">=0.4.0,<1"
 
 [[package]]
 name = "datasets"
-version = "2.19.1"
+version = "2.2.1"
 description = "HuggingFace community-driven open-source library of datasets"
 optional = true
-python-versions = ">=3.8.0"
+python-versions = "*"
 files = [
-    {file = "datasets-2.19.1-py3-none-any.whl", hash = "sha256:f7a78d15896f45004ccac1c298f3c7121f92f91f6f2bfbd4e4f210f827e6e411"},
-    {file = "datasets-2.19.1.tar.gz", hash = "sha256:0df9ef6c5e9138cdb996a07385220109ff203c204245578b69cca905eb151d3a"},
+    {file = "datasets-2.2.1-py3-none-any.whl", hash = "sha256:1938f3e99599422de50b9b54fe802aca854ed130382dab0b3820c821f7ae6d5e"},
+    {file = "datasets-2.2.1.tar.gz", hash = "sha256:d362717c4394589b516c8f397ff20a6fe720454aed877ab61d06f3bc05df9544"},
 ]
 
 [package.dependencies]
 aiohttp = "*"
-dill = ">=0.3.0,<0.3.9"
-filelock = "*"
-fsspec = {version = ">=2023.1.0,<=2024.3.1", extras = ["http"]}
-huggingface-hub = ">=0.21.2"
+dill = "*"
+fsspec = {version = ">=2021.05.0", extras = ["http"]}
+huggingface-hub = ">=0.1.0,<1.0.0"
 multiprocess = "*"
 numpy = ">=1.17"
 packaging = "*"
 pandas = "*"
-pyarrow = ">=12.0.0"
-pyarrow-hotfix = "*"
-pyyaml = ">=5.1"
+pyarrow = ">=6.0.0"
 requests = ">=2.19.0"
+responses = "<0.19"
 tqdm = ">=4.62.1"
 xxhash = "*"
 
 [package.extras]
 apache-beam = ["apache-beam (>=2.26.0)"]
-audio = ["librosa", "soundfile (>=0.12.1)"]
-benchmarks = ["tensorflow (==2.12.0)", "torch (==2.0.1)", "transformers (==4.30.1)"]
-dev = ["Pillow (>=6.2.1)", "absl-py", "apache-beam (>=2.26.0)", "elasticsearch (<8.0.0)", "faiss-cpu (>=1.6.4)", "jax (>=0.3.14)", "jaxlib (>=0.3.14)", "joblib (<1.3.0)", "joblibspark", "librosa", "lz4", "polars[timezone] (>=0.20.0)", "protobuf (<4.0.0)", "py7zr", "pyspark (>=3.4)", "pytest", "pytest-datadir", "pytest-xdist", "rarfile (>=4.0)", "ruff (>=0.3.0)", "s3fs", "s3fs (>=2021.11.1)", "soundfile (>=0.12.1)", "sqlalchemy", "tensorflow (>=2.6.0)", "tiktoken", "torch", "torch (>=2.0.0)", "transformers", "typing-extensions (>=4.6.1)", "zstandard"]
-docs = ["s3fs", "tensorflow (>=2.6.0)", "torch", "transformers"]
-jax = ["jax (>=0.3.14)", "jaxlib (>=0.3.14)"]
-metrics-tests = ["Werkzeug (>=1.0.1)", "accelerate", "bert-score (>=0.3.6)", "jiwer", "langdetect", "mauve-text", "nltk", "requests-file (>=1.5.1)", "rouge-score", "sacrebleu", "sacremoses", "scikit-learn", "scipy", "sentencepiece", "seqeval", "six (>=1.15.0,<1.16.0)", "spacy (>=3.0.0)", "texttable (>=1.6.3)", "tldextract", "tldextract (>=3.1.0)", "toml (>=0.10.1)", "typer (<0.5.0)"]
-quality = ["ruff (>=0.3.0)"]
-s3 = ["s3fs"]
-tensorflow = ["tensorflow (>=2.6.0)"]
-tensorflow-gpu = ["tensorflow (>=2.6.0)"]
-tests = ["Pillow (>=6.2.1)", "absl-py", "apache-beam (>=2.26.0)", "elasticsearch (<8.0.0)", "faiss-cpu (>=1.6.4)", "jax (>=0.3.14)", "jaxlib (>=0.3.14)", "joblib (<1.3.0)", "joblibspark", "librosa", "lz4", "polars[timezone] (>=0.20.0)", "protobuf (<4.0.0)", "py7zr", "pyspark (>=3.4)", "pytest", "pytest-datadir", "pytest-xdist", "rarfile (>=4.0)", "s3fs (>=2021.11.1)", "soundfile (>=0.12.1)", "sqlalchemy", "tensorflow (>=2.6.0)", "tiktoken", "torch (>=2.0.0)", "transformers", "typing-extensions (>=4.6.1)", "zstandard"]
+audio = ["librosa"]
+benchmarks = ["numpy (==1.18.5)", "tensorflow (==2.3.0)", "torch (==1.6.0)", "transformers (==3.0.2)"]
+dev = ["Pillow (>=6.2.1)", "Werkzeug (>=1.0.1)", "absl-py", "aiobotocore", "apache-beam (>=2.26.0)", "bert-score (>=0.3.6)", "black (>=22.0,<23.0)", "boto3", "botocore", "bs4", "conllu", "elasticsearch (<8.0.0)", "faiss-cpu (>=1.6.4)", "flake8 (>=3.8.3)", "fsspec[s3]", "h5py", "importlib-resources", "isort (>=5.0.0)", "jiwer", "langdetect", "librosa", "lxml", "lz4", "mauve-text", "moto[s3,server] (==2.0.4)", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "pytest", "pytest-datadir", "pytest-xdist", "pyyaml (>=5.3.1)", "rarfile (>=4.0)", "requests-file (>=1.5.1)", "rouge-score", "s3fs (==2021.08.1)", "sacrebleu", "scikit-learn", "scipy", "sentencepiece", "seqeval", "six (>=1.15.0,<1.16.0)", "soundfile", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "texttable (>=1.6.3)", "tldextract", "tldextract (>=3.1.0)", "toml (>=0.10.1)", "torch", "torchaudio", "transformers", "zstandard"]
+docs = ["s3fs"]
+quality = ["black (>=22.0,<23.0)", "flake8 (>=3.8.3)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)"]
+s3 = ["boto3", "botocore", "fsspec", "s3fs"]
+tensorflow = ["tensorflow (>=2.2.0,!=2.6.0,!=2.6.1)"]
+tensorflow-gpu = ["tensorflow-gpu (>=2.2.0,!=2.6.0,!=2.6.1)"]
+tests = ["Pillow (>=6.2.1)", "Werkzeug (>=1.0.1)", "absl-py", "aiobotocore", "apache-beam (>=2.26.0)", "bert-score (>=0.3.6)", "boto3", "botocore", "bs4", "conllu", "elasticsearch (<8.0.0)", "faiss-cpu (>=1.6.4)", "fsspec[s3]", "h5py", "importlib-resources", "jiwer", "langdetect", "librosa", "lxml", "lz4", "mauve-text", "moto[s3,server] (==2.0.4)", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "pytest", "pytest-datadir", "pytest-xdist", "rarfile (>=4.0)", "requests-file (>=1.5.1)", "rouge-score", "s3fs (==2021.08.1)", "sacrebleu", "scikit-learn", "scipy", "sentencepiece", "seqeval", "six (>=1.15.0,<1.16.0)", "soundfile", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "texttable (>=1.6.3)", "tldextract", "tldextract (>=3.1.0)", "toml (>=0.10.1)", "torch", "torchaudio", "transformers", "zstandard"]
 torch = ["torch"]
 vision = ["Pillow (>=6.2.1)"]
 
@@ -1888,13 +1880,13 @@ files = [
 
 [[package]]
 name = "fsspec"
-version = "2024.3.1"
+version = "2024.9.0"
 description = "File-system specification"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "fsspec-2024.3.1-py3-none-any.whl", hash = "sha256:918d18d41bf73f0e2b261824baeb1b124bcf771767e3a26425cd7dec3332f512"},
-    {file = "fsspec-2024.3.1.tar.gz", hash = "sha256:f39780e282d7d117ffb42bb96992f8a90795e4d0fb0f661a70ca39fe9c43ded9"},
+    {file = "fsspec-2024.9.0-py3-none-any.whl", hash = "sha256:a0947d552d8a6efa72cc2c730b12c41d043509156966cca4fb157b0f2a0c574b"},
+    {file = "fsspec-2024.9.0.tar.gz", hash = "sha256:4b0afb90c2f21832df142f292649035d80b421f60a9e1c027802e5a0da2b04e8"},
 ]
 
 [package.dependencies]
@@ -1905,7 +1897,8 @@ abfs = ["adlfs"]
 adl = ["adlfs"]
 arrow = ["pyarrow (>=1)"]
 dask = ["dask", "distributed"]
-devel = ["pytest", "pytest-cov"]
+dev = ["pre-commit", "ruff"]
+doc = ["numpydoc", "sphinx", "sphinx-design", "sphinx-rtd-theme", "yarl"]
 dropbox = ["dropbox", "dropboxdrivefs", "requests"]
 full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "dask", "distributed", "dropbox", "dropboxdrivefs", "fusepy", "gcsfs", "libarchive-c", "ocifs", "panel", "paramiko", "pyarrow (>=1)", "pygit2", "requests", "s3fs", "smbprotocol", "tqdm"]
 fuse = ["fusepy"]
@@ -1922,6 +1915,9 @@ s3 = ["s3fs"]
 sftp = ["paramiko"]
 smb = ["smbprotocol"]
 ssh = ["paramiko"]
+test = ["aiohttp (!=4.0.0a0,!=4.0.0a1)", "numpy", "pytest", "pytest-asyncio (!=0.22.0)", "pytest-benchmark", "pytest-cov", "pytest-mock", "pytest-recording", "pytest-rerunfailures", "requests"]
+test-downstream = ["aiobotocore (>=2.5.4,<3.0.0)", "dask-expr", "dask[dataframe,test]", "moto[server] (>4,<5)", "pytest-timeout", "xarray"]
+test-full = ["adlfs", "aiohttp (!=4.0.0a0,!=4.0.0a1)", "cloudpickle", "dask", "distributed", "dropbox", "dropboxdrivefs", "fastparquet", "fusepy", "gcsfs", "jinja2", "kerchunk", "libarchive-c", "lz4", "notebook", "numpy", "ocifs", "pandas", "panel", "paramiko", "pyarrow", "pyarrow (>=1)", "pyftpdlib", "pygit2", "pytest", "pytest-asyncio (!=0.22.0)", "pytest-benchmark", "pytest-cov", "pytest-mock", "pytest-recording", "pytest-rerunfailures", "python-snappy", "requests", "smbprotocol", "tqdm", "urllib3", "zarr", "zstandard"]
 tqdm = ["tqdm"]
 
 [[package]]
@@ -1985,13 +1981,13 @@ grpcio-gcp = ["grpcio-gcp (>=0.2.2,<1.0.dev0)"]
 
 [[package]]
 name = "google-api-python-client"
-version = "2.144.0"
+version = "2.145.0"
 description = "Google API Client Library for Python"
 optional = true
 python-versions = ">=3.7"
 files = [
-    {file = "google_api_python_client-2.144.0-py2.py3-none-any.whl", hash = "sha256:f9c333ac4454a012adca90c297f9a22611a8953f3aae5481f90b3a56b9bdd413"},
-    {file = "google_api_python_client-2.144.0.tar.gz", hash = "sha256:fe00851b257157bca600e1692ed8a54762c4a5c7d9eb7f6d4822059424b0d0a9"},
+    {file = "google_api_python_client-2.145.0-py2.py3-none-any.whl", hash = "sha256:d74da1358f3f2d63daf3c6f26bd96d89652051183bc87cf10a56ceb2a70beb50"},
+    {file = "google_api_python_client-2.145.0.tar.gz", hash = "sha256:8b84dde11aaccadc127e4846f5cd932331d804ea324e353131595e3f25376e97"},
 ]
 
 [package.dependencies]
@@ -3274,13 +3270,13 @@ files = [
 
 [[package]]
 name = "litellm"
-version = "1.44.23"
+version = "1.44.24"
 description = "Library to easily interface with LLM API providers"
 optional = true
 python-versions = "!=2.7.*,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,!=3.7.*,>=3.8"
 files = [
-    {file = "litellm-1.44.23-py3-none-any.whl", hash = "sha256:5215c3a9252cffb0d4430e11fa7e2520363662fb79e2192b15aacd95cbd234e3"},
-    {file = "litellm-1.44.23.tar.gz", hash = "sha256:b028c5c87ed18a9b513eb36989a629b621b01ae79867b01675c5fefd153d4fbf"},
+    {file = "litellm-1.44.24-py3-none-any.whl", hash = "sha256:c0aa7f943c031660ad25b72c9ca14accbea6e6e6c79186eb172e1ee69a868eda"},
+    {file = "litellm-1.44.24.tar.gz", hash = "sha256:657c7c5365e90427356bea63cf5dcac81752f5ba6c7f205ec9c5c3ea15d57fb9"},
 ]
 
 [package.dependencies]
@@ -5293,36 +5289,25 @@ numpy = ">=1.16.6"
 test = ["cffi", "hypothesis", "pandas", "pytest", "pytz"]
 
 [[package]]
-name = "pyarrow-hotfix"
-version = "0.6"
-description = ""
-optional = true
-python-versions = ">=3.5"
-files = [
-    {file = "pyarrow_hotfix-0.6-py3-none-any.whl", hash = "sha256:dcc9ae2d220dff0083be6a9aa8e0cdee5182ad358d4931fce825c545e5c89178"},
-    {file = "pyarrow_hotfix-0.6.tar.gz", hash = "sha256:79d3e030f7ff890d408a100ac16d6f00b14d44a502d7897cd9fc3e3a534e9945"},
-]
-
-[[package]]
 name = "pyasn1"
-version = "0.6.0"
+version = "0.6.1"
 description = "Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "pyasn1-0.6.0-py2.py3-none-any.whl", hash = "sha256:cca4bb0f2df5504f02f6f8a775b6e416ff9b0b3b16f7ee80b5a3153d9b804473"},
-    {file = "pyasn1-0.6.0.tar.gz", hash = "sha256:3a35ab2c4b5ef98e17dfdec8ab074046fbda76e281c5a706ccd82328cfc8f64c"},
+    {file = "pyasn1-0.6.1-py3-none-any.whl", hash = "sha256:0d632f46f2ba09143da3a8afe9e33fb6f92fa2320ab7e886e2d0f7672af84629"},
+    {file = "pyasn1-0.6.1.tar.gz", hash = "sha256:6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034"},
 ]
 
 [[package]]
 name = "pyasn1-modules"
-version = "0.4.0"
+version = "0.4.1"
 description = "A collection of ASN.1-based protocols modules"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "pyasn1_modules-0.4.0-py3-none-any.whl", hash = "sha256:be04f15b66c206eed667e0bb5ab27e2b1855ea54a842e5037738099e8ca4ae0b"},
-    {file = "pyasn1_modules-0.4.0.tar.gz", hash = "sha256:831dbcea1b177b28c9baddf4c6d1013c24c3accd14a1873fffaa6a2e905f17b6"},
+    {file = "pyasn1_modules-0.4.1-py3-none-any.whl", hash = "sha256:49bfa96b45a292b711e986f222502c1c9a5e1f4e568fc30e2574a6c7d07838fd"},
+    {file = "pyasn1_modules-0.4.1.tar.gz", hash = "sha256:c28e2dbf9c06ad61c71a075c7e0f9fd0f1b0bb2d2ad4377f240d33ac2ab60a7c"},
 ]
 
 [package.dependencies]
@@ -5598,13 +5583,13 @@ semver = ["semver (>=3.0.2)"]
 
 [[package]]
 name = "pydantic-settings"
-version = "2.5.0"
+version = "2.5.2"
 description = "Settings management using Pydantic"
 optional = true
 python-versions = ">=3.8"
 files = [
-    {file = "pydantic_settings-2.5.0-py3-none-any.whl", hash = "sha256:eae04a3dd9adf521a4c959dcefb984e0f3b1d841999daf02f961dcc4d31d2f7f"},
-    {file = "pydantic_settings-2.5.0.tar.gz", hash = "sha256:204828c02481a2e7135466b26a7d65d9e15a17d52d1d8f59cacdf9ad625e1140"},
+    {file = "pydantic_settings-2.5.2-py3-none-any.whl", hash = "sha256:2c912e55fd5794a59bf8c832b9de832dcfdf4778d79ff79b708744eed499a907"},
+    {file = "pydantic_settings-2.5.2.tar.gz", hash = "sha256:f90b139682bee4d2065273d5185d71d37ea46cfe57e1b5ae184fc6a0b2484ca0"},
 ]
 
 [package.dependencies]
@@ -6017,13 +6002,13 @@ files = [
 
 [[package]]
 name = "pyreadline3"
-version = "3.4.1"
+version = "3.4.3"
 description = "A python implementation of GNU readline."
 optional = true
 python-versions = "*"
 files = [
-    {file = "pyreadline3-3.4.1-py3-none-any.whl", hash = "sha256:b0efb6516fd4fb07b45949053826a62fa4cb353db5be2bbb4a7aa1fdd1e345fb"},
-    {file = "pyreadline3-3.4.1.tar.gz", hash = "sha256:6f3d1f7b8a31ba32b73917cefc1f28cc660562f39aea8646d30bd6eff21f7bae"},
+    {file = "pyreadline3-3.4.3-py3-none-any.whl", hash = "sha256:f832c5898f4f9a0f81d48a8c499b39d0179de1a465ea3def1a7e7231840b4ed6"},
+    {file = "pyreadline3-3.4.3.tar.gz", hash = "sha256:ebab0baca37f50e2faa1dd99a6da1c75de60e0d68a3b229c134bbd12786250e2"},
 ]
 
 [[package]]
@@ -6388,13 +6373,13 @@ files = [
 
 [[package]]
 name = "pytz"
-version = "2024.1"
+version = "2024.2"
 description = "World timezone definitions, modern and historical"
 optional = false
 python-versions = "*"
 files = [
-    {file = "pytz-2024.1-py2.py3-none-any.whl", hash = "sha256:328171f4e3623139da4983451950b28e95ac706e13f3f2630a879749e7a8b319"},
-    {file = "pytz-2024.1.tar.gz", hash = "sha256:2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"},
+    {file = "pytz-2024.2-py2.py3-none-any.whl", hash = "sha256:31c7c1817eb7fae7ca4b8c7ee50c72f93aa2dd863de768e1ef4245d426aa0725"},
+    {file = "pytz-2024.2.tar.gz", hash = "sha256:2aa355083c50a0f93fa581709deac0c9ad65cca8a9e9beac660adcbd493c798a"},
 ]
 
 [[package]]
@@ -6960,6 +6945,24 @@ requests = ">=2.0.0"
 rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
 
 [[package]]
+name = "responses"
+version = "0.18.0"
+description = "A utility library for mocking out the `requests` Python library."
+optional = true
+python-versions = ">=3.7"
+files = [
+    {file = "responses-0.18.0-py3-none-any.whl", hash = "sha256:15c63ad16de13ee8e7182d99c9334f64fd81f1ee79f90748d527c28f7ca9dd51"},
+    {file = "responses-0.18.0.tar.gz", hash = "sha256:380cad4c1c1dc942e5e8a8eaae0b4d4edf708f4f010db8b7bcfafad1fcd254ff"},
+]
+
+[package.dependencies]
+requests = ">=2.0,<3.0"
+urllib3 = ">=1.25.10"
+
+[package.extras]
+tests = ["coverage (>=6.0.0)", "flake8", "mypy", "pytest (>=4.6)", "pytest-cov", "pytest-localserver", "types-mock", "types-requests"]
+
+[[package]]
 name = "rfc3339-validator"
 version = "0.1.4"
 description = "A pure python RFC3339 validator"
@@ -7399,32 +7402,32 @@ test = ["asv", "numpydoc (>=1.7)", "pooch (>=1.6.0)", "pytest (>=7.0)", "pytest-
 
 [[package]]
 name = "scikit-learn"
-version = "1.5.1"
+version = "1.5.2"
 description = "A set of python modules for machine learning and data mining"
 optional = true
 python-versions = ">=3.9"
 files = [
-    {file = "scikit_learn-1.5.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:781586c414f8cc58e71da4f3d7af311e0505a683e112f2f62919e3019abd3745"},
-    {file = "scikit_learn-1.5.1-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:f5b213bc29cc30a89a3130393b0e39c847a15d769d6e59539cd86b75d276b1a7"},
-    {file = "scikit_learn-1.5.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:1ff4ba34c2abff5ec59c803ed1d97d61b036f659a17f55be102679e88f926fac"},
-    {file = "scikit_learn-1.5.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:161808750c267b77b4a9603cf9c93579c7a74ba8486b1336034c2f1579546d21"},
-    {file = "scikit_learn-1.5.1-cp310-cp310-win_amd64.whl", hash = "sha256:10e49170691514a94bb2e03787aa921b82dbc507a4ea1f20fd95557862c98dc1"},
-    {file = "scikit_learn-1.5.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:154297ee43c0b83af12464adeab378dee2d0a700ccd03979e2b821e7dd7cc1c2"},
-    {file = "scikit_learn-1.5.1-cp311-cp311-macosx_12_0_arm64.whl", hash = "sha256:b5e865e9bd59396220de49cb4a57b17016256637c61b4c5cc81aaf16bc123bbe"},
-    {file = "scikit_learn-1.5.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:909144d50f367a513cee6090873ae582dba019cb3fca063b38054fa42704c3a4"},
-    {file = "scikit_learn-1.5.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:689b6f74b2c880276e365fe84fe4f1befd6a774f016339c65655eaff12e10cbf"},
-    {file = "scikit_learn-1.5.1-cp311-cp311-win_amd64.whl", hash = "sha256:9a07f90846313a7639af6a019d849ff72baadfa4c74c778821ae0fad07b7275b"},
-    {file = "scikit_learn-1.5.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:5944ce1faada31c55fb2ba20a5346b88e36811aab504ccafb9f0339e9f780395"},
-    {file = "scikit_learn-1.5.1-cp312-cp312-macosx_12_0_arm64.whl", hash = "sha256:0828673c5b520e879f2af6a9e99eee0eefea69a2188be1ca68a6121b809055c1"},
-    {file = "scikit_learn-1.5.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:508907e5f81390e16d754e8815f7497e52139162fd69c4fdbd2dfa5d6cc88915"},
-    {file = "scikit_learn-1.5.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:97625f217c5c0c5d0505fa2af28ae424bd37949bb2f16ace3ff5f2f81fb4498b"},
-    {file = "scikit_learn-1.5.1-cp312-cp312-win_amd64.whl", hash = "sha256:da3f404e9e284d2b0a157e1b56b6566a34eb2798205cba35a211df3296ab7a74"},
-    {file = "scikit_learn-1.5.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:88e0672c7ac21eb149d409c74cc29f1d611d5158175846e7a9c2427bd12b3956"},
-    {file = "scikit_learn-1.5.1-cp39-cp39-macosx_12_0_arm64.whl", hash = "sha256:7b073a27797a283187a4ef4ee149959defc350b46cbf63a84d8514fe16b69855"},
-    {file = "scikit_learn-1.5.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b59e3e62d2be870e5c74af4e793293753565c7383ae82943b83383fdcf5cc5c1"},
-    {file = "scikit_learn-1.5.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1bd8d3a19d4bd6dc5a7d4f358c8c3a60934dc058f363c34c0ac1e9e12a31421d"},
-    {file = "scikit_learn-1.5.1-cp39-cp39-win_amd64.whl", hash = "sha256:5f57428de0c900a98389c4a433d4a3cf89de979b3aa24d1c1d251802aa15e44d"},
-    {file = "scikit_learn-1.5.1.tar.gz", hash = "sha256:0ea5d40c0e3951df445721927448755d3fe1d80833b0b7308ebff5d2a45e6414"},
+    {file = "scikit_learn-1.5.2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:299406827fb9a4f862626d0fe6c122f5f87f8910b86fe5daa4c32dcd742139b6"},
+    {file = "scikit_learn-1.5.2-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:2d4cad1119c77930b235579ad0dc25e65c917e756fe80cab96aa3b9428bd3fb0"},
+    {file = "scikit_learn-1.5.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8c412ccc2ad9bf3755915e3908e677b367ebc8d010acbb3f182814524f2e5540"},
+    {file = "scikit_learn-1.5.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3a686885a4b3818d9e62904d91b57fa757fc2bed3e465c8b177be652f4dd37c8"},
+    {file = "scikit_learn-1.5.2-cp310-cp310-win_amd64.whl", hash = "sha256:c15b1ca23d7c5f33cc2cb0a0d6aaacf893792271cddff0edbd6a40e8319bc113"},
+    {file = "scikit_learn-1.5.2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:03b6158efa3faaf1feea3faa884c840ebd61b6484167c711548fce208ea09445"},
+    {file = "scikit_learn-1.5.2-cp311-cp311-macosx_12_0_arm64.whl", hash = "sha256:1ff45e26928d3b4eb767a8f14a9a6efbf1cbff7c05d1fb0f95f211a89fd4f5de"},
+    {file = "scikit_learn-1.5.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f763897fe92d0e903aa4847b0aec0e68cadfff77e8a0687cabd946c89d17e675"},
+    {file = "scikit_learn-1.5.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f8b0ccd4a902836493e026c03256e8b206656f91fbcc4fde28c57a5b752561f1"},
+    {file = "scikit_learn-1.5.2-cp311-cp311-win_amd64.whl", hash = "sha256:6c16d84a0d45e4894832b3c4d0bf73050939e21b99b01b6fd59cbb0cf39163b6"},
+    {file = "scikit_learn-1.5.2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:f932a02c3f4956dfb981391ab24bda1dbd90fe3d628e4b42caef3e041c67707a"},
+    {file = "scikit_learn-1.5.2-cp312-cp312-macosx_12_0_arm64.whl", hash = "sha256:3b923d119d65b7bd555c73be5423bf06c0105678ce7e1f558cb4b40b0a5502b1"},
+    {file = "scikit_learn-1.5.2-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f60021ec1574e56632be2a36b946f8143bf4e5e6af4a06d85281adc22938e0dd"},
+    {file = "scikit_learn-1.5.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:394397841449853c2290a32050382edaec3da89e35b3e03d6cc966aebc6a8ae6"},
+    {file = "scikit_learn-1.5.2-cp312-cp312-win_amd64.whl", hash = "sha256:57cc1786cfd6bd118220a92ede80270132aa353647684efa385a74244a41e3b1"},
+    {file = "scikit_learn-1.5.2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:757c7d514ddb00ae249832fe87100d9c73c6ea91423802872d9e74970a0e40b9"},
+    {file = "scikit_learn-1.5.2-cp39-cp39-macosx_12_0_arm64.whl", hash = "sha256:52788f48b5d8bca5c0736c175fa6bdaab2ef00a8f536cda698db61bd89c551c1"},
+    {file = "scikit_learn-1.5.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:643964678f4b5fbdc95cbf8aec638acc7aa70f5f79ee2cdad1eec3df4ba6ead8"},
+    {file = "scikit_learn-1.5.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ca64b3089a6d9b9363cd3546f8978229dcbb737aceb2c12144ee3f70f95684b7"},
+    {file = "scikit_learn-1.5.2-cp39-cp39-win_amd64.whl", hash = "sha256:3bed4909ba187aca80580fe2ef370d9180dcf18e621a27c4cf2ef10d279a7efe"},
+    {file = "scikit_learn-1.5.2.tar.gz", hash = "sha256:b4237ed7b3fdd0a4882792e68ef2545d5baa50aca3bb45aa7df468138ad8f94d"},
 ]
 
 [package.dependencies]
@@ -7436,11 +7439,11 @@ threadpoolctl = ">=3.1.0"
 [package.extras]
 benchmark = ["matplotlib (>=3.3.4)", "memory_profiler (>=0.57.0)", "pandas (>=1.1.5)"]
 build = ["cython (>=3.0.10)", "meson-python (>=0.16.0)", "numpy (>=1.19.5)", "scipy (>=1.6.0)"]
-docs = ["Pillow (>=7.1.2)", "matplotlib (>=3.3.4)", "memory_profiler (>=0.57.0)", "numpydoc (>=1.2.0)", "pandas (>=1.1.5)", "plotly (>=5.14.0)", "polars (>=0.20.23)", "pooch (>=1.6.0)", "pydata-sphinx-theme (>=0.15.3)", "scikit-image (>=0.17.2)", "seaborn (>=0.9.0)", "sphinx (>=7.3.7)", "sphinx-copybutton (>=0.5.2)", "sphinx-design (>=0.5.0)", "sphinx-gallery (>=0.16.0)", "sphinx-prompt (>=1.4.0)", "sphinx-remove-toctrees (>=1.0.0.post1)", "sphinxcontrib-sass (>=0.3.4)", "sphinxext-opengraph (>=0.9.1)"]
+docs = ["Pillow (>=7.1.2)", "matplotlib (>=3.3.4)", "memory_profiler (>=0.57.0)", "numpydoc (>=1.2.0)", "pandas (>=1.1.5)", "plotly (>=5.14.0)", "polars (>=0.20.30)", "pooch (>=1.6.0)", "pydata-sphinx-theme (>=0.15.3)", "scikit-image (>=0.17.2)", "seaborn (>=0.9.0)", "sphinx (>=7.3.7)", "sphinx-copybutton (>=0.5.2)", "sphinx-design (>=0.5.0)", "sphinx-design (>=0.6.0)", "sphinx-gallery (>=0.16.0)", "sphinx-prompt (>=1.4.0)", "sphinx-remove-toctrees (>=1.0.0.post1)", "sphinxcontrib-sass (>=0.3.4)", "sphinxext-opengraph (>=0.9.1)"]
 examples = ["matplotlib (>=3.3.4)", "pandas (>=1.1.5)", "plotly (>=5.14.0)", "pooch (>=1.6.0)", "scikit-image (>=0.17.2)", "seaborn (>=0.9.0)"]
 install = ["joblib (>=1.2.0)", "numpy (>=1.19.5)", "scipy (>=1.6.0)", "threadpoolctl (>=3.1.0)"]
 maintenance = ["conda-lock (==2.5.6)"]
-tests = ["black (>=24.3.0)", "matplotlib (>=3.3.4)", "mypy (>=1.9)", "numpydoc (>=1.2.0)", "pandas (>=1.1.5)", "polars (>=0.20.23)", "pooch (>=1.6.0)", "pyamg (>=4.0.0)", "pyarrow (>=12.0.0)", "pytest (>=7.1.2)", "pytest-cov (>=2.9.0)", "ruff (>=0.2.1)", "scikit-image (>=0.17.2)"]
+tests = ["black (>=24.3.0)", "matplotlib (>=3.3.4)", "mypy (>=1.9)", "numpydoc (>=1.2.0)", "pandas (>=1.1.5)", "polars (>=0.20.30)", "pooch (>=1.6.0)", "pyamg (>=4.0.0)", "pyarrow (>=12.0.0)", "pytest (>=7.1.2)", "pytest-cov (>=2.9.0)", "ruff (>=0.2.1)", "scikit-image (>=0.17.2)"]
 
 [[package]]
 name = "scipy"
@@ -7494,27 +7497,27 @@ test = ["Cython", "array-api-strict (>=2.0)", "asv", "gmpy2", "hypothesis (>=6.3
 
 [[package]]
 name = "sentence-transformers"
-version = "3.0.1"
+version = "3.1.0"
 description = "Multilingual text embeddings"
 optional = true
-python-versions = ">=3.8.0"
+python-versions = ">=3.8"
 files = [
-    {file = "sentence_transformers-3.0.1-py3-none-any.whl", hash = "sha256:01050cc4053c49b9f5b78f6980b5a72db3fd3a0abb9169b1792ac83875505ee6"},
-    {file = "sentence_transformers-3.0.1.tar.gz", hash = "sha256:8a3d2c537cc4d1014ccc20ac92be3d6135420a3bc60ae29a3a8a9b4bb35fbff6"},
+    {file = "sentence_transformers-3.1.0-py3-none-any.whl", hash = "sha256:94ff19c478ada7340ee8bd5ed46db1e322f8c98a16b04a337634956ac9d4530d"},
+    {file = "sentence_transformers-3.1.0.tar.gz", hash = "sha256:5e5b7bd84c634c11cb127b840ff96215a456de2dc9c5ecf97ecfa67002b1116f"},
 ]
 
 [package.dependencies]
-huggingface-hub = ">=0.15.1"
-numpy = "*"
+huggingface-hub = ">=0.19.3"
+numpy = "<2.0.0"
 Pillow = "*"
 scikit-learn = "*"
 scipy = "*"
 torch = ">=1.11.0"
 tqdm = "*"
-transformers = ">=4.34.0,<5.0.0"
+transformers = ">=4.38.0,<5.0.0"
 
 [package.extras]
-dev = ["accelerate (>=0.20.3)", "datasets", "pre-commit", "pytest", "ruff (>=0.3.0)"]
+dev = ["accelerate (>=0.20.3)", "datasets", "pre-commit", "pytest", "pytest-cov"]
 train = ["accelerate (>=0.20.3)", "datasets"]
 
 [[package]]
@@ -9615,4 +9618,4 @@ server = ["fastapi", "pydantic-settings", "uvicorn"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10, <3.12"
-content-hash = "5f75cc10a764a2b1d2ca17ccc6db39cdb86aa777586a6d889ae3bcbc12deb9e8"
+content-hash = "6693495f506e45fdb318535483fe28ca742bdb2ad7c144baa3658e9f6544e4c7"
