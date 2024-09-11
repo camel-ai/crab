@@ -64,7 +64,10 @@ def test_text_chat(claude_model_text):
 def test_action_chat(claude_model_text):
     claude_model_text.reset("You are a helpful assistant.", [add])
     message = (
-        "I had 10 dollars. Miss Polaris gave me 15 dollars. How many money do I have now.",
+        (
+            "I had 10 dollars. Miss Polaris gave me 15 dollars."
+            " How many money do I have now."
+        ),
         0,
     )
     output = claude_model_text.chat(message)
