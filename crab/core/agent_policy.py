@@ -21,8 +21,7 @@ class AgentPolicy(ABC):
     def chat(
         self,
         observation: dict[str, list[tuple[str, MessageType]]],
-    ) -> list[ActionOutput]:
-        ...
+    ) -> list[ActionOutput]: ...
 
     @abstractmethod
     def reset(
@@ -30,16 +29,13 @@ class AgentPolicy(ABC):
         task_description: str,
         action_spaces: dict[str, list[Action]],
         env_descriptions: dict[str, str],
-    ) -> None:
-        ...
+    ) -> None: ...
 
     @abstractmethod
-    def get_token_usage(self):
-        ...
+    def get_token_usage(self): ...
 
     @abstractmethod
-    def get_backend_model_name(self) -> str:
-        ...
+    def get_backend_model_name(self) -> str: ...
 
     @staticmethod
     def combine_multi_env_action_space(
