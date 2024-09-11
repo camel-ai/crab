@@ -22,38 +22,38 @@ from crab.core.backend_model import (
 
 
 class MultiAgentByEnvPolicy(AgentPolicy):
-    _main_agent_prompt = """You are a main agent, and your goal is to plan and give
-    instructions to sub-agents in each environment to complete the final task. Now you have
-    to do a task as described below: {task_description}.
-    The description of each given environment: {env_description}.
-    For each step, you are required to provide high-level instructions detailing the next
-    actions to be taken. Additionally, you must specify which sub-agent in the designated
-    environment should execute these instructions. If a sub-agent is not needed for a
-    particular step, you may instruct it to skip that step."""
+    _main_agent_prompt = """You are a main agent, and your goal is to plan and
+    give instructions to sub-agents in each environment to complete the final task. Now
+    you have to do a task as described below: {task_description}.  The description of
+    each given environment: {env_description}.  For each step, you are required to
+    provide high-level instructions detailing the next actions to be taken.
+    Additionally, you must specify which sub-agent in the designated environment should
+    execute these instructions. If a sub-agent is not needed for a particular step, you
+    may instruct it to skip that step."""
 
-    _env_agent_prompt = """You are a sub-agent responsible for the {environment} environment. 
-    The description of the {environment} environment is: {env_description}.
-    Your goal is to assist the main agent in completing the final task by performing actions
-    in the {environment} environment according to the instructions from the main agent. The
-    final task is described below: {task_description}. A unit operation you can perform is called
-    action in a given environment. You can only execute action in the {environment}
-    environment. For the {environment} environment, you are given a limited action space as
-    function calls:
+    _env_agent_prompt = """You are a sub-agent responsible for the {environment}
+    environment.  The description of the {environment} environment is:
+    {env_description}.  Your goal is to assist the main agent in completing the final
+    task by performing actions in the {environment} environment according to the
+    instructions from the main agent. The final task is described below:
+    {task_description}. A unit operation you can perform is called action in a given
+    environment. You can only execute action in the {environment} environment. For the
+    {environment} environment, you are given a limited action space as function calls:
     {action_descriptions}
     The interactive UI elements on the screenshot are labeled with numeric tags starting
-    from 1. For each step, You will receive an instruction telling you what you need to do
-    next. After analyzing the instruction you received and the current {environment} system,
-    if you think you don't need to do anything in the current {environment} system, you should
-    choose SKIP action. Otherwise, you must state what actions to take, what the parameters
-    are, and you MUST provide in which environment to perform these actions. Your answer
-    must be function calls. Please do not output any other information. You must make sure
-    all function calls get their required parameters."""
+    from 1. For each step, You will receive an instruction telling you what you need to
+    do next. After analyzing the instruction you received and the current {environment}
+    system, if you think you don't need to do anything in the current {environment}
+    system, you should choose SKIP action. Otherwise, you must state what actions to
+    take, what the parameters are, and you MUST provide in which environment to perform
+    these actions. Your answer must be function calls. Please do not output any other
+    information. You must make sure all function calls get their required parameters."""
 
     _root_agent_prompt = """You are a sub-agent responsible for the crab benchmark root
     environment. Your goal is to assist the main agent in completing the whole task:
-    "{task_description}". You can only complete the task or submit the result when the main
-    agent tells you the whole task has been completed. Otherwise, you can only call SKIP.
-    """
+    "{task_description}". You can only complete the task or submit the result when the
+    main agent tells you the whole task has been completed. Otherwise, you can only call
+    SKIP.  """
 
     def __init__(
         self,
@@ -119,7 +119,10 @@ class MultiAgentByEnvPolicy(AgentPolicy):
             main_prompt.extend(observation[env])
         main_prompt.append(
             (
-                f"Your target: {self.task_description}\nTell me the next step in each environment.",
+                (
+                    f"Your target: {self.task_description}\n"
+                    "Tell me the next step in each environment."
+                ),
                 MessageType.TEXT,
             )
         )
