@@ -197,7 +197,7 @@ def _get_grounding_dino_model(
     """Get the grounding dino model.
 
     Args:
-        type: "tiny" or "base". Defaults to "tiny".
+        type: The version of the Gounding Dino Model.
 
     Returns:
         A tuple (processor, model).
@@ -224,13 +224,13 @@ def get_groundingdino_boxes(
     Args:
         images: The image or list of images.
         text_prompt: The text prompt to use for all the images.
-        box_threshold (float, optional): The box threshold. Defaults to 0.05.
-        text_threshold (float, optional): The text threshold. Defaults to 0.5.
+        box_threshold: The box threshold.
+        text_threshold: The text threshold.
 
     Returns:
         The first level list is for each image, and the second level list contains
-            tuples (detected boxes, its sementical representation) as the result of the
-            image.
+        tuples (detected boxes, its sementical representation) as the result of the
+        image.
     """
     processor, model = _get_grounding_dino_model()
     if isinstance(images, Image.Image):
@@ -339,7 +339,7 @@ def get_elements_prompt(
         input: The base64 encoded image and the list of detected boxes and labels.
 
     Returns:
-        (image, prompt): A tuple contains the base64 encoded image and the prompt.
+        A tuple (image, prompt) contains the base64 encoded image and the prompt.
     """
     image, boxes = input
     labels = ""
