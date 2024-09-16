@@ -542,13 +542,13 @@ files = [
 
 [[package]]
 name = "camel-ai"
-version = "0.1.9"
+version = "0.2.1"
 description = "Communicative Agents for AI Society Study"
 optional = true
 python-versions = "<3.12,>=3.10.0"
 files = [
-    {file = "camel_ai-0.1.9-py3-none-any.whl", hash = "sha256:46bcfaddb86cdd34092946ce9d860a6cd2b83545953a64d63463da122f36b575"},
-    {file = "camel_ai-0.1.9.tar.gz", hash = "sha256:35973ea3c867f8d91e229ccaee5263980eda8124864d3147eda769b4f6e0de9e"},
+    {file = "camel_ai-0.2.1-py3-none-any.whl", hash = "sha256:6068940a2772b50fb68dac75b7d59e76f01b9af8ef2019267afe8f458b8c19fb"},
+    {file = "camel_ai-0.2.1.tar.gz", hash = "sha256:088d0339cc70ff4a972d02e37728dad53a99c3b7d78b9bee92e9d1eadac0ab03"},
 ]
 
 [package.dependencies]
@@ -587,6 +587,7 @@ numpy = ">=1,<2"
 openai = ">=1.45.0,<2.0.0"
 openapi-spec-validator = {version = ">=0.7.1,<0.8.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
 opencv-python = {version = ">=4,<5", optional = true, markers = "extra == \"huggingface-agent\" or extra == \"all\""}
+pandoc = "*"
 pathlib = ">=1.0.1,<2.0.0"
 pillow = {version = ">=10.2.0,<11.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
 prance = {version = ">=23.6.21.0,<24.0.0.0", optional = true, markers = "extra == \"tools\" or extra == \"all\""}
@@ -3696,6 +3697,7 @@ python-versions = ">=3.7"
 files = [
     {file = "milvus_lite-2.4.10-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:fc4246d3ed7d1910847afce0c9ba18212e93a6e9b8406048436940578dfad5cb"},
     {file = "milvus_lite-2.4.10-py3-none-macosx_11_0_arm64.whl", hash = "sha256:74a8e07c5e3b057df17fbb46913388e84df1dc403a200f4e423799a58184c800"},
+    {file = "milvus_lite-2.4.10-py3-none-manylinux2014_aarch64.whl", hash = "sha256:240c7386b747bad696ecb5bd1f58d491e86b9d4b92dccee3315ed7256256eddc"},
     {file = "milvus_lite-2.4.10-py3-none-manylinux2014_x86_64.whl", hash = "sha256:211d2e334a043f9282bdd9755f76b9b2d93b23bffa7af240919ffce6a8dfe325"},
 ]
 
@@ -4758,6 +4760,20 @@ test = ["hypothesis (>=6.46.1)", "pytest (>=7.3.2)", "pytest-xdist (>=2.2.0)"]
 xml = ["lxml (>=4.9.2)"]
 
 [[package]]
+name = "pandoc"
+version = "2.4"
+description = "Pandoc Documents for Python"
+optional = true
+python-versions = "*"
+files = [
+    {file = "pandoc-2.4.tar.gz", hash = "sha256:ecd1f8cbb7f4180c6b5db4a17a7c1a74df519995f5f186ef81ce72a9cbd0dd9a"},
+]
+
+[package.dependencies]
+plumbum = "*"
+ply = "*"
+
+[[package]]
 name = "parso"
 version = "0.8.4"
 description = "A Python Parser"
@@ -5000,6 +5016,36 @@ files = [
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
+name = "plumbum"
+version = "1.8.3"
+description = "Plumbum: shell combinators library"
+optional = true
+python-versions = ">=3.6"
+files = [
+    {file = "plumbum-1.8.3-py3-none-any.whl", hash = "sha256:8595d36dae2472587d6f59789c8d7b26250f45f6f6ed75ccb378de59ee7b9cf9"},
+    {file = "plumbum-1.8.3.tar.gz", hash = "sha256:6092c85ab970b7a7a9d5d85c75200bc93be82b33c9bdf640ffa87d2d7c8709f0"},
+]
+
+[package.dependencies]
+pywin32 = {version = "*", markers = "platform_system == \"Windows\" and platform_python_implementation != \"PyPy\""}
+
+[package.extras]
+dev = ["paramiko", "psutil", "pytest (>=6.0)", "pytest-cov", "pytest-mock", "pytest-timeout"]
+docs = ["sphinx (>=4.0.0)", "sphinx-rtd-theme (>=1.0.0)"]
+ssh = ["paramiko"]
+
+[[package]]
+name = "ply"
+version = "3.11"
+description = "Python Lex & Yacc"
+optional = true
+python-versions = "*"
+files = [
+    {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
+    {file = "ply-3.11.tar.gz", hash = "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"},
+]
 
 [[package]]
 name = "portalocker"
@@ -8512,11 +8558,6 @@ files = [
     {file = "triton-3.0.0-1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:34e509deb77f1c067d8640725ef00c5cbfcb2052a1a3cb6a6d343841f92624eb"},
     {file = "triton-3.0.0-1-cp38-cp38-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:bcbf3b1c48af6a28011a5c40a5b3b9b5330530c3827716b5fbf6d7adcc1e53e9"},
     {file = "triton-3.0.0-1-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:6e5727202f7078c56f91ff13ad0c1abab14a0e7f2c87e91b12b6f64f3e8ae609"},
-    {file = "triton-3.0.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:39b052da883351fdf6be3d93cedae6db3b8e3988d3b09ed221bccecfa9612230"},
-    {file = "triton-3.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cd34f19a8582af96e6291d4afce25dac08cb2a5d218c599163761e8e0827208e"},
-    {file = "triton-3.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0d5e10de8c011adeb7c878c6ce0dd6073b14367749e34467f1cff2bde1b78253"},
-    {file = "triton-3.0.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e8903767951bf86ec960b4fe4e21bc970055afc65e9d57e916d79ae3c93665e3"},
-    {file = "triton-3.0.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:41004fb1ae9a53fcb3e970745feb87f0e3c94c6ce1ba86e95fa3b8537894bef7"},
 ]
 
 [package.dependencies]
@@ -9606,4 +9647,4 @@ server = ["fastapi", "pydantic-settings", "uvicorn"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10, <3.12"
-content-hash = "41b9e89ba07c3c2095bb90ec45baacf21e6cf1dff5c53389c79c1a88d6944cb8"
+content-hash = "76d88dcf5f85cdf9985875c456875ab2c7e425adeddb79f887c829b3f20652ab"
