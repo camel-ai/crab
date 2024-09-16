@@ -148,7 +148,7 @@ def swipe(element: int, direction: SwipeDirection, dist: SwipeDist, env) -> None
         offset = unit_dist, 0
     else:
         return "ERROR"
-    adb_command = f"shell input swipe {x} {y} {x+offset[0]} {y+offset[1]} 200"
+    adb_command = f"shell input swipe {x} {y} {x + offset[0]} {y + offset[1]} 200"
     execute_adb(adb_command, env)
     sleep(_DURATION)
 
@@ -213,7 +213,9 @@ def stop_all_apps(env) -> None:
     execute_adb("shell input keyevent KEYCODE_HOME", env)
     execute_adb("shell input keyevent KEYCODE_APP_SWITCH", env)
     sleep(0.5)
-    command = f"shell input swipe 100 {env.height/2} {env.width-100} {env.height/2} 200"
+    command = (
+        f"shell input swipe 100 {env.height / 2} {env.width - 100} {env.height / 2} 200"
+    )
     execute_adb(command, env)
     sleep(0.5)
     execute_adb("shell input tap 300 1400", env)

@@ -103,7 +103,7 @@ camel = ["camel-ai"]
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.8.0"
 pytest = "^8.0.0"
-ruff = "^0.1.14"
+ruff = "^0.6.5"
 ipykernel = "^6.29.3"
 pandas = "^2.2.2"
 sphinx = "^7"
@@ -115,8 +115,7 @@ certifi = "^2024.2.2"
 [tool.ruff]
 lint.select = ["E501", "E4", "E7", "E9", "F", "I"]
 lint.ignore = ["E731"]
-lint.ignore-init-module-imports = true
-exclude = ["docs/", "crab-benchmark-v0/thirdparty/"]
+exclude = ["docs/"]
 
 [[tool.mypy.overrides]]
 module = ["dill", "easyocr"]

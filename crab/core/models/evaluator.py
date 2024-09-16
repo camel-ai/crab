@@ -22,7 +22,7 @@ class Evaluator(Action):
     @field_validator("returns", mode="after")
     @classmethod
     def must_return_bool(cls, v: type[BaseModel]) -> type[BaseModel]:
-        if v.model_fields["returns"].annotation != bool:
+        if v.model_fields["returns"].annotation is not bool:
             raise ValueError("Evaluator must return bool.")
         return v
 
