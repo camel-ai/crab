@@ -108,9 +108,7 @@ class OpenAIModel(BackendModel):
                 request = request + history_message
         return request
 
-    def construct_new_message(
-        self, message: list[tuple[str, MessageType]]
-    ) -> list[dict]:
+    def construct_new_message(self, message: list[Message]) -> list[dict]:
         new_message_content = []
         for content, msg_type in message:
             match msg_type:
