@@ -14,11 +14,11 @@
 import json
 from typing import Any
 
-from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
+from crab import Action, ActionOutput, BackendModel, BackendOutput, Message, MessageType
 
 try:
     import openai
-    from openai.types.chat import ChatCompletion
+    from openai.types.chat import ChatCompletionMessage
 
     openai_model_enable = True
 except ImportError:
@@ -52,32 +52,15 @@ class OpenAIModel(BackendModel):
         self.token_usage = 0
         self.chat_history = []
 
-    def chat(self, message: list[tuple[str, MessageType]]) -> BackendOutput:
-        # Initialize chat history
-        request = [self.openai_system_message]
-        if self.history_messages_len > 0 and len(self.chat_history) > 0:
-            for history_message in self.chat_history[-self.history_messages_len :]:
-                request = request + history_message
-
-        if not isinstance(message, list):
+    def chat(self, message: list[Message] | Message) -> BackendOutput:
+        if isinstance(message, tuple):
             message = [message]
-
-        new_message = {
-            "role": "user",
-            "content": [self._convert_message(part) for part in message],
-        }
+        request = self.fetch_from_memory()
+        new_message = self.construct_new_message(message)
         request.append(new_message)
-
-        response = self.call_api(request)
-        response_message = response.choices[0].message
+        response_message = self.call_api(request)
         self.record_message(new_message, response_message)
-
-        return BackendOutput(
-            message=response_message.content,
-            action_list=self._convert_tool_calls_to_action_list(
-                response_message.tool_calls
-            ),
-        )
+        return self.generate_backend_output(response_message)
 
     def get_token_usage(self):
         return self.token_usage
@@ -98,7 +81,7 @@ class OpenAIModel(BackendModel):
                     }
                 )  # extend conversation with function response
 
-    def call_api(self, request_messages: list) -> ChatCompletion:
+    def call_api(self, request_messages: list) -> ChatCompletionMessage:
         if self.action_schema is not None:
             response = self.client.chat.completions.create(
                 messages=request_messages,  # type: ignore
@@ -115,24 +98,58 @@ class OpenAIModel(BackendModel):
             )
 
         self.token_usage += response.usage.total_tokens
-        return response
+        return response.choices[0].message
 
-    @staticmethod
-    def _convert_message(message: tuple[str, MessageType]):
-        match message[1]:
-            case MessageType.TEXT:
-                return {
-                    "type": "text",
-                    "text": message[0],
-                }
-            case MessageType.IMAGE_JPG_BASE64:
-                return {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:image/jpeg;base64,{message[0]}",
-                        "detail": "high",
-                    },
-                }
+    def fetch_from_memory(self) -> list[dict]:
+        request = [self.openai_system_message]
+        if self.history_messages_len > 0:
+            fetch_hisotry_len = min(self.history_messages_len, len(self.chat_history))
+            for history_message in self.chat_history[-fetch_hisotry_len:]:
+                request = request + history_message
+        return request
+
+    def construct_new_message(
+        self, message: list[tuple[str, MessageType]]
+    ) -> list[dict]:
+        new_message_content = []
+        for content, msg_type in message:
+            match msg_type:
+                case MessageType.TEXT:
+                    new_message_content.append(
+                        {
+                            "type": "text",
+                            "text": content,
+                        }
+                    )
+                case MessageType.IMAGE_JPG_BASE64:
+                    new_message_content.append(
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/jpeg;base64,{message[0]}",
+                                "detail": "high",
+                            },
+                        }
+                    )
+
+        return {"role": "user", "content": new_message_content}
+
+    def generate_backend_output(
+        self, response_message: ChatCompletionMessage
+    ) -> BackendOutput:
+        if response_message.tool_calls is None:
+            return BackendOutput(message=response_message.content, action_list=None)
+        action_list = [
+            ActionOutput(
+                name=call.function.name,
+                arguments=json.loads(call.function.arguments),
+            )
+            for call in response_message.tool_calls
+        ]
+        return BackendOutput(
+            message=response_message.content,
+            action_list=action_list,
+        )
 
     @staticmethod
     def _convert_action_to_schema(action_space):
@@ -143,15 +160,3 @@ class OpenAIModel(BackendModel):
             new_action = action.to_openai_json_schema()
             actions.append({"type": "function", "function": new_action})
         return actions
-
-    @staticmethod
-    def _convert_tool_calls_to_action_list(tool_calls) -> list[ActionOutput]:
-        if tool_calls is None:
-            return tool_calls
-        return [
-            ActionOutput(
-                name=call.function.name,
-                arguments=json.loads(call.function.arguments),
-            )
-            for call in tool_calls
-        ]
