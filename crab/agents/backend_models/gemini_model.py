@@ -15,7 +15,7 @@ import os
 from typing import Any
 
 from PIL.Image import Image
-from tenacity import retry, stop_after_attempt, wait_fixed
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_fixed
 
 from crab import Action, ActionOutput, BackendModel, BackendOutput, Message, MessageType
 from crab.utils.common import base64_to_image, json_expand_refs
@@ -28,6 +28,7 @@ try:
         Part,
         Tool,
     )
+    from google.api_core.exceptions import ResourceExhausted
     from google.generativeai.types import content_types
 
     gemini_model_enable = True
@@ -120,7 +121,11 @@ class GeminiModel(BackendModel):
             {"role": response_message.role, "parts": response_message.parts}
         )
 
-    @retry(wait=wait_fixed(10), stop=stop_after_attempt(7))
+    @retry(
+        wait=wait_fixed(10),
+        stop=stop_after_attempt(7),
+        retry=retry_if_exception_type(ResourceExhausted),
+    )
     def call_api(self, request_messages: list) -> Content:
         if self.action_schema is not None:
             tool_config = content_types.to_tool_config(
