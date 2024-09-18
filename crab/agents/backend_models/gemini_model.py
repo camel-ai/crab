@@ -168,7 +168,7 @@ def _convert_action_to_schema(action_space: list[Action] | None) -> list[Tool] |
     return actions
 
 
-def _clear_schema(schema_dict: dict):
+def _clear_schema(schema_dict: dict) -> None:
     schema_dict.pop("title", None)
     p_type = schema_dict.pop("type", None)
     for prop in schema_dict.get("properties", {}).values():
