@@ -12,10 +12,10 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import os
-from time import sleep
 from typing import Any
 
 from PIL.Image import Image
+from tenacity import retry, stop_after_attempt, wait_fixed
 
 from crab import Action, ActionOutput, BackendModel, BackendOutput, Message, MessageType
 from crab.utils.common import base64_to_image, json_expand_refs
@@ -28,7 +28,6 @@ try:
         Part,
         Tool,
     )
-    from google.api_core.exceptions import ResourceExhausted
     from google.generativeai.types import content_types
 
     gemini_model_enable = True
@@ -121,40 +120,31 @@ class GeminiModel(BackendModel):
             {"role": response_message.role, "parts": response_message.parts}
         )
 
+    @retry(wait=wait_fixed(10), stop=stop_after_attempt(7))
     def call_api(self, request_messages: list) -> Content:
-        while True:
-            try:
-                if self.action_schema is not None:
-                    tool_config = content_types.to_tool_config(
-                        {
-                            "function_calling_config": {
-                                "mode": "ANY" if self.tool_call_required else "AUTO"
-                            }
-                        }
-                    )
-                    response = self.client.GenerativeModel(
-                        self.model, system_instruction=self.system_message
-                    ).generate_content(
-                        contents=request_messages,
-                        tools=self.action_schema,
-                        tool_config=tool_config,
-                        # **self.parameters,
-                    )
-                else:
-                    response = self.client.GenerativeModel(
-                        self.model, system_instruction=self.system_message
-                    ).generate_content(
-                        contents=request_messages,
-                        # **self.parameters,
-                    )
-            except ResourceExhausted:
-                print(
-                    "ResourceExhausted: 429 Resource has been exhausted.",
-                    " Please waiting...",
-                )
-                sleep(10)
-            else:
-                break
+        if self.action_schema is not None:
+            tool_config = content_types.to_tool_config(
+                {
+                    "function_calling_config": {
+                        "mode": "ANY" if self.tool_call_required else "AUTO"
+                    }
+                }
+            )
+            response = self.client.GenerativeModel(
+                self.model, system_instruction=self.system_message
+            ).generate_content(
+                contents=request_messages,
+                tools=self.action_schema,
+                tool_config=tool_config,
+                # **self.parameters, # TODO(Tianqi): Fix this line in the future
+            )
+        else:
+            response = self.client.GenerativeModel(
+                self.model, system_instruction=self.system_message
+            ).generate_content(
+                contents=request_messages,
+                # **self.parameters, # TODO(Tianqi): Fix this line in the future
+            )
 
         self.token_usage += response.candidates[0].token_count
         return response.candidates[0].content
