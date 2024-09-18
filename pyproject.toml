@@ -118,5 +118,5 @@ lint.ignore = ["E731"]
 exclude = ["docs/"]
 
 [[tool.mypy.overrides]]
-module = ["dill", "easyocr"]
+module = ["dill", "easyocr", "google.generativeai.*"]
 ignore_missing_imports = true
