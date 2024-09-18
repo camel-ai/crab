@@ -11,12 +11,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-from copy import copy
-
 from crab import Action, ActionOutput
+from crab.agents.backend_models import BackendModelConfig, create_backend_model
+from crab.agents.utils import (
+    combine_multi_env_action_space,
+    decode_combined_action,
+    generate_action_prompt,
+)
 from crab.core.agent_policy import AgentPolicy
 from crab.core.backend_model import (
-    BackendModel,
     MessageType,
 )
 from crab.utils.measure import timed
@@ -46,9 +49,9 @@ class SingleAgentPolicy(AgentPolicy):
 
     def __init__(
         self,
-        model_backend: BackendModel,
+        model_backend: BackendModelConfig,
     ):
-        self.model_backend = copy(model_backend)
+        self.model_backend = create_backend_model(model_backend)
         self.reset(task_description="", action_spaces=None, env_descriptions={})
 
     def reset(
@@ -58,10 +61,10 @@ class SingleAgentPolicy(AgentPolicy):
         env_descriptions: dict[str, str],
     ) -> list:
         self.task_description = task_description
-        self.action_space = self.combine_multi_env_action_space(action_spaces)
+        self.action_space = combine_multi_env_action_space(action_spaces)
         system_message = self._system_prompt.format(
             task_description=task_description,
-            action_descriptions=self.generate_action_prompt(self.action_space),
+            action_descriptions=generate_action_prompt(self.action_space),
             env_description=str(env_descriptions),
         )
         self.model_backend.reset(system_message, self.action_space)
@@ -87,4 +90,4 @@ class SingleAgentPolicy(AgentPolicy):
             )
         )
         output = self.model_backend.chat(prompt)
-        return self.decode_combined_action(output.action_list)
+        return decode_combined_action(output.action_list)

@@ -18,10 +18,8 @@ import pytest
 from openai.types.chat.chat_completion_message_tool_call import Function
 
 from crab import action
-from crab.agents.backend_models.openai_model import (
-    MessageType,
-    OpenAIModel,
-)
+from crab.agents.backend_models import BackendModelConfig, create_backend_model
+from crab.agents.backend_models.openai_model import MessageType
 
 # Mock data for the OpenAI API response
 openai_mock_response = MagicMock(
@@ -91,10 +89,14 @@ openai_mock_response3 = MagicMock(
 @pytest.fixture
 def openai_model_text():
     os.environ["OPENAI_API_KEY"] = "MOCK"
-    return OpenAIModel(
-        model="gpt-4o",
-        parameters={"max_tokens": 3000},
-        history_messages_len=1,
+    return create_backend_model(
+        BackendModelConfig(
+            model_class="openai",
+            model_name="gpt-4o",
+            parameters={"max_tokens": 3000},
+            history_messages_len=1,
+            tool_call_required=False,
+        )
     )
 
 

@@ -32,6 +32,7 @@ class ClaudeModel(BackendModel):
         model: str,
         parameters: dict[str, Any] = dict(),
         history_messages_len: int = 0,
+        tool_call_required: bool = False,
     ) -> None:
         if anthropic_model_enable is False:
             raise ImportError("Please install anthropic to use ClaudeModel")
@@ -41,6 +42,7 @@ class ClaudeModel(BackendModel):
             history_messages_len,
         )
         self.client = anthropic.Anthropic()
+        self.tool_call_required = tool_call_required
 
     def reset(self, system_message: str, action_space: list[Action] | None) -> None:
         self.system_message = system_message
@@ -93,6 +95,7 @@ class ClaudeModel(BackendModel):
                             "content": "success",
                         }
                         for call in tool_calls
+                        if call is ToolUseBlock
                     ],
                 }
             )
@@ -101,12 +104,14 @@ class ClaudeModel(BackendModel):
         while True:
             try:
                 if self.action_schema is not None:
-                    response = self.client.beta.tools.messages.create(
+                    response = self.client.messages.create(
                         system=self.system_message,  # <-- system prompt
                         messages=request_messages,  # type: ignore
                         model=self.model,
                         tools=self.action_schema,
-                        tool_choice={"type": "any"},
+                        tool_choice={
+                            "type": "any" if self.tool_call_required else "auto"
+                        },
                         **self.parameters,
                     )
                 else:

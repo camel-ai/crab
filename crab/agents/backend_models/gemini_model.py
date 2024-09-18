@@ -35,6 +35,7 @@ class GeminiModel(BackendModel):
         model: str,
         parameters: dict[str, Any] = dict(),
         history_messages_len: int = 0,
+        tool_call_required: bool = False,
     ) -> None:
         if gemini_model_enable is False:
             raise ImportError("Please install google.generativeai to use GeminiModel")
@@ -45,6 +46,7 @@ class GeminiModel(BackendModel):
         )
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
         self.client = genai
+        self.tool_call_required = tool_call_required
 
     def reset(self, system_message: str, action_space: list[Action] | None) -> None:
         self.system_message = system_message
@@ -98,7 +100,11 @@ class GeminiModel(BackendModel):
             try:
                 if self.action_schema is not None:
                     tool_config = content_types.to_tool_config(
-                        {"function_calling_config": {"mode": "ANY"}}
+                        {
+                            "function_calling_config": {
+                                "mode": "ANY" if self.tool_call_required else "AUTO"
+                            }
+                        }
                     )
                     response = self.client.GenerativeModel(
                         self.model, system_instruction=self.system_message
@@ -141,9 +147,7 @@ class GeminiModel(BackendModel):
             return None
         actions = []
         for action in action_space:
-            actions.append(
-                Tool(function_declarations=[cls._action_to_funcdec_policy(action)])
-            )
+            actions.append(Tool(function_declarations=[cls._action_to_funcdec(action)]))
         return actions
 
     @staticmethod
@@ -171,14 +175,14 @@ class GeminiModel(BackendModel):
             cls._clear_schema(schema_dict["items"])
 
     @classmethod
-    def _action_to_funcdec(cls, action: Action, env: str):
+    def _action_to_funcdec(cls, action: Action) -> FunctionDeclaration:
         "Converts crab Action to google FunctionDeclaration"
         p_schema = action.parameters.model_json_schema()
         if "$defs" in p_schema:
             p_schema = json_expand_refs(p_schema)
         cls._clear_schema(p_schema)
         return FunctionDeclaration(
-            name=action.name + "__in__" + env,
-            description="In {} environment, {}".format(env, action.description),
+            name=action.name,
+            description=action.description,
             parameters=p_schema,
         )

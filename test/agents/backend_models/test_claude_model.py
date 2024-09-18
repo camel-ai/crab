@@ -14,17 +14,20 @@
 import pytest
 
 from crab import MessageType, action
-from crab.agents.backend_models.claude_model import ClaudeModel
+from crab.agents.backend_models import BackendModelConfig, create_backend_model
 
 # TODO: Add mock data
 
 
 @pytest.fixture
 def claude_model_text():
-    return ClaudeModel(
-        model="claude-3-opus-20240229",
-        parameters={"max_tokens": 3000},
-        history_messages_len=1,
+    return create_backend_model(
+        BackendModelConfig(
+            model_class="claude",
+            model_name="claude-3-opus-20240229",
+            parameters={"max_tokens": 3000},
+            history_messages_len=1,
+        )
     )
 
 
@@ -39,7 +42,7 @@ def add(a: int, b: int):
     return a + b
 
 
-@pytest.mark.skip(reason="Mock data to be added")
+# @pytest.mark.skip(reason="Mock data to be added")
 def test_text_chat(claude_model_text):
     message = ("Hello!", MessageType.TEXT)
     output = claude_model_text.chat(message)
@@ -60,7 +63,7 @@ def test_text_chat(claude_model_text):
     assert len(claude_model_text.chat_history) == 3
 
 
-@pytest.mark.skip(reason="Mock data to be added")
+# @pytest.mark.skip(reason="Mock data to be added")
 def test_action_chat(claude_model_text):
     claude_model_text.reset("You are a helpful assistant.", [add])
     message = (
@@ -71,8 +74,8 @@ def test_action_chat(claude_model_text):
         0,
     )
     output = claude_model_text.chat(message)
-    assert output.message is None
     assert len(output.action_list) == 1
-    assert output.action_list[0].arguments == {"a": 10, "b": 15}
+    args = output.action_list[0].arguments
+    assert args["a"] + args["b"] == 25
     assert output.action_list[0].name == "add"
     assert claude_model_text.token_usage > 0

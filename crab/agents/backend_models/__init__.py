@@ -12,7 +12,47 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 # ruff: noqa: F401
+from typing import Any, Literal
+
+from pydantic import BaseModel
+
+from crab.core.backend_model import BackendModel
+
 from .camel_model import CamelModel
 from .claude_model import ClaudeModel
 from .gemini_model import GeminiModel
 from .openai_model import OpenAIModel
+
+
+class BackendModelConfig(BaseModel):
+    model_class: Literal["openai", "claude", "gemini", "camel"]
+    model_name: str
+    history_messages_len: int = 0
+    parameters: dict[str, Any] = {}
+    tool_call_required: bool = False
+
+
+def create_backend_model(model_config: BackendModelConfig) -> BackendModel:
+    match model_config.model_class:
+        case "claude":
+            return ClaudeModel(
+                model=model_config.model_name,
+                parameters=model_config.parameters,
+                history_messages_len=model_config.history_messages_len,
+            )
+        case "gemini":
+            return GeminiModel(
+                model=model_config.model_name,
+                parameters=model_config.parameters,
+                history_messages_len=model_config.history_messages_len,
+            )
+        case "openai":
+            return OpenAIModel(
+                model=model_config.model_name,
+                parameters=model_config.parameters,
+                history_messages_len=model_config.history_messages_len,
+            )
+        case "camel":
+            raise NotImplementedError("Cannot support camel model currently.")
+        case _:
+            raise ValueError(f"Unsupported model name: {model_config.model_name}")
