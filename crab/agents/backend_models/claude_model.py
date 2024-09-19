@@ -167,7 +167,7 @@ class ClaudeModel(BackendModel):
         return response
 
     def generate_backend_output(
-        cls, response_message: anthropic.types.Message
+        self, response_message: anthropic.types.Message
     ) -> BackendOutput:
         message = ""
         action_list = []
