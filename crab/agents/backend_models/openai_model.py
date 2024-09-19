@@ -46,6 +46,10 @@ class OpenAIModel(BackendModel):
         self.client = openai.OpenAI(base_url=base_url)
         self.tool_call_required: bool = tool_call_required
         self.system_message: str = "You are a helpful assistant."
+        self.openai_system_message = {
+            "role": "system",
+            "content": self.system_message,
+        }
         self.action_space: list[Action] | None = None
         self.action_schema: list[dict] | None = None
         self.token_usage: int = 0
