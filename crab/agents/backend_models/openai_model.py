@@ -29,27 +29,26 @@ class OpenAIModel(BackendModel):
     def __init__(
         self,
         model: str,
-        parameters: dict[str, Any] = dict(),
+        parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
         tool_call_required: bool = False,
+        base_url: str | None = None,
     ) -> None:
         if not openai_model_enable:
             raise ImportError("Please install openai to use OpenAIModel")
-        super().__init__(
-            model,
-            parameters,
-            history_messages_len,
-        )
-        self.client = openai.OpenAI()
-        self.tool_call_required = tool_call_required
-        self.system_message = "You are a helpful assistant."
-        self.openai_system_message = {
-            "role": "system",
-            "content": self.system_message,
-        }
-        self.action_space = None
-        self.action_schema = None
-        self.token_usage = 0
+
+        self.model = model
+        self.parameters = parameters if parameters is not None else {}
+        self.history_messages_len = history_messages_len
+
+        assert self.history_messages_len >= 0
+
+        self.client = openai.OpenAI(base_url=base_url)
+        self.tool_call_required: bool = tool_call_required
+        self.system_message: str = "You are a helpful assistant."
+        self.action_space: list[Action] | None = None
+        self.action_schema: list[dict] | None = None
+        self.token_usage: int = 0
         self.chat_history: list[list[ChatCompletionMessage | dict]] = []
 
     def reset(self, system_message: str, action_space: list[Action] | None) -> None:
@@ -59,9 +58,9 @@ class OpenAIModel(BackendModel):
             "content": system_message,
         }
         self.action_space = action_space
-        self.action_schema = self._convert_action_to_schema(self.action_space)
+        self.action_schema = _convert_action_to_schema(self.action_space)
         self.token_usage = 0
-        self.chat_history: list[list[ChatCompletionMessage | dict]] = []
+        self.chat_history = []
 
     def chat(self, message: list[Message] | Message) -> BackendOutput:
         if isinstance(message, tuple):
@@ -93,10 +92,12 @@ class OpenAIModel(BackendModel):
                     }
                 )  # extend conversation with function response
 
-    def call_api(self, request_messages: list) -> ChatCompletionMessage:
+    def call_api(
+        self, request_messages: list[ChatCompletionMessage | dict]
+    ) -> ChatCompletionMessage:
         if self.action_schema is not None:
             response = self.client.chat.completions.create(
-                messages=request_messages,
+                messages=request_messages,  # type: ignore
                 model=self.model,
                 tools=self.action_schema,
                 tool_choice="required" if self.tool_call_required else "auto",
@@ -115,8 +116,8 @@ class OpenAIModel(BackendModel):
     def fetch_from_memory(self) -> list[ChatCompletionMessage | dict]:
         request: list[ChatCompletionMessage | dict] = [self.openai_system_message]
         if self.history_messages_len > 0:
-            fetch_hisotry_len = min(self.history_messages_len, len(self.chat_history))
-            for history_message in self.chat_history[-fetch_hisotry_len:]:
+            fetch_history_len = min(self.history_messages_len, len(self.chat_history))
+            for history_message in self.chat_history[-fetch_history_len:]:
                 request = request + history_message
         return request
 
@@ -161,12 +162,14 @@ class OpenAIModel(BackendModel):
             action_list=action_list,
         )
 
-    @staticmethod
-    def _convert_action_to_schema(action_space):
-        if action_space is None:
-            return None
-        actions = []
-        for action in action_space:
-            new_action = action.to_openai_json_schema()
-            actions.append({"type": "function", "function": new_action})
-        return actions
+
+def _convert_action_to_schema(
+    action_space: list[Action] | None,
+) -> list[dict] | None:
+    if action_space is None:
+        return None
+    actions = []
+    for action in action_space:
+        new_action = action.to_openai_json_schema()
+        actions.append({"type": "function", "function": new_action})
+    return actions

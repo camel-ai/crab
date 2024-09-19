@@ -40,27 +40,32 @@ class GeminiModel(BackendModel):
     def __init__(
         self,
         model: str,
-        parameters: dict[str, Any] = dict(),
+        parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
         tool_call_required: bool = False,
     ) -> None:
         if gemini_model_enable is False:
             raise ImportError("Please install google.generativeai to use GeminiModel")
-        super().__init__(
-            model,
-            parameters,
-            history_messages_len,
-        )
+
+        self.model = model
+        self.parameters = parameters if parameters is not None else {}
+        self.history_messages_len = history_messages_len
+        assert self.history_messages_len >= 0
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
         self.client = genai
         self.tool_call_required = tool_call_required
+        self.system_message: str = "You are a helpful assistant."
+        self.action_space: list[Action] | None = None
+        self.action_schema: list[Tool] | None = None
+        self.token_usage: int = 0
+        self.chat_history: list[list[dict]] = []
 
     def reset(self, system_message: str, action_space: list[Action] | None) -> None:
         self.system_message = system_message
         self.action_space = action_space
         self.action_schema = _convert_action_to_schema(self.action_space)
         self.token_usage = 0
-        self.chat_history: list[list[dict]] = []
+        self.chat_history = []
 
     def chat(self, message: list[Message] | Message) -> BackendOutput:
         if isinstance(message, tuple):
@@ -105,8 +110,8 @@ class GeminiModel(BackendModel):
     def fetch_from_memory(self) -> list[dict]:
         request: list[dict] = []
         if self.history_messages_len > 0:
-            fetch_hisotry_len = min(self.history_messages_len, len(self.chat_history))
-            for history_message in self.chat_history[-fetch_hisotry_len:]:
+            fetch_history_len = min(self.history_messages_len, len(self.chat_history))
+            for history_message in self.chat_history[-fetch_history_len:]:
                 request = request + history_message
         return request
 
@@ -161,7 +166,7 @@ def _convert_action_to_schema(action_space: list[Action] | None) -> list[Tool] |
     actions = [
         Tool(
             function_declarations=[
-                _action_to_funcdec(action) for action in action_space
+                _action_to_func_dec(action) for action in action_space
             ]
         )
     ]
@@ -179,7 +184,7 @@ def _clear_schema(schema_dict: dict) -> None:
         _clear_schema(schema_dict["items"])
 
 
-def _action_to_funcdec(action: Action) -> FunctionDeclaration:
+def _action_to_func_dec(action: Action) -> FunctionDeclaration:
     "Converts crab Action to google FunctionDeclaration"
     p_schema = action.parameters.model_json_schema()
     if "$defs" in p_schema:
