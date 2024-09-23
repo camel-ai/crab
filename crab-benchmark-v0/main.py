@@ -29,7 +29,7 @@ from crab.actions.visual_prompt_actions import (
     get_elements_prompt,
     groundingdino_easyocr,
 )
-from crab.agents.backend_models import ClaudeModel, GeminiModel, OpenAIModel
+from crab.agents.backend_models import BackendModelConfig
 from crab.agents.policies import (
     MultiAgentByEnvPolicy,
     MultiAgentByFuncPolicy,
@@ -158,7 +158,7 @@ if __name__ == "__main__":
         default="single",
     )
     parser.add_argument(
-        "--remote-url",
+        "--ubuntu-url",
         type=str,
         help="remote url of Ubunutu environment",
         default="http://127.0.0.1:8000",
@@ -170,6 +170,18 @@ if __name__ == "__main__":
         default="cross",
     )
     parser.add_argument("--task-id", type=str, help="task id")
+    parser.add_argument(
+        "--model-base-url",
+        type=str,
+        help="URL of the model API",
+        default="http://127.0.0.1:8000/v1",
+    )
+    parser.add_argument(
+        "--model-api-key",
+        type=str,
+        help="API key of the model API",
+        default="EMPTY",
+    )
     parser.add_argument(
         "--loglevel",
         type=str,
@@ -183,16 +195,48 @@ if __name__ == "__main__":
         raise ValueError("Invalid log level: %s" % loglevel)
     logging.basicConfig(level=numeric_level)
 
-    benchmark = get_benchmark(args.env, args.remote_url)
+    benchmark = get_benchmark(args.env, args.ubuntu_url)
 
     if args.model == "gpt4o":
-        model = OpenAIModel(model="gpt-4o")
-    elif args.policy == "gpt4turbo":
-        model = OpenAIModel(model="gpt-4-turbo")
-    elif args.policy == "gemini":
-        model = GeminiModel(model="gemini-1.5-pro-latest")
-    elif args.policy == "claude":
-        model = ClaudeModel(model="claude-3-opus-20240229")
+        model = BackendModelConfig(
+            model_class="openai",
+            model_name="gpt-4o",
+            history_messages_len=2,
+        )
+    elif args.model == "gpt4turbo":
+        model = BackendModelConfig(
+            model_class="openai",
+            model_name="gpt-4-turbo",
+            history_messages_len=2,
+        )
+    elif args.model == "gemini":
+        model = BackendModelConfig(
+            model_class="gemini",
+            model_name="gemini-1.5-pro-latest",
+            history_messages_len=2,
+        )
+    elif args.model == "claude":
+        model = BackendModelConfig(
+            model_class="claude",
+            model_name="claude-3-opus-20240229",
+            history_messages_len=2,
+        )
+    elif args.model == "llava-1.6":
+        model = BackendModelConfig(
+            model_class="vllm",
+            model_name="llava-hf/llava-v1.6-34b-hf",
+            history_messages_len=2,
+            base_url=args.model_base_url,
+            api_key=args.model_api_key,
+        )
+    elif args.model == "pixtral":
+        model = BackendModelConfig(
+            model_class="vllm",
+            model_name="mistralai/Pixtral-12B-2409",
+            history_messages_len=1,
+            base_url=args.model_base_url,
+            api_key=args.model_api_key,
+        )
     else:
         print("Unsupported model: ", args.model)
         exit()

@@ -33,6 +33,7 @@ class OpenAIModel(BackendModel):
         history_messages_len: int = 0,
         tool_call_required: bool = False,
         base_url: str | None = None,
+        api_key: str | None = None,
     ) -> None:
         if not openai_model_enable:
             raise ImportError("Please install openai to use OpenAIModel")
@@ -43,7 +44,7 @@ class OpenAIModel(BackendModel):
 
         assert self.history_messages_len >= 0
 
-        self.client = openai.OpenAI(base_url=base_url)
+        self.client = openai.OpenAI(api_key=api_key, base_url=base_url)
         self.tool_call_required: bool = tool_call_required
         self.system_message: str = "You are a helpful assistant."
         self.openai_system_message = {
@@ -54,6 +55,7 @@ class OpenAIModel(BackendModel):
         self.action_schema: list[dict] | None = None
         self.token_usage: int = 0
         self.chat_history: list[list[ChatCompletionMessage | dict]] = []
+        self.support_tool_call = True
 
     def reset(self, system_message: str, action_space: list[Action] | None) -> None:
         self.system_message = system_message
@@ -92,7 +94,7 @@ class OpenAIModel(BackendModel):
                         "tool_call_id": tool_call.id,
                         "role": "tool",
                         "name": tool_call.function.name,
-                        "content": "",
+                        "content": "success",
                     }
                 )  # extend conversation with function response
 

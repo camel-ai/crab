@@ -59,6 +59,7 @@ class GeminiModel(BackendModel):
         self.action_schema: list[Tool] | None = None
         self.token_usage: int = 0
         self.chat_history: list[list[dict]] = []
+        self.support_tool_call = True
 
     def reset(self, system_message: str, action_space: list[Action] | None) -> None:
         self.system_message = system_message

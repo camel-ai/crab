@@ -26,8 +26,8 @@ from crab.utils.measure import timed
 
 
 class SingleAgentPolicy(AgentPolicy):
-    _system_prompt = """You are a helpful assistant. Now you have to do a task as
-    described below: 
+    _system_prompt_with_function_call = """\
+    You are a helpful assistant. Now you have to do a task as described below: 
 
     **"{task_description}."**
 
@@ -47,11 +47,45 @@ class SingleAgentPolicy(AgentPolicy):
     you. Always do them by yourself using function calls.
     """
 
+    _system_prompt_no_function_call = """\
+    You are a helpful assistant. Now you have to do a task as described below: 
+
+    **"{task_description}."**
+
+    You should never forget this task and always perform actions to achieve this task. 
+    And this is the description of each given environment: {env_description}. You will
+    receive screenshots of the environments. The interactive UI elements on the
+    screenshot are labeled with numeric tags starting from 1. 
+
+    A unit operation you can perform is called Action. You have a limited action space
+    as function calls: {action_descriptions}. You should generate JSON code blocks to
+    execute the actions. Each code block MUST contains only one json object, i.e. one
+    action. You can output multiple code blocks to execute multiple actions in a single
+    step. You must follow the JSON format below to output the action. 
+    ```json
+    {{"name": "action_name", "arguments": {{"arg1": "value1", "arg2": "value2"}}}}
+    ```
+    or if not arguments needed:
+    ```json
+    {{"name": "action_name", "arguments": {{}}}}
+    ```
+
+    In each step, You MUST explain what do you see from the current observation and the
+    plan of the next action, then use a provided action in each step to achieve the
+    task. You should state what action to take and what the parameters should be. Your
+    answer MUST contain at least one code block. You SHOULD NEVER ask me to do anything
+    for you. Always do them by yourself.
+    """
+
     def __init__(
         self,
         model_backend: BackendModelConfig,
     ):
         self.model_backend = create_backend_model(model_backend)
+        if self.model_backend.support_tool_call:
+            self.system_prompt = self._system_prompt_with_function_call
+        else:
+            self.system_prompt = self._system_prompt_no_function_call
         self.reset(task_description="", action_spaces=None, env_descriptions={})
 
     def reset(
@@ -62,9 +96,12 @@ class SingleAgentPolicy(AgentPolicy):
     ) -> list:
         self.task_description = task_description
         self.action_space = combine_multi_env_action_space(action_spaces)
-        system_message = self._system_prompt.format(
+        system_message = self.system_prompt.format(
             task_description=task_description,
-            action_descriptions=generate_action_prompt(self.action_space),
+            action_descriptions=generate_action_prompt(
+                self.action_space,
+                expand=not self.model_backend.support_tool_call,
+            ),
             env_description=str(env_descriptions),
         )
         self.model_backend.reset(system_message, self.action_space)
