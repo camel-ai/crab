@@ -1,0 +1,25 @@
+{
+    "description": "Create a new directory \"/home/crab/assets_for_edit\" and copy all files with the \"png\" extension from \"/home/crab/assets\" to this new directory. Then, combining Image 1 \"/home/crab/assets_for_edit/background.png\" and Image 2 \"/home/crab/assets_for_edit/campus.png\" with LibreOffice Writer, place Image 1 above Image 2, and save the file in the ODT format to \"/home/crab/assets_for_edit/back_n_campus.odt\".",
+    "tasks": [
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "png",
+                "source_dir": "/home/crab/assets",
+                "target_dir": "/home/crab/assets_for_edit"
+            },
+            "output": "/home/crab/assets_for_edit"
+        },
+        {
+            "task": "0111384f-38ca-41a2-9504-cb1c55002b3c",
+            "attribute": {
+                "image_path_1": "/home/crab/assets_for_edit/background.png",
+                "image_path_2": "/home/crab/assets_for_edit/campus.png",
+                "output_path": "/home/crab/assets_for_edit/back_n_campus.odt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "57b7e8a7-8c17-4cc4-9bb5-4385afde3ad8"
+}

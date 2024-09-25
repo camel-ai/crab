@@ -1,0 +1,22 @@
+{
+    "description": "In Android, use the \"Google Map\" app to find the city name corresponding to the postcode \"110151\" in Colombia, then use the \"Clock\" app to set the time of that city in the clock and check the time gap between that city and your current city.",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "110151",
+                "country": "Columbia"
+            },
+            "output": "Bogota"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ah",
+            "attribute": {
+                "place_name": "Bogota"
+            },
+            "output": "-5h"
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "cf4c496b-fbbd-4701-91ea-4590fe6a66e1"
+}

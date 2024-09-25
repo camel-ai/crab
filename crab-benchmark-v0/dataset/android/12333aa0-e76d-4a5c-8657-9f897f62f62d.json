@@ -1,0 +1,22 @@
+{
+    "description": "In Android, use the \"Google Map\" app to find the city name for the postal code \"2770885\" in Japan, and then, using the \"Keep Notes\" app, create a new note without a title to record the city name you found.",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "2770885",
+                "country": "Japan"
+            },
+            "output": "Chiba"
+        },
+        {
+            "task": "eb92a1e6-4c86-4d56-baac-95fc8397732e",
+            "attribute": {
+                "content": "Chiba"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "12333aa0-e76d-4a5c-8657-9f897f62f62d"
+}

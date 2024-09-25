@@ -1,0 +1,22 @@
+{
+    "description": "Open \"/home/crab/assets/a.txt\" using vim in a terminal, write \"The most recent COMPUTEX was held from 30 May to 2 June 2023 with sessions about such topics as high-performance computing, artificial intelligence, next-gen connectivity and sustainability.\", then save and exit vim, and print the content of \"/home/crab/assets/a.txt\" to the command line interface.",
+    "tasks": [
+        {
+            "task": "0f589bf9-9b26-4581-8b78-2961b115ab49",
+            "attribute": {
+                "file_path": "/home/crab/assets/a.txt",
+                "content": "The most recent COMPUTEX was held from 30 May to 2 June 2023 with sessions about such topics as high-performance computing, artificial intelligence, next-gen connectivity and sustainability."
+            },
+            "output": "/home/crab/assets/a.txt"
+        },
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/assets/a.txt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "6c560516-ca14-4f97-b51d-16ad81fc29e4"
+}

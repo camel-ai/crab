@@ -1,0 +1,19 @@
+{
+    "description": "Open Firefox and search for the torch.matmul example provided by the official PyTorch version 1.13 documentation, copy all the lines of code from the example, open Visual Studio Code (VS Code), paste the clipboard content into a new file, and save it as \"/home/crab/example.py\".",
+    "tasks": [
+        {
+            "task": "49b614c5-c4bb-4c20-aab8-ab9dcc7de1b5",
+            "attribute": {},
+            "output": null
+        },
+        {
+            "task": "8491e674-596b-452b-9e0e-58a44d90f947",
+            "attribute": {
+                "file_path": "/home/crab/example.py"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "51c91051-3efb-4e92-a967-739b18520714"
+}

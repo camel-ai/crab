@@ -1,0 +1,22 @@
+{
+    "description": "In Android, first use the \"Files\" app to find the creation date of the file /Movies/movie_list.txt, then use the \"Calendar\" app to add a new event titled \"Public Talking\" scheduled for all day on the founded day.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ak",
+            "attribute": {
+                "file_path": "/Movies/movie_list.txt"
+            },
+            "output": "4 June 2024"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ac",
+            "attribute": {
+                "content": "Public Talking",
+                "date": "4 June 2024"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "d0811e47-d75f-40ce-b34b-e1ee3c8bed3f"
+}
