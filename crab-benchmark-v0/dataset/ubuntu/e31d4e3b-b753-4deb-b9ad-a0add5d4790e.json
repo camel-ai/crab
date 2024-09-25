@@ -1,0 +1,21 @@
+{
+    "description": "Use Firefox to search for an image with the keyword \"Mission: Impossible\", copy the image's URL to the clipboard, and then download the file from the clipboard's URL to \"/home/crab/Pictures/movie.jpg\".",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "Mission: Impossible"
+            },
+            "output": ""
+        },
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19acsd",
+            "attribute": {
+                "file_path": "/home/crab/Pictures/movie.jpg"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "e31d4e3b-b753-4deb-b9ad-a0add5d4790e"
+}

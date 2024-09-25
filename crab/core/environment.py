@@ -18,6 +18,7 @@ from typing import Any
 from httpx import Client
 
 from crab.utils import decrypt_message, encrypt_message, generate_key_from_env
+from crab.utils.measure import timed
 
 from .exceptions import ActionNotFound
 from .models import Action, ClosedAction, EnvironmentConfig
@@ -152,6 +153,7 @@ class Environment:
             )
             raise
 
+    @timed
     def observe(self) -> dict[str, Any]:
         """
         Observes the current state.
@@ -164,6 +166,7 @@ class Environment:
         self.observation_history.append(result)
         return result
 
+    @timed
     def observe_with_prompt(
         self, prompt_tools: dict[str, Action]
     ) -> tuple[dict[str, Any], dict[str, Any]]:

@@ -1,0 +1,24 @@
+{
+    "description": "Use Firefox to search for the country \"Ethiopia\" on Wikipedia, extract the capital city and population, save this information in an ODS file at \"/home/crab/Documents/africa.ods\" with LibreOffice Calc with the first column for the country name, the second for the capital city name, and the third for the population without any header, then create a new directory \"/home/crab/sheet\" and copy all ODS files from \"/home/crab/Documents\" to \"/home/crab/sheet\".",
+    "tasks": [
+        {
+            "task": "1cd6519a-9ee0-442b-ba5a-9238aeb00ff6",
+            "attribute": {
+                "country": "Ethiopia",
+                "file_path": "/home/crab/Documents/africa.ods"
+            },
+            "output": "/home/crab/Documents/africa.ods"
+        },
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "ods",
+                "source_dir": "/home/crab/Documents",
+                "target_dir": "/home/crab/sheet"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "d3478489-70f2-4a82-b7d2-0a47b75986eb"
+}

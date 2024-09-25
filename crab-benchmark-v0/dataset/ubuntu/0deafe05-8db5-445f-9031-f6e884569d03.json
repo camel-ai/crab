@@ -1,0 +1,25 @@
+{
+    "description": "Create a new directory \"/home/crab/jpg_folder\", copy all files with the \"jpg\" extension from \"/home/crab/Pictures\" to this newly created directory, then open LibreOffice Impress to combine the two images located at \"/home/crab/jpg_folder/dog.jpg\" (Image 1) and \"/home/crab/jpg_folder/Interstellar.jpg\" (Image 2), placing Image 1 on the right side of Image 2, and save the combined image in PDF format to \"/home/crab/Documents/combination.pdf\".",
+    "tasks": [
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "jpg",
+                "source_dir": "/home/crab/Pictures",
+                "target_dir": "/home/crab/jpg_folder"
+            },
+            "output": "/home/crab/jpg_folder"
+        },
+        {
+            "task": "467f17a6-c42f-4eda-996f-a53385eb3efd",
+            "attribute": {
+                "image_path_1": "/home/crab/jpg_folder/dog.jpg",
+                "image_path_2": "/home/crab/jpg_folder/Interstellar.jpg",
+                "output_path": "/home/crab/Documents/combination.pdf"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "0deafe05-8db5-445f-9031-f6e884569d03"
+}

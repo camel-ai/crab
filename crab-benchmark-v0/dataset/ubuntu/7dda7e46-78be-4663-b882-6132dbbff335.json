@@ -1,0 +1,22 @@
+{
+    "description": "Adjust the brightness of the image located at \"/home/crab/Pictures/Interstellar.jpg\" to a higher value using GIMP (GNU Image Manipulation Program), save the edited image as \"/home/crab/edited_background.png\", and then set this edited image as the desktop background on the system.",
+    "tasks": [
+        {
+            "task": "cc1adae7-bef9-4c8a-865d-00d44486dd69",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/Pictures/Interstellar.jpg",
+                "image_path_after_edit": "/home/crab/edited_background.png"
+            },
+            "output": "/home/crab/edited_background.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/edited_background.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "7dda7e46-78be-4663-b882-6132dbbff335"
+}

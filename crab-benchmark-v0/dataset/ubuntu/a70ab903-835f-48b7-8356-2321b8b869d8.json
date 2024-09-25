@@ -1,0 +1,19 @@
+{
+    "description": "Using Firefox, find the example of torch.matmul provided by the official PyTorch version 1.13 documentation and copy all the lines of code in the example to the clipboard, then paste the clipboard content into LibreOffice Writer and save it as an ODT file at \"/home/crab/Desktop/doc_torch.odt\".",
+    "tasks": [
+        {
+            "task": "49b614c5-c4bb-4c20-aab8-ab9dcc7de1b5",
+            "attribute": {},
+            "output": null
+        },
+        {
+            "task": "76de4bdb-c980-4b3a-9bd3-c87db467dffe",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/doc_torch.odt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "a70ab903-835f-48b7-8356-2321b8b869d8"
+}

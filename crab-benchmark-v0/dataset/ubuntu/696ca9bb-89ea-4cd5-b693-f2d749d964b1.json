@@ -1,0 +1,22 @@
+{
+    "description": "Adjust the brightness of the image located at \"/home/crab/assets/campus.png\" using GIMP (GNU Image Manipulation Program) to make it brighter, save the adjusted image to \"/home/crab/Pictures/campus_brighter.png\", and then set this enhanced image as the desktop background on an Ubuntu system.",
+    "tasks": [
+        {
+            "task": "cc1adae7-bef9-4c8a-865d-00d44486dd69",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/assets/campus.png",
+                "image_path_after_edit": "/home/crab/Pictures/campus_brighter.png"
+            },
+            "output": "/home/crab/Pictures/campus_brighter.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/Pictures/campus_brighter.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "696ca9bb-89ea-4cd5-b693-f2d749d964b1"
+}

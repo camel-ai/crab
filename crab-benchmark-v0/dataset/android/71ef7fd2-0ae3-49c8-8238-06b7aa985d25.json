@@ -1,0 +1,23 @@
+{
+    "description": "Using the \"Google Map\" app on Android, find the distance of the shortest route from \"National University of Singapore\" to \"Nanyang Technology University,\" then using the \"Calendar\" app, add a new event with the text representing the found distance on the date 21 June 2024 as an all-day event.",
+    "tasks": [
+        {
+            "task": "1a1b72d7-78c9-4027-8278-86083ae01045",
+            "attribute": {
+                "place_name_1": "National University of Singapore",
+                "place_name_2": "Nanyang Technology University"
+            },
+            "output": "13km"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ac",
+            "attribute": {
+                "content": "13km",
+                "date": "21 June 2024"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "71ef7fd2-0ae3-49c8-8238-06b7aa985d25"
+}

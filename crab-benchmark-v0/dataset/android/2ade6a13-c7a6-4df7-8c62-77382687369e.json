@@ -1,0 +1,22 @@
+{
+    "description": "In Android, using the \"Contacts\" app, find the email of the contact named John Lauphin, then using the \"Gmail\" app, send an email to that contact with the subject \"Hello John.\"",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ap",
+            "attribute": {
+                "name": "John Lauphin"
+            },
+            "output": "crabbb@gmail.com"
+        },
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "Hello John",
+                "mail": "crabbb@gmail.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "2ade6a13-c7a6-4df7-8c62-77382687369e"
+}

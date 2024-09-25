@@ -540,9 +540,9 @@ def get_rgb_values_outside_bbox(
 
     # Create a mask for the bounding box area with margin
     mask = np.ones(img.shape[:2], dtype=bool)
-    mask[
-        y_min_with_margin:y_max_with_margin, x_min_with_margin:x_max_with_margin
-    ] = False
+    mask[y_min_with_margin:y_max_with_margin, x_min_with_margin:x_max_with_margin] = (
+        False
+    )
 
     # Extract the RGB values outside the bounding box with margin
     rgb_values = img[mask]

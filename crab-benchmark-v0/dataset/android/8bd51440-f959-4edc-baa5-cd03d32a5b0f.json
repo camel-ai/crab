@@ -1,0 +1,22 @@
+{
+    "description": "In Android, use the \"Google Map\" app to find the address of the University of Sydney, then using the \"Gmail\" app, send a message to crabbb@gmail.com with the found address.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548aw",
+            "attribute": {
+                "content": "The University of Sydney"
+            },
+            "output": "Camperdown NSW 2050 Australia"
+        },
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "Camperdown NSW 2050 Australia",
+                "mail": "crabbb@gmail.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "8bd51440-f959-4edc-baa5-cd03d32a5b0f"
+}
