@@ -186,13 +186,13 @@ if __name__ == "__main__":
     benchmark = get_benchmark(args.env, args.remote_url)
 
     if args.model == "gpt4o":
-        model = OpenAIModel(model="gpt-4o")
-    elif args.policy == "gpt4turbo":
-        model = OpenAIModel(model="gpt-4-turbo")
-    elif args.policy == "gemini":
-        model = GeminiModel(model="gemini-1.5-pro-latest")
-    elif args.policy == "claude":
-        model = ClaudeModel(model="claude-3-opus-20240229")
+        model = OpenAIModel(model="gpt-4o", history_messages_len=2)
+    elif args.model == "gpt4turbo":
+        model = OpenAIModel(model="gpt-4-turbo", history_messages_len=2)
+    elif args.model == "gemini":
+        model = GeminiModel(model="gemini-1.5-pro-latest", history_messages_len=2)
+    elif args.model == "claude":
+        model = ClaudeModel(model="claude-3-opus-20240229", history_messages_len=2)
     else:
         print("Unsupported model: ", args.model)
         exit()
