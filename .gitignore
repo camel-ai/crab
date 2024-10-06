@@ -169,3 +169,5 @@ _build/
 *.pth
 
 logs/
+
+.DS_Store
