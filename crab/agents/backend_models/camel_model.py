@@ -54,7 +54,12 @@ def _convert_action_to_schema(
 ) -> "list[OpenAIFunction] | None":
     if action_space is None:
         return None
-    return [OpenAIFunction(action.entry) for action in action_space]
+    schema_list = []
+    for action in action_space:
+        new_action = action.to_openai_json_schema()
+        schema = {"type": "function", "function": new_action}
+        schema_list.append(OpenAIFunction(action.entry, schema))
+    return schema_list
 
 
 def _convert_tool_calls_to_action_list(
@@ -102,6 +107,9 @@ class CamelModel(BackendModel):
         config = self.parameters.copy()
         if action_schema is not None:
             config["tool_choice"] = "required"
+            config["tools"] = [
+                schema.get_openai_tool_schema() for schema in action_schema
+            ]
 
         backend_model = ModelFactory.create(
             self.model_platform_type,
