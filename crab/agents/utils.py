@@ -92,8 +92,10 @@ def extract_text_and_code_prompts(content: str) -> tuple[list[str], list[str]]:
         # code_type = lines[idx].strip()[3:].strip()
         idx += 1
         start_idx = idx
-        while not lines[idx].lstrip().startswith("```"):
+        while not lines[idx].lstrip().startswith("```") and idx < len(lines):
             idx += 1
+        if idx >= len(lines):
+            break
         code = "\n".join(lines[start_idx:idx]).strip()
         code_prompts.append(code)
 

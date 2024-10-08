@@ -1,0 +1,21 @@
+{
+    "description": "Using the \"Files\" app on an Android device, locate the file /Movies/movie_list.txt and determine its creation date, then use the Task app in the same Android system to find the title of an event scheduled for the days.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ak",
+            "attribute": {
+                "file_path": "/Movies/movie_list.txt"
+            },
+            "output": "4 June 2024"
+        },
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "4 June 2024"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "d92f6c33-e0a7-4101-957d-e7dd218d2565"
+}

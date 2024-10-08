@@ -1,0 +1,21 @@
+{
+    "description": "Use Firefox to search for an image with the keyword \"patagonia,\" copy the URL of the chosen image to the clipboard, and download the file from that URL to \"/home/crab/Desktop/brand.jpg\".",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "patagonia"
+            },
+            "output": null
+        },
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19acsd",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/brand.jpg"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "87910f23-ab23-4ccc-b115-d71cff6f0162"
+}

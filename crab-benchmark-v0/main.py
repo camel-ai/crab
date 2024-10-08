@@ -24,7 +24,7 @@ from crab import (
     TaskGenerator,
     create_benchmark,
 )
-from crab.actions.crab_actions import complete
+from crab.actions.crab_actions import complete, wait
 from crab.actions.visual_prompt_actions import (
     get_elements_prompt,
     groundingdino_easyocr,
@@ -96,7 +96,7 @@ def get_benchmark(env: str, ubuntu_url: str):
             tasks=[],
             environments=[ubuntu_env],
             prompting_tools=prompting_tools,
-            root_action_space=[complete],
+            root_action_space=[complete, wait],
             multienv=True,
         )
     elif env == "android":
@@ -106,7 +106,7 @@ def get_benchmark(env: str, ubuntu_url: str):
             tasks=[],
             environments=[ANDROID_ENV],
             prompting_tools=prompting_tools,
-            root_action_space=[complete],
+            root_action_space=[complete, wait],
             multienv=True,
         )
     elif env == "cross":
@@ -119,7 +119,7 @@ def get_benchmark(env: str, ubuntu_url: str):
             tasks=[],
             environments=[ubuntu_env, ANDROID_ENV],
             prompting_tools=prompting_tools,
-            root_action_space=[complete],
+            root_action_space=[complete, wait],
             multienv=True,
         )
     else:
@@ -137,7 +137,7 @@ def get_benchmark(env: str, ubuntu_url: str):
     # Load from handmade tasks
     benchmark_config.tasks.extend(handmade_tasks)
 
-    benchmark_config.step_limit = 15
+    benchmark_config.step_limit = 20
     return create_benchmark(benchmark_config)
 
 
@@ -188,6 +188,12 @@ if __name__ == "__main__":
         help="logger level, debug, info, warning, or error",
         default="warning",
     )
+    parser.add_argument(
+        "--history-messages-len",
+        type=int,
+        help="The number of rounds of chat history to provide to the model",
+        default=2,
+    )
     args = parser.parse_args()
     loglevel = args.loglevel
     numeric_level = getattr(logging, loglevel.upper(), None)
@@ -197,43 +203,58 @@ if __name__ == "__main__":
 
     benchmark = get_benchmark(args.env, args.ubuntu_url)
 
+    if args.model == "human":
+        expeirment = CrabBenchmarkV0(
+            benchmark=benchmark,
+            task_id=args.task_id,
+            agent_policy="human",
+        )
+        expeirment.start_benchmark()
+        exit()
+
     if args.model == "gpt4o":
         model = BackendModelConfig(
             model_class="openai",
             model_name="gpt-4o",
-            history_messages_len=2,
+            history_messages_len=args.history_messages_len,
         )
     elif args.model == "gpt4turbo":
         model = BackendModelConfig(
             model_class="openai",
             model_name="gpt-4-turbo",
-            history_messages_len=2,
+            history_messages_len=args.history_messages_len,
         )
     elif args.model == "gemini":
         model = BackendModelConfig(
             model_class="gemini",
             model_name="gemini-1.5-pro-latest",
-            history_messages_len=2,
+            history_messages_len=args.history_messages_len,
         )
     elif args.model == "claude":
         model = BackendModelConfig(
             model_class="claude",
             model_name="claude-3-opus-20240229",
-            history_messages_len=2,
-        )
-    elif args.model == "llava-1.6":
-        model = BackendModelConfig(
-            model_class="vllm",
-            model_name="llava-hf/llava-v1.6-34b-hf",
-            history_messages_len=2,
-            base_url=args.model_base_url,
-            api_key=args.model_api_key,
+            history_messages_len=args.history_messages_len,
         )
     elif args.model == "pixtral":
         model = BackendModelConfig(
-            model_class="vllm",
+            model_class="openai-json",
             model_name="mistralai/Pixtral-12B-2409",
-            history_messages_len=1,
+            history_messages_len=args.history_messages_len,
+            base_url=args.model_base_url,
+            api_key=args.model_api_key,
+        )
+    elif args.model == "gpt4o-wofc":
+        model = BackendModelConfig(
+            model_class="openai-json",
+            model_name="gpt-4o",
+            history_messages_len=args.history_messages_len,
+        )
+    elif args.model == "llava-ov72b":
+        model = BackendModelConfig(
+            model_class="sglang-openai-json",
+            model_name="lmms-lab/llava-onevision-qwen2-72b-ov-chat",
+            history_messages_len=args.history_messages_len,
             base_url=args.model_base_url,
             api_key=args.model_api_key,
         )
@@ -255,7 +276,7 @@ if __name__ == "__main__":
         print("Unsupported policy: ", args.policy)
         exit()
 
-    log_dir = (Path(__file__).parent / "logs").resolve()
+    log_dir = (Path(__file__).parent / "tianqi_logs").resolve()
     expeirment = CrabBenchmarkV0(
         benchmark=benchmark,
         task_id=args.task_id,

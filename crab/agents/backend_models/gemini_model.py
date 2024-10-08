@@ -42,7 +42,7 @@ class GeminiModel(BackendModel):
         model: str,
         parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
-        tool_call_required: bool = False,
+        tool_call_required: bool = True,
     ) -> None:
         if gemini_model_enable is False:
             raise ImportError("Please install google.generativeai to use GeminiModel")
@@ -191,6 +191,11 @@ def _action_to_func_dec(action: Action) -> FunctionDeclaration:
     if "$defs" in p_schema:
         p_schema = json_expand_refs(p_schema)
     _clear_schema(p_schema)
+    if not p_schema["properties"]:
+        return FunctionDeclaration(
+            name=action.name,
+            description=action.description,
+        )
     return FunctionDeclaration(
         name=action.name,
         description=action.description,

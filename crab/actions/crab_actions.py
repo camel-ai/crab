@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
+from time import sleep
+
 from crab import action, evaluator
 
 
@@ -40,6 +42,14 @@ def complete() -> bool:
     exmaple, if you successfully complete the task, you can use complete().
     """
     pass
+
+
+@action(env_name="root")
+def wait() -> bool:
+    """If the environment is still processing your action and you have nothing to do in
+    this step, you can use wait().
+    """
+    sleep(5)
 
 
 def get_element_position(element_id, env):

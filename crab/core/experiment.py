@@ -138,6 +138,10 @@ class Experiment:
                 print("\033[92m" f"Task finished, result: {self.metrics}" "\033[0m")
                 self.write_current_log_row(action)
                 self.write_main_csv_row(benchmark_result.info["terminate_reason"])
+                if "exception_detail" in benchmark_result.info:
+                    self.write_exception_detail(
+                        benchmark_result.info["exception_detail"]
+                    )
                 return True
             print(
                 "\033[92m"
@@ -171,6 +175,7 @@ class Experiment:
         except Exception:
             print(traceback.format_exc())
             self.write_main_csv_row("agent_exception")
+            self.write_exception_detail(traceback.format_exc())
             return True
         # content = response["content"]
         # self.write_message(str(content), it)
@@ -213,6 +218,12 @@ class Experiment:
                 return
             sleep(2)
             # input("Press enter to do next step:")
+
+    def write_exception_detail(self, exception_info: str):
+        if self.log_dir is None:
+            return
+        with open(self.current_experiment_dir / "exception_detail.txt", "w") as file:
+            file.write(exception_info)
 
     def write_current_log_row(self, action):
         if self.log_dir is None:

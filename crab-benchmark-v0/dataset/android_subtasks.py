@@ -361,6 +361,8 @@ def check_event(date: str, env) -> bool:
     event_nodes = root.xpath('//node[@class="android.support.v7.widget.RecyclerView"]')
     if event_nodes is None:
         return False
+    if not event_nodes:
+        return False
     for node in event_nodes[0]:
         text = node.get("content-desc")
         if date in text:

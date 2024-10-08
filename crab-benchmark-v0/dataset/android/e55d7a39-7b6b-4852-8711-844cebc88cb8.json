@@ -1,0 +1,15 @@
+{
+    "description": "In Android, use the \"Google Map\" app to find the city name corresponding to the postcode \"110151\" in Colombia.",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "110151",
+                "country": "Columbia"
+            },
+            "output": "Bogota"
+        }
+    ],
+    "adjlist": "0",
+    "id": "e55d7a39-7b6b-4852-8711-844cebc88cb8"
+}

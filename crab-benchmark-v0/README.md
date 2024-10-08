@@ -29,3 +29,7 @@ After setting up the environment, you can start the experiment. A brief overview
 2. Start the CRAB server in the Ubuntu environment and get its IP address and port. Let's say they are `192.168.122.72` and `8000`.
 3. Choose a task. As an example, we take the task with ID `a3476778-e512-40ca-b1c0-d7aab0c7f18b` from [handmade_tasks](./dataset/handmade_tasks.py). The task is: "Open the 'Tasks' app on Android, check the first incomplete task, then perform the task according to its description."
 4. Run [main.py](./main.py) with the command `poetry run python -m crab-benchmark-v0.main --model gpt4o --policy single --remote-url http://192.168.122.72:8000 --task-id a3476778-e512-40ca-b1c0-d7aab0c7f18b`. In this command, `--model gpt4o` and `--policy single` determine the agent system, `--remote-url` specifies the Ubuntu environment interface, and `--task-id` indicates the task to be performed.
+
+#### Model
+
+For open source models, we use [VLLM](https://github.com/vllm-project/vllm) to host Pixtral model, check [here](https://docs.vllm.ai/en/latest/models/vlm.html#online-inference) for the setup commands; [SGLang](https://github.com/sgl-project/sglang) to host LLaVa-OneVision model, check [here](https://github.com/sgl-project/sglang?tab=readme-ov-file#supported-models) for the setup commands.

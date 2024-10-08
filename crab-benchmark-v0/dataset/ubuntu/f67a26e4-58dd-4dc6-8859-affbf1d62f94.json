@@ -1,0 +1,22 @@
+{
+    "description": "Open \"/home/crab/poem\" using vim in a terminal, write \"Two roads diverged in a yellow wood, and sorry I could not travel both and be one traveler, long I stood and looked down one as far as I could to where it bent in the undergrowth.\", save and exit vim, and then print the content of \"/home/crab/poem\" to the command line interface through the terminal.",
+    "tasks": [
+        {
+            "task": "0f589bf9-9b26-4581-8b78-2961b115ab49",
+            "attribute": {
+                "file_path": "/home/crab/poem",
+                "content": "Two roads diverged in a yellow wood, and sorry I could not travel both and be one traveler, long I stood and looked down one as far as I could to where it bent in the undergrowth."
+            },
+            "output": "/home/crab/poem"
+        },
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/poem"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "f67a26e4-58dd-4dc6-8859-affbf1d62f94"
+}

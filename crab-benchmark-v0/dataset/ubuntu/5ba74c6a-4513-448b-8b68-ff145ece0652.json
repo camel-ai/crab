@@ -1,0 +1,22 @@
+{
+    "description": "Download the file from \"https://raw.githubusercontent.com/camel-ai/camel/master/README.md\" to \"/home/crab/Documents/README.md\", and then print the content of \"/home/crab/Documents/README.md\" to the command line interface through a terminal.",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://raw.githubusercontent.com/camel-ai/camel/master/README.md",
+                "file_path": "/home/crab/Documents/README.md"
+            },
+            "output": "/home/crab/Documents/README.md"
+        },
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/Documents/README.md"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "5ba74c6a-4513-448b-8b68-ff145ece0652"
+}

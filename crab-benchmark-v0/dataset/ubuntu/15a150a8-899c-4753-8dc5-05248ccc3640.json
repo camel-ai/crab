@@ -1,0 +1,22 @@
+{
+    "description": "Download the file from \"https://media.cntraveller.com/photos/642aa1ad770beda2d4f5cc22/4:3/w_2664,h_1998,c_limit/Fiji-march2023issue-JackJohns15.jpg\" to the location \"/home/crab/Downloads/fiji.png\", and then set \"/home/crab/Downloads/fiji.png\" as the desktop background on the system.",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://media.cntraveller.com/photos/642aa1ad770beda2d4f5cc22/4:3/w_2664,h_1998,c_limit/Fiji-march2023issue-JackJohns15.jpg",
+                "file_path": "/home/crab/Downloads/fiji.png"
+            },
+            "output": "/home/crab/Downloads/fiji.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/Downloads/fiji.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "15a150a8-899c-4753-8dc5-05248ccc3640"
+}

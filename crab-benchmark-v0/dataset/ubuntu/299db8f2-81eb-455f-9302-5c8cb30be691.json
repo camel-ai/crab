@@ -1,0 +1,23 @@
+{
+    "description": "Combine two images, Image 1 \"/home/crab/Pictures/Interstellar.jpg\" and Image 2 \"/home/crab/Pictures/cat.png\", using GIMP (GNU Image Manipulation Program) with Image 1 placed on the left side of Image 2, and save the resulting image to \"/home/crab/Pictures/edited_background.png\". Then, set \"/home/crab/Pictures/edited_background.png\" as the desktop background on the system.",
+    "tasks": [
+        {
+            "task": "4cf246ea-0a7f-43da-84b6-61d74a2699af",
+            "attribute": {
+                "image_path_1": "/home/crab/Pictures/Interstellar.jpg",
+                "image_path_2": "/home/crab/Pictures/cat.png",
+                "output_path": "/home/crab/Pictures/edited_background.png"
+            },
+            "output": "/home/crab/Pictures/edited_background.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/Pictures/edited_background.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "299db8f2-81eb-455f-9302-5c8cb30be691"
+}

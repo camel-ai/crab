@@ -1,0 +1,24 @@
+{
+    "description": "Adjust the brightness of the image located at \"/home/crab/assets/desert.jpg\" to a darker value using LibreOffice Impress and save it as \"/home/crab/assets/darker_desert.jpg\", then use GIMP (GNU Image Manipulation Program) to combine this adjusted image with the original image at \"/home/crab/assets/desert.jpg\", placing the darker image on the left side and the original on the right, finally save the resulting comparison image to \"/home/crab/assets/desert_comparison.jpg\".",
+    "tasks": [
+        {
+            "task": "434402f3-647a-4a9a-9d8f-10f5bb6c7cf0",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/assets/desert.jpg",
+                "image_path_after_edit": "/home/crab/assets/darker_desert.jpg"
+            },
+            "output": "/home/crab/assets/darker_desert.jpg"
+        },
+        {
+            "task": "4cf246ea-0a7f-43da-84b6-61d74a2699af",
+            "attribute": {
+                "image_path_1": "/home/crab/assets/darker_desert.jpg",
+                "image_path_2": "/home/crab/assets/desert.jpg",
+                "output_path": "/home/crab/assets/desert_comparison.jpg"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "b2ca21dc-dde9-49f5-bec7-321fbf769315"
+}

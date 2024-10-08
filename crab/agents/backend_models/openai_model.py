@@ -15,6 +15,7 @@ import json
 from typing import Any
 
 from crab import Action, ActionOutput, BackendModel, BackendOutput, Message, MessageType
+from crab.agents.utils import extract_text_and_code_prompts
 
 try:
     import openai
@@ -31,7 +32,7 @@ class OpenAIModel(BackendModel):
         model: str,
         parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
-        tool_call_required: bool = False,
+        tool_call_required: bool = True,
         base_url: str | None = None,
         api_key: str | None = None,
     ) -> None:
@@ -179,3 +180,91 @@ def _convert_action_to_schema(
         new_action = action.to_openai_json_schema()
         actions.append({"type": "function", "function": new_action})
     return actions
+
+
+class OpenAIModelJSON(OpenAIModel):
+    def __init__(
+        self,
+        model: str,
+        parameters: dict[str, Any] = dict(),
+        history_messages_len: int = 0,
+        base_url: str | None = None,
+        api_key: str | None = None,
+    ) -> None:
+        super().__init__(
+            model,
+            parameters,
+            history_messages_len,
+            False,
+            base_url,
+            api_key,
+        )
+        self.support_tool_call = False
+
+    def reset(self, system_message: str, action_space: list[Action] | None) -> None:
+        super().reset(system_message, action_space)
+        self.action_schema = None
+
+    def record_message(
+        self, new_message: dict, response_message: ChatCompletionMessage
+    ) -> None:
+        self.chat_history.append([new_message])
+        self.chat_history[-1].append(
+            {"role": "assistant", "content": response_message.content}
+        )
+
+    def generate_backend_output(
+        self, response_message: ChatCompletionMessage
+    ) -> BackendOutput:
+        content = response_message.content
+        text_list, code_list = extract_text_and_code_prompts(content)
+
+        action_list = []
+        try:
+            for code_block in code_list:
+                action_object = json.loads(code_block)
+                action_list.append(
+                    ActionOutput(
+                        name=action_object["name"], arguments=action_object["arguments"]
+                    )
+                )
+        except json.JSONDecodeError as e:
+            raise RuntimeError(f"Failed to parse code block: {code_block}") from e
+        except KeyError as e:
+            raise RuntimeError(f"Received invalid action format: {code_block}") from e
+
+        return BackendOutput(
+            message="".join(text_list),
+            action_list=action_list,
+        )
+
+
+class SGlangOpenAIModelJSON(OpenAIModelJSON):
+    def construct_new_message(self, message: list[Message]) -> dict[str, Any]:
+        new_message_content: list[dict[str, Any]] = []
+        image_count = 0
+        for _, msg_type in message:
+            if msg_type == MessageType.IMAGE_JPG_BASE64:
+                image_count += 1
+        for content, msg_type in message:
+            match msg_type:
+                case MessageType.TEXT:
+                    new_message_content.append(
+                        {
+                            "type": "text",
+                            "text": content,
+                        }
+                    )
+                case MessageType.IMAGE_JPG_BASE64:
+                    image_content = {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{content}",
+                            "detail": "high",
+                        },
+                    }
+                    if image_count > 1:
+                        image_content["modalities"] = "multi-images"
+                    new_message_content.append(image_content)
+
+        return {"role": "user", "content": new_message_content}

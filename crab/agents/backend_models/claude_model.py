@@ -33,7 +33,7 @@ class ClaudeModel(BackendModel):
         model: str,
         parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
-        tool_call_required: bool = False,
+        tool_call_required: bool = True,
     ) -> None:
         if anthropic_model_enable is False:
             raise ImportError("Please install anthropic to use ClaudeModel")
@@ -152,6 +152,7 @@ class ClaudeModel(BackendModel):
                 system=self.system_message,  # <-- system prompt
                 messages=request_messages,  # type: ignore
                 model=self.model,
+                max_tokens=4096,
                 tools=self.action_schema,
                 tool_choice={"type": "any" if self.tool_call_required else "auto"},
                 **self.parameters,
@@ -161,6 +162,7 @@ class ClaudeModel(BackendModel):
                 system=self.system_message,  # <-- system prompt
                 messages=request_messages,  # type: ignore
                 model=self.model,
+                max_tokens=4096,
                 **self.parameters,
             )
 

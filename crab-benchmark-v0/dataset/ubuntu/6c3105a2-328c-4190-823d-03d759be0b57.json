@@ -1,0 +1,21 @@
+{
+    "description": "Use Firefox to search for an image with the keyword \"reinforcement learning,\" copy the URL of the chosen image to the clipboard, and download the image from the URL in the clipboard to \"/home/crab/Downloads/RL.png\" on an Ubuntu system.",
+    "tasks": [
+        {
+            "task": "017102b6-d2c3-466b-96f7-37c8bcddc41a",
+            "attribute": {
+                "keyword": "reinforcement learning"
+            },
+            "output": null
+        },
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19acsd",
+            "attribute": {
+                "file_path": "/home/crab/Downloads/RL.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "6c3105a2-328c-4190-823d-03d759be0b57"
+}

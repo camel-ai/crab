@@ -1,0 +1,24 @@
+{
+    "description": "First, use LibreOffice Impress to adjust the brightness of the image located at \"/home/crab/Pictures/cat.png\" to make it darker, and save the edited image as \"/home/crab/Pictures/cat_edited.png\". Then, using GIMP (GNU Image Manipulation Program), combine the image \"/home/crab/Pictures/dog.png\" with \"/home/crab/Pictures/cat_edited.png\" by placing the dog image on the left side of the cat image, and save the merged image to \"/home/crab/Pictures/dog_cat.png\".",
+    "tasks": [
+        {
+            "task": "434402f3-647a-4a9a-9d8f-10f5bb6c7cf0",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/Pictures/cat.png",
+                "image_path_after_edit": "/home/crab/Pictures/cat_edited.png"
+            },
+            "output": "/home/crab/Pictures/cat_edited.png"
+        },
+        {
+            "task": "4cf246ea-0a7f-43da-84b6-61d74a2699af",
+            "attribute": {
+                "image_path_1": "/home/crab/Pictures/dog.png",
+                "image_path_2": "/home/crab/Pictures/cat_edited.png",
+                "output_path": "/home/crab/Pictures/dog_cat.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "6428f803-62de-40d2-a345-64e6cf955c9d"
+}

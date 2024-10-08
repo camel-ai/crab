@@ -69,7 +69,7 @@ def right_click(element: int, env) -> None:
     """
     Right-click an UI element shown on the desktop screen using the mouse, which is
     usually used for opening the menu of the element. A simple use case can be
-    rght_click(5), which right-clicks the UI element labeled with the number 5 to open
+    right_click(5), which right-clicks the UI element labeled with the number 5 to open
     up menu on it.
 
     Args:
@@ -77,6 +77,34 @@ def right_click(element: int, env) -> None:
     """
     x, y = get_element_position(element, env)
     env._action_endpoint(right_click_position, {"x": x, "y": y})
+    time.sleep(DELAY)
+
+
+@action
+def double_click_position(x: int, y: int) -> None:
+    """
+    Double-click on the current desktop screen.
+
+    Args:
+        x: The X coordinate, as a floating-point number in the range [0.0, 1.0].
+        y: The Y coordinate, as a floating-point number in the range [0.0, 1.0].
+    """
+    pyautogui.click(x, y, duration=DURATION, clicks=2, interval=0.2)
+
+
+@action(local=True)
+def double_click(element: int, env) -> None:
+    """
+    Double-click an UI element shown on the desktop screen using the mouse, which is
+    usually used for opening a folder or a file. A simple use case can be
+    double_click(5), which double-clicks the UI element labeled with the number 5 to
+    open it.
+
+    Args:
+        element: A numeric tag assigned to an UI element shown on the screenshot.
+    """
+    x, y = get_element_position(element, env)
+    env._action_endpoint(double_click_position, {"x": x, "y": y})
     time.sleep(DELAY)
 
 

@@ -1,0 +1,21 @@
+{
+    "description": "Open the calendar app in the Android system and find the title of an event on the date \"17 August 2024,\" then using the \"Google Drive\" app on the same Android device, create a new folder with the founded name",
+    "tasks": [
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "17 August 2024"
+            },
+            "output": "Travel to Paris"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ar",
+            "attribute": {
+                "content": "Travel to Paris"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "483fbf9c-dc78-4ac2-9264-53c4f617f6cc"
+}

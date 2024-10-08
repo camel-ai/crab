@@ -74,9 +74,8 @@ class MultiAgentByFuncPolicy(AgentPolicy):
     def get_backend_model_name(self):
         return (
             self.main_agent_model_backend.__class__.__name__
-            + "(sub: "
-            + self.tool_agent_model_backend.__class__.__name__
-            + ")"
+            + "_"
+            + self.main_agent_model_backend.model
         )
 
     def chat(

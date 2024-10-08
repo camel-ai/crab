@@ -1,0 +1,22 @@
+{
+    "description": "Open Firefox to find a coffee shop around the hungarian parliament on Google Maps, copy the sharing URL of the coffee shop to the clipboard, then paste the clipboard content into Visual Studio Code (VS Code), and save the content as a file at \"/home/crab/Downloads/coffee\".",
+    "tasks": [
+        {
+            "task": "2b189dc2-c77f-4fa3-8432-ba4355cc294c",
+            "attribute": {
+                "place_type": "coffee shop",
+                "place_name": "hungarian parliament"
+            },
+            "output": null
+        },
+        {
+            "task": "8491e674-596b-452b-9e0e-58a44d90f947",
+            "attribute": {
+                "file_path": "/home/crab/Downloads/coffee"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "82c49e12-3b2f-432e-9069-4b67bafebbf7"
+}

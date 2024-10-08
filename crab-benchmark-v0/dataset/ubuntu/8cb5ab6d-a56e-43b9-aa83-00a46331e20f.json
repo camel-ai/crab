@@ -1,0 +1,23 @@
+{
+    "description": "Download the image from \"https://res.cloudinary.com/simpleview/image/upload/v1648755098/clients/austin/Austin_Skyline_Credit_Christopher_Sherman_lifetime__4f60343d-9f69-450c-8ad3-fa636761786d.jpg\" to \"/home/crab/Downloads/Austin.jpg\", then use GIMP (GNU Image Manipulation Program) to adjust its brightness to a higher value and save the modified image as \"/home/crab/Downloads/brighter_austin.jpg\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://res.cloudinary.com/simpleview/image/upload/v1648755098/clients/austin/Austin_Skyline_Credit_Christopher_Sherman_lifetime__4f60343d-9f69-450c-8ad3-fa636761786d.jpg",
+                "file_path": "/home/crab/Downloads/Austin.jpg"
+            },
+            "output": "/home/crab/Downloads/Austin.jpg"
+        },
+        {
+            "task": "cc1adae7-bef9-4c8a-865d-00d44486dd69",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/Downloads/Austin.jpg",
+                "image_path_after_edit": "/home/crab/Downloads/brighter_austin.jpg"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "8cb5ab6d-a56e-43b9-aa83-00a46331e20f"
+}
