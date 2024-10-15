@@ -238,22 +238,25 @@ if __name__ == "__main__":
         )
     elif args.model == "pixtral":
         model = BackendModelConfig(
-            model_class="openai-json",
+            model_class="openai",
             model_name="mistralai/Pixtral-12B-2409",
+            json_structre_output=True,
             history_messages_len=args.history_messages_len,
             base_url=args.model_base_url,
             api_key=args.model_api_key,
         )
     elif args.model == "gpt4o-wofc":
         model = BackendModelConfig(
-            model_class="openai-json",
+            model_class="openai",
             model_name="gpt-4o",
+            json_structre_output=True,
             history_messages_len=args.history_messages_len,
         )
     elif args.model == "llava-ov72b":
         model = BackendModelConfig(
-            model_class="sglang-openai-json",
+            model_class="sglang",
             model_name="lmms-lab/llava-onevision-qwen2-72b-ov-chat",
+            json_structre_output=True,
             history_messages_len=args.history_messages_len,
             base_url=args.model_base_url,
             api_key=args.model_api_key,
