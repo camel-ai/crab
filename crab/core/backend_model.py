@@ -12,26 +12,11 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 from abc import ABC, abstractmethod
-from typing import Any
 
 from .models import Action, BackendOutput, MessageType
 
 
 class BackendModel(ABC):
-    def __init__(
-        self,
-        model: str,
-        parameters: dict[str, Any] = dict(),
-        history_messages_len: int = 0,
-    ) -> None:
-        self.model = model
-        self.parameters = parameters
-        self.history_messages_len = history_messages_len
-
-        assert self.history_messages_len >= 0
-
-        self.reset("You are a helpful assistant.", None)
-
     @abstractmethod
     def chat(self, contents: list[tuple[str, MessageType]]) -> BackendOutput: ...
 

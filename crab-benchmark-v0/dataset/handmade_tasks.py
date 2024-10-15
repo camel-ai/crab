@@ -24,8 +24,10 @@ from crab import Task, action, evaluator
 
 from .android_subtasks import (
     check_current_package_name,
+    check_google_tasks_name,
     check_message_text_box_contain,
     check_message_text_box_empty,
+    check_note_content,
     get_xml_etree,
 )
 from .ubuntu_subtasks import *  # noqa: F403
@@ -146,6 +148,44 @@ def check_keep_notes_content(text: str, env) -> bool:
     if len(text_nodes) != 1:
         return False
     return text_nodes[0].get("text") == text
+
+
+@evaluator(env_name="android")
+def check_keep_notes_contain_fd(env) -> bool:
+    global RESULT_fd0576be
+    text = RESULT_fd0576be
+    root = get_xml_etree(env)
+    if root is None or text is None:
+        return False
+    edit_node = root.xpath(
+        '//node[@resource-id="com.google.android.keep:id/editor_bottom_bar"]'
+    )
+    if len(edit_node) != 1:
+        return False
+    content_node = root.xpath(
+        '//node[@resource-id="com.google.android.keep:id/browse_note_interior_content"]'
+    )
+    for node in content_node:
+        text_nodes = node.getchildren()
+        if len(text_nodes) != 1:
+            continue
+        if text in text_nodes[0].get("text"):
+            return True
+    return False
+
+
+@evaluator(env_name="android")
+def check_alarm_contains(time: str, env) -> bool:
+    root = get_xml_etree(env)
+    if root is None or time is None:
+        return False
+    clock_node = root.xpath(
+        '//node[@resource-id="com.google.android.deskclock:id/digital_clock"]'
+    )
+    for node in clock_node:
+        if time == node.get("text"):
+            return True
+    return False
 
 
 @evaluator(env_name="android", local=True)
@@ -361,6 +401,112 @@ def evaluator_ca79febf():
     return result
 
 
+def evaluator_dfabf84c():
+    result = nx.DiGraph()
+    keyword = "kaust"
+    a = check_text_in_current_window_name("Mozilla Firefox")
+    b = check_contain_input_text(keyword)
+    c = is_img_url_in_clipboard()
+    d = download_from_clipboard_and_verify_file("/home/crab/Desktop/download.jpg")
+    e = check_current_package_name("com.google.android.keep")
+    f = check_contain_input_text(keyword)
+    g = check_note_content(keyword)
+    result.add_edges_from([(a, b), (b, c), (c, d), (d, g)])
+    result.add_edges_from([(b, e), (e, f), (f, g)])
+    return result
+
+
+def evaluator_aab5555e():
+    result = nx.DiGraph()
+    a = check_current_window_process("gnome-terminal-server")
+    b = check_contain_input_text("uname -a")
+    d = check_current_package_name("com.google.android.apps.messaging")
+    e = check_message_text_box_contain("ubuntu")
+    f = check_message_text_box_contain("x86")
+    g = check_message_text_box_contain("linux")
+    h = check_message_text_box_contain("crab")
+    sink = check_message_text_box_empty()
+    result.add_edges_from(
+        [
+            (a, b),
+            (b, sink),
+            (d, e),
+            (d, f),
+            (d, g),
+            (d, h),
+            (e, sink),
+            (f, sink),
+            (g, sink),
+            (h, sink),
+        ]
+    )
+    return result
+
+
+RESULT_fd0576be = None
+
+
+@action(env_name="ubuntu")
+def get_root_usage() -> str:
+    try:
+        output = subprocess.check_output(["df", "/"], text=True)
+        return output.split("\n")[1].split()[4][:-1]
+    except Exception:
+        return None
+
+
+@evaluator(env_name="ubuntu", local=True)
+def check_contain_input_text_and_get_df_result(text: str, env) -> bool:
+    global RESULT_fd0576be
+    RESULT_fd0576be = env._action_endpoint(get_root_usage, parameters={})
+    if env.trajectory:
+        inputs = [
+            params["text"].lower()
+            for action_name, params, _ in env.trajectory
+            if action_name == "write_text"
+        ]
+        return any(text.lower() in input_text for input_text in inputs)
+
+    return False
+
+
+def evaluator_fd0576be():
+    result = nx.DiGraph()
+    a = check_current_window_process("gnome-terminal-server")
+    b = check_contain_input_text_and_get_df_result("df")
+    c = check_current_package_name("com.google.android.keep")
+    d = check_keep_notes_contain_fd()
+    result.add_edges_from([(a, b), (b, d), (c, d)])
+    return result
+
+
+def evaluator_7e08f7d4():
+    result = nx.DiGraph()
+    a = check_text_in_current_window_name("Mozilla Firefox")
+    b = check_contain_input_text(
+        "https://farm9.staticflickr.com/8293/7591378270_76059bc1cf_z.jpg"
+    )
+    c = check_current_package_name("com.android.deskclock.DeskClock")
+    d = check_alarm_contains("7:00\u200aAM")
+    result.add_edges_from([(a, b), (b, d), (c, d)])
+    return result
+
+
+def evaluator_4957e964():
+    result = nx.DiGraph()
+    a = check_current_window_process("gnome-terminal-server")
+    b = check_contain_input_text("wget")
+    c = check_contain_input_text(
+        "https://farm8.staticflickr.com/7451/10001676353_fd762e02f0_z.jpg"
+    )
+    d = check_file_exist("/home/crab/Desktop/download.jpg")
+    e = check_text_in_current_window_name("Image Viewer")
+    f = check_current_package_name("com.google.android.apps.tasks")
+    g = check_google_tasks_name("tennis")
+    result.add_edges_from([(a, b), (b, c), (c, d), (d, e), (e, g), (f, g)])
+    return result
+
+
 # Hand-made environment setup guide:
 # Ubuntu
 # * Make sure the Ubuntu slack login, and the default channel has at least two messages
@@ -370,36 +516,7 @@ def evaluator_ca79febf():
 # * Make sure the init page of "Calendar" app is "Day" view. There should be at least one element today.
 
 
-handmade_tasks = [
-    Task(
-        id="79832e15-5fd3-43b8-b3e3-66249edfe1db",
-        description='Open slack in Ubuntu desktop, summarize the last two messages in current channel, then use "Messages" app in android phone to send the summary to the first contact in the list.',
-        evaluator=summarize_ubuntu_evaluator(),
-    ),
-    Task(
-        id="a3476778-e512-40ca-b1c0-d7aab0c7f18b",
-        # You must set the first incomplete task to "In Ubuntu, switch the system to dark mode by "Settings" application"
-        description='Open "Tasks" app on Android, check the first incomplete task, then perform the task according to its description',
-        evaluator=nx.path_graph(
-            [
-                check_current_package_name("com.google.android.apps.tasks"),
-                check_current_window_process("gnome-control-center"),
-                check_color_scheme("prefer-dark"),
-            ],
-            create_using=nx.DiGraph,
-        ),
-    ),
-    Task(
-        id="914e6a48-8430-4a68-8328-c4e01db8926e",
-        # You must create several tasks in google calendar today's view.
-        description='Open "Calendar" app on Android, summarize all schedules today. Then, create a markdown file in Ubuntu at "/home/crab/assets/plan.md" with each event as a checkbox bullet point.',
-        evaluator=check_calendar_evaluator(),
-    ),
-    Task(
-        id="97e6f333-bedb-429b-8dd6-1855f99c312d",
-        description="Take a photo through Android Camera, then upload it to Google Photos inside Camera App. Use Firefox inside Ubuntu desktop to download the photo to local disk, move it as `/home/crab/assets/photo.jpg`, finally open the photo in GIMP.",
-        evaluator=evaluator_97e6f333(),
-    ),
+ubuntu_handmade_tasks = [
     Task(
         id="82efbd82-c941-4be9-9ac0-a495dc629e02",
         description='Download an image file from a given URL "https://media.cntraveller.com/photos/642aa1ad770beda2d4f5cc22/4:3/w_2664,h_1998,c_limit/Fiji-march2023issue-JackJohns15.jpg" to "/home/crab/Downloads/raw.jpg", then use GIMP (GNU Image Manipulation Program) to adjust the brightness of the image from "/home/crab/Downloads/raw.jpg" to be brighter and save the edited file to "/home/crab/Pictures/edited.jpg", and set the adjusted image "/home/crab/Pictures/edited.jpg" as the screen background of the system.',
@@ -430,9 +547,68 @@ handmade_tasks = [
         description='Use Firefox to search for information about the country "France" on Wikipedia. Extract the capital city and population, and save this information in an ODS file at "/home/crab/Documents/FR.ods" using LibreOffice Calc. Then, search for information about the country "Mexico" on Wikipedia, extract the capital city and population, and save this information in a separate ODS file at "/home/crab/Documents/MX.ods" using LibreOffice Calc. The format of the file are, first column for the country name, the second for the capital city name, and the third for the population without any header. Finally, create a new directory "/home/crab/Desktop/country_info" and copy all files with the specified "ods" extension from "/home/crab/Documents" to the newly created directory "/home/crab/Desktop/country_info".',
         evaluator=evaluator_74bb11dd(),
     ),
+]
+
+corss_environment_tasks = [
+    Task(
+        id="79832e15-5fd3-43b8-b3e3-66249edfe1db",
+        description='Open slack in Ubuntu desktop, summarize the last two messages in current channel, then use "Messages" app in android phone to send the summary to the first contact in the list.',
+        evaluator=summarize_ubuntu_evaluator(),
+    ),
+    Task(
+        id="a3476778-e512-40ca-b1c0-d7aab0c7f18b",
+        # You must set the first incomplete task to "In Ubuntu, switch the system to dark mode by "Settings" application"
+        description='Open "Tasks" app on Android, check the first incomplete task, then perform the task according to its description',
+        evaluator=nx.path_graph(
+            [
+                check_current_package_name("com.google.android.apps.tasks"),
+                check_current_window_process("gnome-control-center"),
+                check_color_scheme("prefer-dark"),
+            ],
+            create_using=nx.DiGraph,
+        ),
+    ),
+    Task(
+        id="914e6a48-8430-4a68-8328-c4e01db8926e",
+        # You must create several tasks in google calendar today's view.
+        description='Open "Calendar" app on Android, summarize all schedules today. Then, create a markdown file in Ubuntu at "/home/crab/assets/plan.md" with each event as a checkbox bullet point.',
+        evaluator=check_calendar_evaluator(),
+    ),
+    Task(
+        id="97e6f333-bedb-429b-8dd6-1855f99c312d",
+        description="Take a photo through Android Camera, then upload it to Google Photos inside Camera App. Use Firefox inside Ubuntu desktop to download the photo to local disk, move it as `/home/crab/assets/photo.jpg`, finally open the photo in GIMP.",
+        evaluator=evaluator_97e6f333(),
+    ),
     Task(
         id="ca79febf-cae7-4669-8812-d3ec85ee2868",
         description="Open the first note in the Keep Notes app on Android, copy its contents, and paste them into a new document in Google docs. Then, open the newly created document in Firefox on Ubuntu.",
         evaluator=evaluator_ca79febf(),
     ),
+    Task(
+        id="dfabf84c-d05f-4e25-9f21-ba0f08107bd5",
+        description='Use Firefox to search for an image using the keyword "kaust" and copy the URL of the image to the clipboard. Download a file from the URL stored in the clipboard to "/home/crab/Desktop/download.jpg". Then describe this image and save it in the Android Keep Notes app.',
+        evaluator=evaluator_dfabf84c(),
+    ),
+    Task(
+        id="aab5555e-4b72-4ebf-816a-59c1da2cec86",
+        description="Check the all uname information of the system in Ubuntu, then explain the information to the first contact in the list of the Messages app in Android.",
+        evaluator=evaluator_aab5555e(),
+    ),
+    Task(
+        id="fd0576be-8b2c-45ce-b4a2-78659740879b",
+        description="Check the current disk usage through command line in Ubuntu, check the root directory usage in percentage and save the information to a note in Keep Notes app in Android.",
+        evaluator=evaluator_fd0576be(),
+    ),
+    Task(
+        id="7e08f7d4-9b11-4aec-9b42-6cbde083fb4c",
+        description='Use firefox on Ubuntu to openup the image "https://farm9.staticflickr.com/8293/7591378270_76059bc1cf_z.jpg", check the time of the clock in the image, then open the clock app in Android and set an alarm to the same as the image.',
+        evaluator=evaluator_7e08f7d4(),
+    ),
+    Task(
+        id="4957e964-5dd5-42f6-9d5d-f6a53a9a5d94",
+        description='Use wget to download the image "https://farm8.staticflickr.com/7451/10001676353_fd762e02f0_z.jpg" to /home/crab/Desktop/download.jpg, what does the people in the image do? Create a task in the Tasks app in Android to remind you to do the same thing.',
+        evaluator=evaluator_4957e964(),
+    ),
 ]
+
+handmade_tasks = ubuntu_handmade_tasks + corss_environment_tasks

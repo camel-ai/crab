@@ -14,15 +14,16 @@
 import pytest
 
 from crab import create_benchmark
-from crab.agents.backend_models.openai_model import OpenAIModel
+from crab.agents.backend_models import BackendModelConfig
 from crab.agents.policies.multi_agent_by_func import MultiAgentByFuncPolicy
 from crab.benchmarks.template import multienv_template_benchmark_config
 
 
 @pytest.fixture
 def policy_fixture():
-    model = OpenAIModel(
-        model="gpt-4o",
+    model = BackendModelConfig(
+        model_class="openai",
+        model_name="gpt-4o",
         parameters={"max_tokens": 3000},
         history_messages_len=1,
     )
@@ -30,9 +31,11 @@ def policy_fixture():
     benchmark = create_benchmark(benchmark_config)
     task, action_spaces = benchmark.start_task("0")
     policy = MultiAgentByFuncPolicy(
-        task_description=task.description,
         main_agent_model_backend=model,
         tool_agent_model_backend=model,
+    )
+    policy.reset(
+        task_description=task.description,
         action_spaces=action_spaces,
         env_descriptions=benchmark.get_env_descriptions(),
     )

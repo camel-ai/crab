@@ -1,0 +1,15 @@
+{
+    "description": "In Android, Using Google Map app, Find the city name of corresponding post code \"1010021\" in the country \"Japan\".",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "country": "Japan",
+                "number": "101-0021"
+            },
+            "output": "Tokyo"
+        }
+    ],
+    "adjlist": "0",
+    "id": "4190c90c-b28c-4bb3-ab5c-af3c4fde0a3d"
+}

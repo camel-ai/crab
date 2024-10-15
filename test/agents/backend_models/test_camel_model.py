@@ -14,16 +14,19 @@
 import pytest
 
 from crab import action
-from crab.agents.backend_models import CamelModel
+from crab.agents.backend_models import BackendModelConfig, create_backend_model
 
 
 @pytest.fixture
 def camel_model():
-    return CamelModel(
-        model_platform="openai",
-        model="gpt-4o",
-        parameters={"max_tokens": 3000},
-        history_messages_len=1,
+    return create_backend_model(
+        BackendModelConfig(
+            model_class="camel",
+            model_name="gpt-4o",
+            model_platform="openai",
+            parameters={"max_tokens": 3000},
+            history_messages_len=1,
+        )
     )
 
 

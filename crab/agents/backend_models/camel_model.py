@@ -84,20 +84,20 @@ class CamelModel(BackendModel):
         model_platform: str,
         parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
+        tool_call_required: bool = True,
     ) -> None:
         if not CAMEL_ENABLED:
             raise ImportError("Please install camel-ai to use CamelModel")
-        self.parameters = parameters or {}
+        self.model = model
+        self.parameters = parameters if parameters is not None else {}
+        self.history_messages_len = history_messages_len
+
         self.model_type = _get_model_type(model)
         self.model_platform_type = _get_model_platform_type(model_platform)
         self.client: ChatAgent | None = None
         self.token_usage = 0
-
-        super().__init__(
-            model,
-            parameters,
-            history_messages_len,
-        )
+        self.tool_call_required = tool_call_required
+        self.history_messages_len = history_messages_len
 
     def get_token_usage(self) -> int:
         return self.token_usage
@@ -106,7 +106,7 @@ class CamelModel(BackendModel):
         action_schema = _convert_action_to_schema(action_space)
         config = self.parameters.copy()
         if action_schema is not None:
-            config["tool_choice"] = "required"
+            config["tool_choice"] = "required" if self.tool_call_required else "auto"
             config["tools"] = [
                 schema.get_openai_tool_schema() for schema in action_schema
             ]

@@ -26,7 +26,7 @@ from openai.types.chat.chat_completion_message_tool_call import (
 )
 
 from crab import create_benchmark
-from crab.agents.backend_models.openai_model import OpenAIModel
+from crab.agents.backend_models import BackendModelConfig
 from crab.agents.policies.single_agent import SingleAgentPolicy
 from crab.benchmarks.template import multienv_template_benchmark_config
 
@@ -75,8 +75,9 @@ openai_mock_response = MagicMock(
 @pytest.fixture
 def policy_fixture():
     os.environ["OPENAI_API_KEY"] = "MOCK"
-    model = OpenAIModel(
-        model="gpt-4o",
+    model = BackendModelConfig(
+        model_class="openai",
+        model_name="gpt-4o",
         parameters={"max_tokens": 3000},
         history_messages_len=1,
     )

@@ -13,7 +13,7 @@
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 # ruff: noqa: F401
 from .action import Action, ClosedAction
-from .agent_interface import ActionOutput, BackendOutput, MessageType
+from .agent_interface import ActionOutput, BackendOutput, Message, MessageType
 from .benchmark_interface import StepResult
 from .config import BenchmarkConfig, EnvironmentConfig, VMEnvironmentConfig
 from .evaluator import Evaluator
@@ -23,6 +23,7 @@ __all__ = [
     "Action",
     "ClosedAction",
     "MessageType",
+    "Message",
     "ActionOutput",
     "BackendOutput",
     "StepResult",

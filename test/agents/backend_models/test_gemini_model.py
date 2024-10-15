@@ -14,17 +14,21 @@
 import pytest
 
 from crab import MessageType, action
-from crab.agents.backend_models.gemini_model import GeminiModel
+from crab.agents.backend_models import BackendModelConfig, create_backend_model
 
 # TODO: Add mock data
 
 
 @pytest.fixture
 def gemini_model_text():
-    return GeminiModel(
-        model="gemini-1.5-pro-latest",
-        parameters={"max_tokens": 3000},
-        history_messages_len=1,
+    return create_backend_model(
+        BackendModelConfig(
+            model_class="gemini",
+            model_name="gemini-1.5-pro-latest",
+            parameters={"max_tokens": 3000},
+            history_messages_len=1,
+            tool_call_required=False,
+        )
     )
 
 

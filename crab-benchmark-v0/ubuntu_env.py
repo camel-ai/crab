@@ -13,6 +13,7 @@
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 from crab.actions.desktop_actions import (
     click,
+    double_click,
     key_press,
     press_hotkey,
     right_click,
@@ -31,6 +32,7 @@ UBUNTU_ENV = EnvironmentConfig(
         press_hotkey,
         search_application,
         right_click,
+        double_click,
     ],
     observation_space=[screenshot],
     description="""An Ubuntu 22.04 Linux desktop operating system. The interface \

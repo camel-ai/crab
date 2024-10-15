@@ -89,7 +89,7 @@ class Environment:
 
         self._client: Client | None = None
         if remote_url is not None:
-            self._client = Client(base_url=remote_url)
+            self._client = Client(base_url=remote_url, timeout=60)
         for key, value in extra_attributes.items():
             setattr(self, key, value)
 
