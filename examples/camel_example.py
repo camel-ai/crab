@@ -12,35 +12,15 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 from termcolor import colored
-
-from camel.societies import RolePlaying
-from camel.utils import print_text_animated
+import os
 
 from crab import Benchmark, create_benchmark
-from crab.agents.backend_models import OpenAIModel
+from crab.agents.backend_models.camel_model import CamelModel
 from crab.agents.policies import SingleAgentPolicy
 from crab.benchmarks.template import template_benchmark_config
+from camel.types import ModelType, ModelPlatformType
+from camel.models import ModelFactory
 
-def camel_task_generator():
-    task_prompt = "Design a custom game using pygame"
-    print(colored(f"Original task prompt:\n{task_prompt}\n", "yellow"))
-    role_play_session = RolePlaying("Computer Programmer", "Gamer", task_prompt=task_prompt)
-    print(colored(f"Specified task prompt:\n{role_play_session.task_prompt}\n", "cyan"))
-
-    chat_turn_limit, n = 50, 0
-    input_msg = role_play_session.init_chat()
-    while n < chat_turn_limit:
-        n += 1
-        assistant_response, user_response = role_play_session.step(input_msg)
-        print_text_animated(colored(f"AI User:\n\n{user_response.msg.content}\n", "blue"))
-        print_text_animated(colored(f"AI Assistant:\n\n{assistant_response.msg.content}\n", "green"))
-
-        if "CAMEL_TASK_DONE" in user_response.msg.content:
-            break
-
-        input_msg = assistant_response.msg
-
-    return role_play_session.task_prompt
 
 def start_benchmark(benchmark: Benchmark, agent: SingleAgentPolicy):
     for step in range(20):
@@ -74,23 +54,25 @@ def start_benchmark(benchmark: Benchmark, agent: SingleAgentPolicy):
                 print("=" * 40)
                 print(
                     colored(
-                        f"Task finished, result: {response.evaluation_results}",
-                        "green"
+                        f"Task finished, result: {response.evaluation_results}", "green"
                     )
                 )
                 return
 
-if __name__ == "__main__":
-    task_description = camel_task_generator()
 
+if __name__ == "__main__":
     benchmark = create_benchmark(template_benchmark_config)
-    task, action_space = benchmark.start_task("0", task_description)
+    task, action_space = benchmark.start_task("0")
     env_descriptions = benchmark.get_env_descriptions()
 
-    model = OpenAIModel(model="gpt-4o", history_messages_len=5)
-    agent = SingleAgentPolicy(model_backend=model)
-    agent.reset(task_description, action_space, env_descriptions)
-
-    print("Start performing task: " + colored(f'"{task_description}"', "green"))
+    # TODO: Use local model
+    camel_model = CamelModel(
+        model="gpt-4o",
+        model_platform=ModelPlatformType.OPENAI,
+        parameters={"temperature": 0.7},  
+    )
+    agent = SingleAgentPolicy(model_backend=camel_model)
+    agent.reset(task.description, action_space, env_descriptions)
+    print("Start performing task: " + colored(f'"{task.description}"', "green"))
     start_benchmark(benchmark, agent)
     benchmark.reset()
