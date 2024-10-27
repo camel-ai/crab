@@ -1,0 +1,23 @@
+{
+    "description": "Combine Image 1 \"/home/crab/Pictures/cat.png\" and Image 2 \"/home/crab/assets/campus.png\" using GIMP (GNU Image Manipulation Program), placing Image 1 on the left side of Image 2, and save the combined image to \"/home/crab/Desktop/background.png\". Then, set this combined image as the screen background of the system.",
+    "tasks": [
+        {
+            "task": "4cf246ea-0a7f-43da-84b6-61d74a2699af",
+            "attribute": {
+                "image_path_1": "/home/crab/Pictures/cat.png",
+                "image_path_2": "/home/crab/assets/campus.png",
+                "output_path": "/home/crab/Desktop/background.png"
+            },
+            "output": "/home/crab/Desktop/background.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/Desktop/background.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "d3c917ff-406f-447a-87f5-b8d835cba750"
+}

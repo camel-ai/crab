@@ -1,0 +1,24 @@
+{
+    "description": "Download the flag of Ethiopia image from \"https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Flag_of_Ethiopia.svg/250px-Flag_of_Ethiopia.svg.png\" to \"/home/crab/Pictures/flag.png\", create a new directory named \"/home/crab/Pictures/png_\", and copy all PNG files from \"/home/crab/Pictures\" to the newly created directory \"/home/crab/Pictures/png_\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Flag_of_Ethiopia.svg/250px-Flag_of_Ethiopia.svg.png",
+                "file_path": "/home/crab/Pictures/flag.png"
+            },
+            "output": "/home/crab/Pictures/flag.png"
+        },
+        {
+            "task": "217ababc-ccc7-4b9f-af07-c239d92848fe",
+            "attribute": {
+                "file_extension": "png",
+                "source_dir": "/home/crab/Pictures",
+                "target_dir": "/home/crab/Pictures/png_"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "ccf31785-ec13-4981-93c5-ca6c242ac0c3"
+}

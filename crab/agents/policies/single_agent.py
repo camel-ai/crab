@@ -19,6 +19,7 @@ from crab.core.backend_model import (
     BackendModel,
     MessageType,
 )
+from crab.utils.measure import timed
 
 
 class SingleAgentPolicy(AgentPolicy):
@@ -32,15 +33,15 @@ class SingleAgentPolicy(AgentPolicy):
     unit operation you can perform is called Action. You have a limited action space as
     function calls:
     {action_descriptions}
-    You may receive a screenshot of the current system. You may receive a screenshot of a
-    smartphone app. The interactive UI elements on the screenshot are labeled with numeric
-    tags starting from 1. 
+    You may receive a screenshot of the current system. You may receive a screenshot of
+    a smartphone app. The interactive UI elements on the screenshot are labeled with
+    numeric tags starting from 1. 
 
-    In each step, You MUST explain what do you see from the current observation and
-    the plan of the next action, then use a provided action in each step to
-    achieve the task. You should state what action to take and what the parameters should
-    be. Your answer MUST be a least one function call. You SHOULD NEVER ask me to do
-    anything for you. Always do them by yourself using function calls.
+    In each step, You MUST explain what do you see from the current observation and the
+    plan of the next action, then use a provided action in each step to achieve the
+    task. You should state what action to take and what the parameters should be. Your
+    answer MUST be a least one function call. You SHOULD NEVER ask me to do anything for
+    you. Always do them by yourself using function calls.
     """
 
     def __init__(
@@ -71,6 +72,7 @@ class SingleAgentPolicy(AgentPolicy):
     def get_backend_model_name(self):
         return self.model_backend.__class__.__name__
 
+    @timed
     def chat(
         self,
         observation: dict[str, list[tuple[str, MessageType]]],

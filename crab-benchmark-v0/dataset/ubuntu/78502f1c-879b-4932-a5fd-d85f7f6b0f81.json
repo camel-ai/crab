@@ -1,0 +1,22 @@
+{
+    "description": "Download the file from \"https://cemse.kaust.edu.sa/sites/default/files/styles/large/public/2023-04/Web%20banner.jpg?itok=d1TvGUKY\" to \"/home/crab/Pictures/KAUST_AI.png\" and then set this image as the desktop background on the system.",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://cemse.kaust.edu.sa/sites/default/files/styles/large/public/2023-04/Web%20banner.jpg?itok=d1TvGUKY",
+                "file_path": "/home/crab/Pictures/KAUST_AI.png"
+            },
+            "output": "/home/crab/Pictures/KAUST_AI.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/Pictures/KAUST_AI.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "78502f1c-879b-4932-a5fd-d85f7f6b0f81"
+}

@@ -1,0 +1,22 @@
+{
+    "description": "In an Android system, use the calendar app to find the title of an event on the date \"9 August 2024\", and then, using the Gmail app, send an email to crabbb@gmail.com with the event title as message.",
+    "tasks": [
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "9 August 2024"
+            },
+            "output": "National Day of Singapore would be a public holiday"
+        },
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "National Day of Singapore would be a public holiday",
+                "mail": "crabbb@gmail.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "94b1836b-3111-40ad-8d07-b8a57efe7438"
+}

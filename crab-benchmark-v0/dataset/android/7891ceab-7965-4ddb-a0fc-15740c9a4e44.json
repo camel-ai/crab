@@ -1,0 +1,22 @@
+{
+    "description": "In Android, Using \"Google Map\" app, find the city name of corresponding post code \"560049\" in the country \"India\". Creat a folder with the city name in  \"Google Drive \" app",
+    "tasks": [
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "country": "India",
+                "number": "560049"
+            },
+            "output": "Bengaluru"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ar",
+            "attribute": {
+                "content": "Bengaluru"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "7891ceab-7965-4ddb-a0fc-15740c9a4e44"
+}

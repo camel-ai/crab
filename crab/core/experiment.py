@@ -141,7 +141,8 @@ class Experiment:
                 return True
             print(
                 "\033[92m"
-                f'Action "{action.name}" in env "{action.env}" success. current evaluation results: {self.metrics}\n'
+                f'Action "{action.name}" in env "{action.env}" success. '
+                f"Current evaluation results: {self.metrics}\n"
                 "\033[0m"
             )
             self.write_current_log_row(action)
@@ -193,7 +194,8 @@ class Experiment:
             env_descriptions=env_description,
         )
         print(
-            f'Start benchmark "{self.benchmark.name}", task id "{self.task.id}": "{self.task.description}"'
+            f'Start benchmark "{self.benchmark.name}", task id "{self.task.id}": '
+            f'"{self.task.description}"'
         )
         self.init_log_dir()
         self.step_cnt = 0

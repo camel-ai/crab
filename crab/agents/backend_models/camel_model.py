@@ -11,11 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-import base64
-import io
 import json
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
+from openai.types.chat import ChatCompletionMessageToolCall
 from PIL import Image
 
 from crab import Action, ActionOutput, BackendModel, BackendOutput, MessageType
@@ -23,7 +22,6 @@ from crab.utils.common import base64_to_image
 
 try:
     from camel.agents import ChatAgent
-    from camel.configs import ChatGPTConfig
     from camel.messages import BaseMessage
     from camel.models import ModelFactory
     from camel.toolkits import OpenAIFunction
@@ -34,26 +32,49 @@ except ImportError:
     CAMEL_ENABLED = False
 
 
-def find_model_platform_type(model_platform_name: str) -> ModelPlatformType:
-    for platform in ModelPlatformType:
-        if platform.value.lower() == model_platform_name.lower():
-            return platform
-    all_models = [platform.value for platform in ModelPlatformType]
-    raise ValueError(
-        f"Model {model_platform_name} not found. Supported models are {all_models}"
-    )
+def _get_model_platform_type(model_platform_name: str) -> "ModelPlatformType":
+    try:
+        return ModelPlatformType(model_platform_name)
+    except ValueError:
+        all_models = [platform.value for platform in ModelPlatformType]
+        raise ValueError(
+            f"Model {model_platform_name} not found. Supported models are {all_models}"
+        )
 
 
-def find_model_type(model_name: str) -> Union[ModelType, str]:
-    for model in ModelType:
-        if model.value.lower() == model_name.lower():
-            return model
-    return model_name
+def _get_model_type(model_name: str) -> "str | ModelType":
+    try:
+        return ModelType(model_name)
+    except ValueError:
+        return model_name
 
 
-def decode_image(encoded_image: str) -> Image:
-    data = base64.b64decode(encoded_image)
-    return Image.open(io.BytesIO(data))
+def _convert_action_to_schema(
+    action_space: list[Action] | None,
+) -> "list[OpenAIFunction] | None":
+    if action_space is None:
+        return None
+    schema_list = []
+    for action in action_space:
+        new_action = action.to_openai_json_schema()
+        schema = {"type": "function", "function": new_action}
+        schema_list.append(OpenAIFunction(action.entry, schema))
+    return schema_list
+
+
+def _convert_tool_calls_to_action_list(
+    tool_calls: list[ChatCompletionMessageToolCall] | None,
+) -> list[ActionOutput] | None:
+    if tool_calls is None:
+        return None
+
+    return [
+        ActionOutput(
+            name=call.function.name,
+            arguments=json.loads(call.function.arguments),
+        )
+        for call in tool_calls
+    ]
 
 
 class CamelModel(BackendModel):
@@ -61,16 +82,15 @@ class CamelModel(BackendModel):
         self,
         model: str,
         model_platform: str,
-        parameters: Optional[Dict[str, Any]] = None,
+        parameters: dict[str, Any] | None = None,
         history_messages_len: int = 0,
     ) -> None:
         if not CAMEL_ENABLED:
             raise ImportError("Please install camel-ai to use CamelModel")
         self.parameters = parameters or {}
-        # TODO: a better way?
-        self.model_type = find_model_type(model)
-        self.model_platform_type = find_model_platform_type(model_platform)
-        self.client: Optional[ChatAgent] = None
+        self.model_type = _get_model_type(model)
+        self.model_platform_type = _get_model_platform_type(model_platform)
+        self.client: ChatAgent | None = None
         self.token_usage = 0
 
         super().__init__(
@@ -79,23 +99,22 @@ class CamelModel(BackendModel):
             history_messages_len,
         )
 
-    def get_token_usage(self):
+    def get_token_usage(self) -> int:
         return self.token_usage
 
-    def reset(self, system_message: str, action_space: Optional[List[Action]]) -> None:
-        action_schema = self._convert_action_to_schema(action_space)
+    def reset(self, system_message: str, action_space: list[Action] | None) -> None:
+        action_schema = _convert_action_to_schema(action_space)
         config = self.parameters.copy()
         if action_schema is not None:
             config["tool_choice"] = "required"
-            config["tools"] = action_schema
+            config["tools"] = [
+                schema.get_openai_tool_schema() for schema in action_schema
+            ]
 
-        chatgpt_config = ChatGPTConfig(
-            **config,
-        )
         backend_model = ModelFactory.create(
             self.model_platform_type,
             self.model_type,
-            model_config_dict=chatgpt_config.as_dict(),
+            model_config_dict=config,
         )
         sysmsg = BaseMessage.make_assistant_message(
             role_name="Assistant",
@@ -109,30 +128,9 @@ class CamelModel(BackendModel):
         )
         self.token_usage = 0
 
-    @staticmethod
-    def _convert_action_to_schema(
-        action_space: Optional[List[Action]],
-    ) -> Optional[List[OpenAIFunction]]:
-        if action_space is None:
-            return None
-        return [OpenAIFunction(action.entry) for action in action_space]
-
-    @staticmethod
-    def _convert_tool_calls_to_action_list(tool_calls) -> List[ActionOutput]:
-        if tool_calls is None:
-            return tool_calls
-
-        return [
-            ActionOutput(
-                name=call.function.name,
-                arguments=json.loads(call.function.arguments),
-            )
-            for call in tool_calls
-        ]
-
-    def chat(self, messages: List[Tuple[str, MessageType]]):
+    def chat(self, messages: list[tuple[str, MessageType]]) -> BackendOutput:
         # TODO: handle multiple text messages after message refactoring
-        image_list: List[Image.Image] = []
+        image_list: list[Image.Image] = []
         content = ""
         for message in messages:
             if message[1] == MessageType.IMAGE_JPG_BASE64:
@@ -147,12 +145,9 @@ class CamelModel(BackendModel):
         )
         response = self.client.step(usermsg)
         self.token_usage += response.info["usage"]["total_tokens"]
-        tool_call_request = response.info.get("tool_call_request")
-
-        # TODO: delete this after record_message is refactored
-        self.client.record_message(response.msg)
+        tool_call_request = response.info.get("external_tool_request")
 
         return BackendOutput(
             message=response.msg.content,
-            action_list=self._convert_tool_calls_to_action_list([tool_call_request]),
+            action_list=_convert_tool_calls_to_action_list([tool_call_request]),
         )

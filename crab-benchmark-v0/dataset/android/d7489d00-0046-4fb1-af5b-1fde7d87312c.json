@@ -1,0 +1,21 @@
+{
+    "description": "In Android, open the \"Contacts\" app to find the email address of the contact named Karoon Wei, then use the \"Tasks\" app to add a new task with the email address.",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ap",
+            "attribute": {
+                "name": "Karoon Wei"
+            },
+            "output": "karroonw@gmail.com"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548af",
+            "attribute": {
+                "content": "karroonw@gmail.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "d7489d00-0046-4fb1-af5b-1fde7d87312c"
+}

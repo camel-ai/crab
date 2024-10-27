@@ -1,0 +1,22 @@
+{
+    "description": "In Android, Using \"Google Map\" app, Find the address of \"University of Oxford\" and send \"abcdcly@qq.com\" the address using \"Gmail\" App. ",
+    "tasks": [
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548aw",
+            "attribute": {
+                "content": "University of Oxford"
+            },
+            "output": "Wellington Square, Oxford OX1 2JD, United Kingdom"
+        },
+        {
+            "task": "0090f116-e02b-4562-a20d-b5df38be963a",
+            "attribute": {
+                "content": "Wellington Square, Oxford OX1 2JD, United Kingdom",
+                "mail": "abcdcly@qq.com"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "b3965b07-4683-4445-9de1-a1dedf6c73ad"
+}

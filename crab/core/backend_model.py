@@ -33,17 +33,14 @@ class BackendModel(ABC):
         self.reset("You are a helpful assistant.", None)
 
     @abstractmethod
-    def chat(self, contents: list[tuple[str, MessageType]]) -> BackendOutput:
-        ...
+    def chat(self, contents: list[tuple[str, MessageType]]) -> BackendOutput: ...
 
     @abstractmethod
     def reset(
         self,
         system_message: str,
         action_space: list[Action] | None,
-    ):
-        ...
+    ): ...
 
     @abstractmethod
-    def get_token_usage(self):
-        ...
+    def get_token_usage(self): ...

@@ -1,0 +1,22 @@
+{
+    "description": "In the Android system, use the calendar app to find the title of an event on the date \"16 July 2024,\" then, using the Google Map app, find the city name of the corresponding post code \"113-8654\" in the country with same name as title.",
+    "tasks": [
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "16 July 2024"
+            },
+            "output": "Japan"
+        },
+        {
+            "task": "51b2463c-9904-4a32-81ba-507bfb89d61f",
+            "attribute": {
+                "number": "113-8654",
+                "country": "Japan"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "53010c40-dce4-4d72-a856-842c21059e2b"
+}

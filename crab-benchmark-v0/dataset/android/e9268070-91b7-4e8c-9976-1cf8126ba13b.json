@@ -1,0 +1,21 @@
+{
+    "description": "In the Android system, use the task app to find the title of an event on the date \"15 June 2024\", then using the \"Google Drive\" app, create a new folder named as the title we found.",
+    "tasks": [
+        {
+            "task": "2394b768-2ca7-45e9-b41e-2aa4e9573192",
+            "attribute": {
+                "date": "15 June 2024"
+            },
+            "output": "EMNLP24 DDL"
+        },
+        {
+            "task": "a3d11574-2acf-4b26-a569-a5dbc9d548ar",
+            "attribute": {
+                "content": "EMNLP24 DDL"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "e9268070-91b7-4e8c-9976-1cf8126ba13b"
+}

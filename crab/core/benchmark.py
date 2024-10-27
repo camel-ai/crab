@@ -16,6 +16,7 @@ from time import sleep
 from typing import Any
 
 from crab.core.graph_evaluator import GraphEvaluator
+from crab.utils.measure import timed
 
 from .environment import Environment, create_environment
 from .exceptions import TaskNotFound
@@ -175,6 +176,7 @@ class Benchmark:
             return env_obs
         return self._merge_dicts(env_obs)
 
+    @timed
     def observe_with_prompt(
         self,
     ) -> tuple[dict[str, dict[str, Any]], dict[str, tuple[str, MessageType]]]:
@@ -203,6 +205,7 @@ class Benchmark:
         self.current_evaluator.step(self.environment_map, self.default_env)
         return self.current_evaluator.stat()
 
+    @timed
     def step(
         self,
         action: str,

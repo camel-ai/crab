@@ -1,0 +1,21 @@
+{
+    "description": "Paste the clipboard content into Visual Studio Code (VS Code) and save the file as \"/home/crab/Desktop/content.txt\", then open a terminal and print the content of \"/home/crab/Desktop/content.txt\" to the command line interface.",
+    "tasks": [
+        {
+            "task": "8491e674-596b-452b-9e0e-58a44d90f947",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/content.txt"
+            },
+            "output": "/home/crab/Desktop/content.txt"
+        },
+        {
+            "task": "5b527839-0e58-426d-bab6-7160200b0d24",
+            "attribute": {
+                "file_path": "/home/crab/Desktop/content.txt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "abb16512-27ae-49c0-b12b-7fbf0e95056b"
+}

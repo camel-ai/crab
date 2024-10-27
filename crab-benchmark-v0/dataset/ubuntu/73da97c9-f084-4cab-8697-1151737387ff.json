@@ -1,0 +1,22 @@
+{
+    "description": "Download the file from \"https://images.top1market.com/images/cms/uploads/20230928/4950e1db0038feb506fdcfa0c936fd8e.png\" to \"/home/crab/Desktop/meta.png\", then set this image, \"/home/crab/Desktop/meta.png\", as the desktop background on the system.",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://images.top1market.com/images/cms/uploads/20230928/4950e1db0038feb506fdcfa0c936fd8e.png",
+                "file_path": "/home/crab/Desktop/meta.png"
+            },
+            "output": "/home/crab/Desktop/meta.png"
+        },
+        {
+            "task": "a207ef38-b3b2-4c6c-a1e3-75c38162f5ba",
+            "attribute": {
+                "photo_path": "/home/crab/Desktop/meta.png"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "73da97c9-f084-4cab-8697-1151737387ff"
+}

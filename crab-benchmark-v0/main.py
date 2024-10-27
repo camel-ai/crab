@@ -12,6 +12,7 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import argparse
+import logging
 import warnings
 from pathlib import Path
 from typing import Literal
@@ -27,6 +28,10 @@ from crab import (
     evaluator,
 )
 from crab.actions.crab_actions import complete
+from crab.actions.visual_prompt_actions import (
+    get_elements_prompt,
+    groundingdino_easyocr,
+)
 from crab.agents.backend_models import ClaudeModel, GeminiModel, OpenAIModel
 from crab.agents.policies import (
     MultiAgentByEnvPolicy,
@@ -43,10 +48,6 @@ from .dataset.android_subtasks import android_subtasks
 from .dataset.handmade_tasks import handmade_tasks
 from .dataset.ubuntu_subtasks import ubuntu_subtasks
 from .ubuntu_env import UBUNTU_ENV
-from .visual_prompt_actions import (
-    get_elements_prompt,
-    groundingdino_easyocr,
-)
 
 warnings.filterwarnings("ignore")
 
@@ -205,7 +206,19 @@ if __name__ == "__main__":
         help="task description. If provided, will overwrite the task id.",
         default=None,
     )
+    parser.add_argument(
+        "--loglevel",
+        type=str,
+        help="logger level, debug, info, warning, or error",
+        default="warning",
+    )
     args = parser.parse_args()
+    loglevel = args.loglevel
+    numeric_level = getattr(logging, loglevel.upper(), None)
+    if not isinstance(numeric_level, int):
+        raise ValueError("Invalid log level: %s" % loglevel)
+    logging.basicConfig(level=numeric_level)
+
     benchmark = get_benchmark(args.env, args.remote_url)
 
     if args.task_description is not None:
@@ -223,19 +236,13 @@ if __name__ == "__main__":
     history_messages_len = 2
 
     if args.model == "gpt4o":
-        model = OpenAIModel(model="gpt-4o", history_messages_len=history_messages_len)
-    elif args.policy == "gpt4turbo":
-        model = OpenAIModel(
-            model="gpt-4-turbo", history_messages_len=history_messages_len
-        )
-    elif args.policy == "gemini":
-        model = GeminiModel(
-            model="gemini-1.5-pro-latest", history_messages_len=history_messages_len
-        )
-    elif args.policy == "claude":
-        model = ClaudeModel(
-            model="claude-3-opus-20240229", history_messages_len=history_messages_len
-        )
+        model = OpenAIModel(model="gpt-4o", history_messages_len=2)
+    elif args.model == "gpt4turbo":
+        model = OpenAIModel(model="gpt-4-turbo", history_messages_len=2)
+    elif args.model == "gemini":
+        model = GeminiModel(model="gemini-1.5-pro-latest", history_messages_len=2)
+    elif args.model == "claude":
+        model = ClaudeModel(model="claude-3-opus-20240229", history_messages_len=2)
     else:
         print("Unsupported model: ", args.model)
         exit()

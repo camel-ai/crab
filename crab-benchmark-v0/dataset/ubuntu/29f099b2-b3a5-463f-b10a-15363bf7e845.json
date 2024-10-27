@@ -1,0 +1,22 @@
+{
+    "description": "Use Firefox to search for a \"garden\" around \"ETH Zurich\" on Google Maps, copy the sharing URL of that \"garden\" to the clipboard, then paste the content into Visual Studio Code (VS Code) and save the file at \"/home/crab/eth_garden.txt\".",
+    "tasks": [
+        {
+            "task": "2b189dc2-c77f-4fa3-8432-ba4355cc294c",
+            "attribute": {
+                "place_type": "garden",
+                "place_name": "ETH Zurich"
+            },
+            "output": null
+        },
+        {
+            "task": "8491e674-596b-452b-9e0e-58a44d90f947",
+            "attribute": {
+                "file_path": "/home/crab/eth_garden.txt"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "29f099b2-b3a5-463f-b10a-15363bf7e845"
+}

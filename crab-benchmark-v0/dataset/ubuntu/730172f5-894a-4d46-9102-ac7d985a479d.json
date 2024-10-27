@@ -1,0 +1,23 @@
+{
+    "description": "Download the image of Jupiter from \"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/640px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg\" to \"/home/crab/Pictures/jupiter.jpg\", then use LibreOffice Impress to adjust the brightness of this image to make it darker and save the edited version as \"/home/crab/Pictures/jupiter_edited.jpg\".",
+    "tasks": [
+        {
+            "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+            "attribute": {
+                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Jupiter_and_its_shrunken_Great_Red_Spot.jpg/640px-Jupiter_and_its_shrunken_Great_Red_Spot.jpg",
+                "file_path": "/home/crab/Pictures/jupiter.jpg"
+            },
+            "output": "/home/crab/Pictures/jupiter.jpg"
+        },
+        {
+            "task": "434402f3-647a-4a9a-9d8f-10f5bb6c7cf0",
+            "attribute": {
+                "image_path_before_edit": "/home/crab/Pictures/jupiter.jpg",
+                "image_path_after_edit": "/home/crab/Pictures/jupiter_edited.jpg"
+            },
+            "output": null
+        }
+    ],
+    "adjlist": "0 1\n1",
+    "id": "730172f5-894a-4d46-9102-ac7d985a479d"
+}
