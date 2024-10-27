@@ -25,7 +25,6 @@ from crab import (
     Task,
     TaskGenerator,
     create_benchmark,
-    evaluator,
 )
 from crab.actions.crab_actions import complete
 from crab.actions.visual_prompt_actions import (
@@ -84,11 +83,6 @@ class CrabBenchmarkV0(Experiment):
         return result_prompt
 
 
-@evaluator(env_name="macos")
-def empty_evaluator() -> bool:
-    return False
-
-
 def get_benchmark(env: str, ubuntu_url: str):
     ubuntu_env = UBUNTU_ENV.model_copy()
     ubuntu_env.remote_url = ubuntu_url
@@ -136,7 +130,11 @@ def get_benchmark(env: str, ubuntu_url: str):
             multienv=True,
         )
     elif env == "mac":
-        task = Task(description="Open firefox in both macos and android.", id="0",evaluator=empty_evaluator)
+        task = Task(
+            description="Open firefox in both macos and android.",
+            id="0",
+            evaluator=empty_evaluator,
+        )
         prompting_tools = {"macos": mac_tool, "android": android_tool}
         mac_env.remote_url = "http://10.85.170.240:8000"
         benchmark_config = BenchmarkConfig(
