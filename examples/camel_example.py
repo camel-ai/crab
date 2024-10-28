@@ -62,6 +62,7 @@ def start_benchmark(benchmark: Benchmark, agent: SingleAgentPolicy):
 
 if __name__ == "__main__":
     benchmark = create_benchmark(template_benchmark_config)
+    #TODO: Use new task config
     task, action_space = benchmark.start_task("0")
     env_descriptions = benchmark.get_env_descriptions()
 

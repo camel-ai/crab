@@ -16,6 +16,7 @@ from typing import Any, List, Optional, Tuple
 from crab import BackendOutput, MessageType
 from crab.agents.backend_models.camel_model import CamelModel
 from camel.messages import BaseMessage
+from langchain.schema import Document 
 
 try:
     from camel.embeddings import OpenAIEmbedding
@@ -83,13 +84,19 @@ class CamelRAGModel(CamelModel):
             ""
         )
 
-        retrieved_info = self.retriever.query(
-            query=query,
-            top_k=self.top_k,
-            similarity_threshold=self.similarity_threshold,
-        )
+        try:
+            retrieved_info = self.retriever.query(
+                query=query,
+                top_k=self.top_k,
+                similarity_threshold=self.similarity_threshold,
+            )
+        except Exception:
+            return messages
 
-        if not retrieved_info or retrieved_info[0].get('text', '').startswith('No suitable information'):
+        if not retrieved_info:
+            return messages
+
+        if not retrieved_info[0].get('payload'):
             return messages
 
         context = "Relevant context:\n\n"
@@ -106,3 +113,16 @@ class CamelRAGModel(CamelModel):
     def chat(self, messages: List[Tuple[str, MessageType]]) -> BackendOutput:
         enhanced_messages = self._enhance_with_context(messages)
         return super().chat(enhanced_messages)
+
+    def get_relevant_content(self, query: str) -> List[Document]:
+        if not self.vector_storage: 
+            return []
+        
+        try:
+            return self.retriever.query(
+                query=query,
+                top_k=self.top_k,
+                similarity_threshold=self.similarity_threshold,
+            )
+        except Exception:
+            return []

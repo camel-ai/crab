@@ -23,13 +23,30 @@ from crab.agents.policies import SingleAgentPolicy
 from crab.benchmarks.template import template_benchmark_config
 from camel.types import ModelType, ModelPlatformType
 
-
+# TODO: Add new benchmark template
 def start_benchmark(benchmark: Benchmark, agent: SingleAgentPolicy):
     for step in range(20):
         print("=" * 40)
         print(f"Start agent step {step}:")
         observation = benchmark.observe()["template_env"]
         print(f"Current environment observation: {observation}")
+        
+        try:
+            rag_content = agent.model_backend.get_relevant_content(str(observation))
+            print(colored("\nRelevant RAG content:", "magenta"))
+            if rag_content:
+                for idx, content in enumerate(rag_content, 1):
+                    print(colored(f"\nDocument {idx}:", "magenta"))
+                    if isinstance(content, dict):
+                        print(colored(f"Source: {content.get('content path', 'Unknown')}", "yellow"))
+                        print(colored(f"Content: {content.get('text', '')[:500]}...", "white"))
+                    else:
+                        print(colored(f"Content: {str(content)[:500]}...", "white"))
+            else:
+                print(colored("No relevant content found", "yellow"))
+        except Exception as e:
+            print(colored(f"Error retrieving RAG content: {str(e)}", "red"))
+        
         response = agent.chat(
             {
                 "template_env": [
@@ -37,7 +54,7 @@ def start_benchmark(benchmark: Benchmark, agent: SingleAgentPolicy):
                 ]
             }
         )
-        print(colored(f"Agent take action: {response}", "blue"))
+        print(colored(f"\nAgent take action: {response}", "blue"))
 
         for action in response:
             response = benchmark.step(
@@ -74,7 +91,6 @@ def prepare_vim_docs():
     response = requests.get(base_url)
     soup = BeautifulSoup(response.text, 'html.parser')
     
-    # Process the main page first
     main_content = soup.get_text(separator='\n', strip=True)
     with open(os.path.join(content_dir, "main.txt"), 'w', encoding='utf-8') as f:
         f.write(f"Source: {base_url}\n\n{main_content}")
@@ -91,14 +107,12 @@ def prepare_vim_docs():
         try:
             print(colored(f"Processing page {idx}/{total_links}: {href}", "yellow"))
             
-            # Fetch and process page
             page_response = requests.get(full_url)
             page_soup = BeautifulSoup(page_response.text, 'html.parser')
             for tag in page_soup(['script', 'style']):
                 tag.decompose()
             content = page_soup.get_text(separator='\n', strip=True)
             
-            # Save content
             filename = os.path.join(content_dir, f"{href.replace('/', '_')}.txt")
             with open(filename, 'w', encoding='utf-8') as f:
                 f.write(f"Source: {full_url}\n\n{content}")
@@ -115,7 +129,6 @@ def prepare_vim_docs():
 if __name__ == "__main__":
     print(colored("=== Starting RAG-enhanced benchmark ===", "cyan"))
     
-    # Initialize benchmark and environment
     print(colored("\nInitializing benchmark environment...", "yellow"))
     benchmark = create_benchmark(template_benchmark_config)
     task, action_space = benchmark.start_task("0")
