@@ -76,6 +76,9 @@ types-pyautogui = "^0.9.3.20240106"
 types-psutil = "^5.9.5.20240205"
 types-networkx = "^3.2.1.20240210"
 
+# gui
+customtkinter = { version = "^5.2.2", optional = true }
+
 [tool.poetry.extras]
 server = ["fastapi", "pydantic-settings", "uvicorn"]
 client = [
@@ -99,6 +102,7 @@ client = [
     "timm",
 ]
 camel = ["camel-ai"]
+gui = ["customtkinter"]
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.8.0"
