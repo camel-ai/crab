@@ -38,6 +38,7 @@ def assign_task():
         agent_policy=agent_policy,
         log_dir=log_dir,
     )
+    # TODO: redirect the output to the GUI
     expeirment.start_benchmark()
 
 
@@ -55,6 +56,7 @@ def display_message(message, sender="user"):
 
 
 if __name__ == "__main__":
+    # TODO: make this choosable by the user
     model = OpenAIModel(model="gpt-4o", history_messages_len=2)
     agent_policy = SingleAgentPolicy(model_backend=model)
     log_dir = (Path(__file__).parent / "logs").resolve()
@@ -73,14 +75,10 @@ if __name__ == "__main__":
     )
     chat_display.pack()
 
-    # Frame for input and send button side-by-side
     input_frame = ctk.CTkFrame(app)
     input_frame.pack(pady=10, padx=10, fill="x")
 
-    # Entry widget for user input
-    input_entry = ctk.CTkEntry(
-        input_frame, placeholder_text="Type your message here..."
-    )
+    input_entry = ctk.CTkEntry(input_frame)
     input_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
     send_button = ctk.CTkButton(input_frame, text="Send", command=assign_task)
