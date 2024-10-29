@@ -62,14 +62,14 @@ class ClaudeModel(BackendModel):
     def chat(self, message: list[Message] | Message) -> BackendOutput:
         if isinstance(message, tuple):
             message = [message]
-        request = self.fetch_from_memory()
-        new_message = self.construct_new_message(message)
+        request = self._fetch_from_memory()
+        new_message = self._construct_new_message(message)
         request.append(new_message)
-        response_message = self.call_api(request)
-        self.record_message(new_message, response_message)
-        return self.generate_backend_output(response_message)
+        response_message = self._call_api(request)
+        self._record_message(new_message, response_message)
+        return self._generate_backend_output(response_message)
 
-    def construct_new_message(self, message: list[Message]) -> dict[str, Any]:
+    def _construct_new_message(self, message: list[Message]) -> dict[str, Any]:
         parts: list[dict] = []
         for content, msg_type in message:
             match msg_type:
@@ -96,7 +96,7 @@ class ClaudeModel(BackendModel):
             "content": parts,
         }
 
-    def fetch_from_memory(self) -> list[dict]:
+    def _fetch_from_memory(self) -> list[dict]:
         request: list[dict] = []
         if self.history_messages_len > 0:
             fetch_history_len = min(self.history_messages_len, len(self.chat_history))
@@ -107,7 +107,7 @@ class ClaudeModel(BackendModel):
     def get_token_usage(self):
         return self.token_usage
 
-    def record_message(
+    def _record_message(
         self, new_message: dict, response_message: anthropic.types.Message
     ) -> None:
         self.chat_history.append([new_message])
@@ -145,7 +145,7 @@ class ClaudeModel(BackendModel):
             )
         ),
     )
-    def call_api(self, request_messages: list[dict]) -> anthropic.types.Message:
+    def _call_api(self, request_messages: list[dict]) -> anthropic.types.Message:
         request_messages = _merge_request(request_messages)
         if self.action_schema is not None:
             response = self.client.messages.create(
@@ -169,7 +169,7 @@ class ClaudeModel(BackendModel):
         self.token_usage += response.usage.input_tokens + response.usage.output_tokens
         return response
 
-    def generate_backend_output(
+    def _generate_backend_output(
         self, response_message: anthropic.types.Message
     ) -> BackendOutput:
         message = ""

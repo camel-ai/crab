@@ -72,17 +72,17 @@ class OpenAIModel(BackendModel):
     def chat(self, message: list[Message] | Message) -> BackendOutput:
         if isinstance(message, tuple):
             message = [message]
-        request = self.fetch_from_memory()
-        new_message = self.construct_new_message(message)
+        request = self._fetch_from_memory()
+        new_message = self._construct_new_message(message)
         request.append(new_message)
-        response_message = self.call_api(request)
-        self.record_message(new_message, response_message)
-        return self.generate_backend_output(response_message)
+        response_message = self._call_api(request)
+        self._record_message(new_message, response_message)
+        return self._generate_backend_output(response_message)
 
     def get_token_usage(self):
         return self.token_usage
 
-    def record_message(
+    def _record_message(
         self, new_message: dict, response_message: ChatCompletionMessage
     ) -> None:
         self.chat_history.append([new_message])
@@ -99,7 +99,7 @@ class OpenAIModel(BackendModel):
                     }
                 )  # extend conversation with function response
 
-    def call_api(
+    def _call_api(
         self, request_messages: list[ChatCompletionMessage | dict]
     ) -> ChatCompletionMessage:
         if self.action_schema is not None:
@@ -120,7 +120,7 @@ class OpenAIModel(BackendModel):
         self.token_usage += response.usage.total_tokens
         return response.choices[0].message
 
-    def fetch_from_memory(self) -> list[ChatCompletionMessage | dict]:
+    def _fetch_from_memory(self) -> list[ChatCompletionMessage | dict]:
         request: list[ChatCompletionMessage | dict] = [self.openai_system_message]
         if self.history_messages_len > 0:
             fetch_history_len = min(self.history_messages_len, len(self.chat_history))
@@ -128,7 +128,7 @@ class OpenAIModel(BackendModel):
                 request = request + history_message
         return request
 
-    def construct_new_message(self, message: list[Message]) -> dict[str, Any]:
+    def _construct_new_message(self, message: list[Message]) -> dict[str, Any]:
         new_message_content: list[dict[str, Any]] = []
         for content, msg_type in message:
             match msg_type:
@@ -152,7 +152,7 @@ class OpenAIModel(BackendModel):
 
         return {"role": "user", "content": new_message_content}
 
-    def generate_backend_output(
+    def _generate_backend_output(
         self, response_message: ChatCompletionMessage
     ) -> BackendOutput:
         if response_message.tool_calls is None:
@@ -205,7 +205,7 @@ class OpenAIModelJSON(OpenAIModel):
         super().reset(system_message, action_space)
         self.action_schema = None
 
-    def record_message(
+    def _record_message(
         self, new_message: dict, response_message: ChatCompletionMessage
     ) -> None:
         self.chat_history.append([new_message])
@@ -213,7 +213,7 @@ class OpenAIModelJSON(OpenAIModel):
             {"role": "assistant", "content": response_message.content}
         )
 
-    def generate_backend_output(
+    def _generate_backend_output(
         self, response_message: ChatCompletionMessage
     ) -> BackendOutput:
         content = response_message.content
@@ -240,7 +240,7 @@ class OpenAIModelJSON(OpenAIModel):
 
 
 class SGlangOpenAIModelJSON(OpenAIModelJSON):
-    def construct_new_message(self, message: list[Message]) -> dict[str, Any]:
+    def _construct_new_message(self, message: list[Message]) -> dict[str, Any]:
         new_message_content: list[dict[str, Any]] = []
         image_count = 0
         for _, msg_type in message:

@@ -71,14 +71,14 @@ class GeminiModel(BackendModel):
     def chat(self, message: list[Message] | Message) -> BackendOutput:
         if isinstance(message, tuple):
             message = [message]
-        request = self.fetch_from_memory()
-        new_message = self.construct_new_message(message)
+        request = self._fetch_from_memory()
+        new_message = self._construct_new_message(message)
         request.append(new_message)
-        response_message = self.call_api(request)
-        self.record_message(new_message, response_message)
-        return self.generate_backend_output(response_message)
+        response_message = self._call_api(request)
+        self._record_message(new_message, response_message)
+        return self._generate_backend_output(response_message)
 
-    def construct_new_message(self, message: list[Message]) -> dict[str, Any]:
+    def _construct_new_message(self, message: list[Message]) -> dict[str, Any]:
         parts: list[str | Image] = []
         for content, msg_type in message:
             match msg_type:
@@ -91,7 +91,7 @@ class GeminiModel(BackendModel):
             "parts": parts,
         }
 
-    def generate_backend_output(self, response_message: Content) -> BackendOutput:
+    def _generate_backend_output(self, response_message: Content) -> BackendOutput:
         tool_calls: list[ActionOutput] = []
         for part in response_message.parts:
             if "function_call" in Part.to_dict(part):
@@ -108,7 +108,7 @@ class GeminiModel(BackendModel):
             action_list=tool_calls or None,
         )
 
-    def fetch_from_memory(self) -> list[dict]:
+    def _fetch_from_memory(self) -> list[dict]:
         request: list[dict] = []
         if self.history_messages_len > 0:
             fetch_history_len = min(self.history_messages_len, len(self.chat_history))
@@ -119,7 +119,7 @@ class GeminiModel(BackendModel):
     def get_token_usage(self):
         return self.token_usage
 
-    def record_message(
+    def _record_message(
         self, new_message: dict[str, Any], response_message: Content
     ) -> None:
         self.chat_history.append([new_message])
@@ -132,7 +132,7 @@ class GeminiModel(BackendModel):
         stop=stop_after_attempt(7),
         retry=retry_if_exception_type(ResourceExhausted),
     )
-    def call_api(self, request_messages: list) -> Content:
+    def _call_api(self, request_messages: list) -> Content:
         if self.action_schema is not None:
             tool_config = content_types.to_tool_config(
                 {
