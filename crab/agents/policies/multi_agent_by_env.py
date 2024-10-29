@@ -11,9 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-from copy import copy
-
 from crab import Action, ActionOutput
+from crab.agents.backend_models import BackendModelConfig, create_backend_model
+from crab.agents.utils import generate_action_prompt
 from crab.core.agent_policy import AgentPolicy
 from crab.core.backend_model import (
     BackendModel,
@@ -57,12 +57,12 @@ class MultiAgentByEnvPolicy(AgentPolicy):
 
     def __init__(
         self,
-        main_agent_model_backend: BackendModel,
-        env_agent_model_backend: BackendModel,
+        main_agent_model_backend: BackendModelConfig,
+        env_agent_model_backend: BackendModelConfig,
     ):
-        self.main_agent_model_backend = copy(main_agent_model_backend)
-        self.env_agent_model_backend = env_agent_model_backend
-        self.reset(task_description="", action_spaces=None, env_descriptions={})
+        self.main_agent_model_backend = create_backend_model(main_agent_model_backend)
+        self.env_agent_model_backend_config = env_agent_model_backend
+        self.reset(task_description="", action_spaces={}, env_descriptions={})
 
     def reset(
         self,
@@ -82,15 +82,16 @@ class MultiAgentByEnvPolicy(AgentPolicy):
         )
         self.env_agent_model_backends: dict[str, BackendModel] = {}
         for env in action_spaces:
-            backend = copy(self.env_agent_model_backend)
+            backend = create_backend_model(self.env_agent_model_backend_config)
             if env == "root":
                 backend.reset(root_agent_system_message, action_spaces[env])
             else:
+                backend.require_tool = True
                 env_agent_system_message = self._env_agent_prompt.format(
                     task_description=task_description,
                     environment=env,
                     env_description=env_descriptions[env],
-                    action_descriptions=self.generate_action_prompt(action_spaces[env]),
+                    action_descriptions=generate_action_prompt(action_spaces[env]),
                 )
                 backend.reset(env_agent_system_message, action_spaces[env])
             self.env_agent_model_backends[env] = backend
@@ -105,9 +106,8 @@ class MultiAgentByEnvPolicy(AgentPolicy):
     def get_backend_model_name(self):
         return (
             self.main_agent_model_backend.__class__.__name__
-            + "(sub: "
-            + self.env_agent_model_backend.__class__.__name__
-            + ")"
+            + "_"
+            + self.main_agent_model_backend.model
         )
 
     def chat(
@@ -140,5 +140,7 @@ class MultiAgentByEnvPolicy(AgentPolicy):
                 )
             else:
                 output = backend.chat((main_agent_message, MessageType.TEXT))
+            for action in output.action_list:
+                action.env = env
             tool_calls.extend(output.action_list)
-        return self.decode_combined_action(tool_calls)
+        return tool_calls

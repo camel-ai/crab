@@ -28,6 +28,7 @@ lxml = "^5.2.2"
 openai = "^1.12.0"
 cryptography = "^43.0.0"
 setuptools = "^73.0.1"
+tenacity = "^9.0.0"
 
 # desktop actions
 pillow = "^10.2.0"
@@ -118,5 +119,5 @@ lint.ignore = ["E731"]
 exclude = ["docs/"]
 
 [[tool.mypy.overrides]]
-module = ["dill", "easyocr"]
+module = ["dill", "easyocr", "google.generativeai.*"]
 ignore_missing_imports = true

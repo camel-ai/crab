@@ -14,6 +14,7 @@
 from crab import EnvironmentConfig
 from crab.actions.android_actions import (
     key_press,
+    long_tap,
     open_app_drawer,
     screenshot,
     setup,
@@ -24,7 +25,7 @@ from crab.actions.android_actions import (
 
 ANDROID_ENV = EnvironmentConfig(
     name="android",
-    action_space=[tap, key_press, write_text, swipe, open_app_drawer],
+    action_space=[tap, key_press, long_tap, write_text, swipe, open_app_drawer],
     observation_space=[screenshot],
     description="""A Google Pixel smartphone runs on the Android operating system. \
 The interface displays a current screenshot at each step and primarily \

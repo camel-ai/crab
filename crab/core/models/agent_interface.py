@@ -24,6 +24,9 @@ class MessageType(IntEnum):
     IMAGE_JPG_BASE64 = 1
 
 
+Message = tuple[str, MessageType]
+
+
 class ActionOutput(BaseModel):
     name: str
     arguments: dict[str, Any]

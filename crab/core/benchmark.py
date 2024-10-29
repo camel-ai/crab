@@ -239,7 +239,22 @@ class Benchmark:
                 info=info,
             )
 
-        environment = self._get_env(env_name=env_name, action_name=action)
+        try:
+            environment = self._get_env(env_name=env_name, action_name=action)
+        except Exception:
+            print(traceback.format_exc())
+            terminated = True
+            info["terminate_reason"] = "action_format_error"
+            info["exception_detail"] = traceback.format_exc()
+            environment.reset()
+            self.close_task()
+            return StepResult(
+                truncated=False,
+                terminated=True,
+                action_returns=None,
+                evaluation_results=self.current_evaluator.stat(),
+                info=info,
+            )
         try:
             action_returns = environment.step(action, parameters)
         except Exception:

@@ -16,6 +16,7 @@ import argparse
 import importlib
 import itertools
 import json
+import os
 import random
 from pathlib import Path
 
@@ -121,6 +122,8 @@ class TaskGenerator:
         self.attribute_pool = attribute_pool
         self.graph_generation(subtasks)
         self.task_mapping = {task.id: task for task in subtasks}
+        if not os.getenv("OPENAI_API_KEY"):
+            os.environ["OPENAI_API_KEY"] = "EMPTY"
         self.client = OpenAI()
 
     @classmethod
