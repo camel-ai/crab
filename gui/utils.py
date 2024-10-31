@@ -27,11 +27,25 @@ from crab.actions.visual_prompt_actions import (
 from gui.envs import MAC_ENV, UBUNTU_ENV, WINDOWS_ENV
 from gui.host_os import HostOS
 
+_CACHED_HOST_OS = None
 
 def check_host_os() -> HostOS:
-    # TODO: Check the host OS and return the corresponding HostOS enum
-    return HostOS.WINDOWS
+    global _CACHED_HOST_OS
 
+    if _CACHED_HOST_OS is None:
+        import platform
+        host_os = platform.system().lower()
+
+        if host_os == "linux":
+            _CACHED_HOST_OS = HostOS.LINUX
+        elif host_os == "darwin":
+            _CACHED_HOST_OS = HostOS.MAC
+        elif host_os == "windows":
+            _CACHED_HOST_OS = HostOS.WINDOWS
+        else:
+            raise ValueError(f"Host OS {host_os} is not supported")
+
+    return _CACHED_HOST_OS
 
 @evaluator(env_name="ubuntu")
 def empty_evaluator_linux() -> bool:
