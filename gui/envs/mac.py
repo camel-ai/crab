@@ -44,5 +44,5 @@ MAC_ENV = EnvironmentConfig(
         "already logged in on Safari, synchronized with the same account used in other "
         "environments."
     ),
-    remote_url="http://127.0.0.1:8080",
+    remote_url="http://127.0.0.1:8000",
 )

@@ -15,7 +15,7 @@ from enum import Enum
 
 
 class HostOS(str, Enum):
-    WINDOWS = "ubuntu"
+    WINDOWS = "windows"
     LINUX = "ubuntu"
     MAC = "macos"
     UNKNOWN = "unknown"

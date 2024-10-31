@@ -43,5 +43,5 @@ WINDOWS_ENV = EnvironmentConfig(
         "Slack is available. The Google account is logged in on Edge, synchronized with"
         " the same account used in other environments."
     ),
-    remote_url="http://127.0.0.1:8080",
+    remote_url="http://127.0.0.1:8000",
 )
