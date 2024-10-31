@@ -17,9 +17,9 @@ from uuid import uuid4
 
 import customtkinter as ctk
 
-from crab import Experiment
 from crab.agents.backend_models import ClaudeModel, GeminiModel, OpenAIModel
 from crab.agents.policies import SingleAgentPolicy
+from gui.gui_experiment import GuiExperiment
 from gui.utils import get_benchmark
 
 warnings.filterwarnings("ignore")
@@ -58,7 +58,7 @@ def assign_task():
 
     task_id = str(uuid4())
     benchmark = get_benchmark(task_id, task_description)
-    experiment = Experiment(
+    experiment = GuiExperiment(
         benchmark=benchmark,
         task_id=task_id,
         agent_policy=agent_policy,
@@ -82,8 +82,6 @@ def display_message(message, sender="user"):
 
 
 if __name__ == "__main__":
-    # TODO: Handle JSON decode error from environment action endpoint and
-    #  display model response in GUI
     log_dir = (Path(__file__).parent / "logs").resolve()
 
     ctk.set_appearance_mode("System")
