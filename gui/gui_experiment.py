@@ -26,6 +26,10 @@ class GuiExperiment(Experiment):
         log_dir: Path | None = None,
     ) -> None:
         super().__init__(benchmark, task_id, agent_policy, log_dir)
+        self.display_callback = None
+
+    def set_display_callback(self, callback):
+        self.display_callback = callback
 
     def get_prompt(self):
         observation, ob_prompt = self.benchmark.observe_with_prompt()
@@ -47,3 +51,64 @@ class GuiExperiment(Experiment):
                 (marked_screenshot, MessageType.IMAGE_JPG_BASE64),
             ]
         return result_prompt
+
+    def step(self, it) -> bool:
+        if self.display_callback:
+            self.display_callback(f"Step {self.step_cnt}:", "ai")
+
+        prompt = self.get_prompt()
+        self.log_prompt(prompt)
+
+        try:
+            response = self.agent_policy.chat(prompt)
+            if self.display_callback:
+                self.display_callback(f"Planning next action...", "ai")
+        except Exception as e:
+            if self.display_callback:
+                self.display_callback(f"Error: {str(e)}", "ai")
+            self.write_main_csv_row("agent_exception")
+            return True
+        
+        if self.display_callback:
+            self.display_callback(f"Executing: {response}", "ai")
+        return self.execute_action(response)
+
+    def execute_action(self, response: list[ActionOutput]) -> bool:
+        for action in response:
+            benchmark_result = self.benchmark.step(
+                action=action.name,
+                parameters=action.arguments,
+                env_name=action.env,
+            )
+            self.metrics = benchmark_result.evaluation_results
+
+            if benchmark_result.terminated:
+                if self.display_callback:
+                    self.display_callback(
+                        f"✓ Task completed! Results: {self.metrics}", "ai"
+                    )
+                self.write_current_log_row(action)
+                self.write_current_log_row(benchmark_result.info["terminate_reason"])
+                return True
+
+            if self.display_callback:
+                self.display_callback(
+                    f'Action "{action.name}" completed in {action.env}. '
+                    f"Progress: {self.metrics}", "ai"
+                )
+            self.write_current_log_row(action)
+            self.step_cnt += 1
+        return False
+
+    def start_benchmark(self):
+        if self.display_callback:
+            self.display_callback("Starting benchmark...", "ai")
+        try:
+            super().start_benchmark()
+        except KeyboardInterrupt:
+            if self.display_callback:
+                self.display_callback("Experiment interrupted.", "ai")
+            self.write_main_csv_row("experiment_interrupted")
+        finally:
+            if self.display_callback:
+                self.display_callback("Experiment finished.", "ai")

@@ -53,19 +53,33 @@ def assign_task():
     input_entry.delete(0, "end")
     display_message(task_description)
 
-    model = get_model_instance(model_dropdown.get())
-    agent_policy = SingleAgentPolicy(model_backend=model)
+    try:
+        model = get_model_instance(model_dropdown.get())
+        agent_policy = SingleAgentPolicy(model_backend=model)
 
-    task_id = str(uuid4())
-    benchmark = get_benchmark(task_id, task_description)
-    experiment = GuiExperiment(
-        benchmark=benchmark,
-        task_id=task_id,
-        agent_policy=agent_policy,
-        log_dir=log_dir,
-    )
-    # TODO: redirect the output to the GUI
-    experiment.start_benchmark()
+        task_id = str(uuid4())
+        benchmark = get_benchmark(task_id, task_description)
+        experiment = GuiExperiment(
+            benchmark=benchmark,
+            task_id=task_id,
+            agent_policy=agent_policy,
+            log_dir=log_dir,
+        )
+    
+        experiment.set_display_callback(display_message)
+
+        def run_experiment():
+            try:
+                experiment.start_benchmark()
+            except Exception as e:
+                display_message(f"Error: {str(e)}", "ai")
+
+        import threading
+        thread = threading.Thread(target=run_experiment, daemon=True)
+        thread.start()
+    
+    except Exception as e:
+        display_message(f"Error: {str(e)}", "ai")
 
 
 def display_message(message, sender="user"):
