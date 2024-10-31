@@ -103,34 +103,35 @@ if __name__ == "__main__":
 
     app = ctk.CTk()
     app.title("CRAB")
-    app.geometry("400x500")
+    app.geometry("500x1000")
 
-    model_frame = ctk.CTkFrame(app)
-    model_frame.pack(pady=10, padx=10, fill="x")
-
-    model_label = ctk.CTkLabel(model_frame, text="Model")
-    model_label.pack(side="left", padx=(0, 10))
+    bold_font = ctk.CTkFont(family="Crimson Pro", size=18, weight="bold")
+    normal_font = ctk.CTkFont(family="Crimson Pro", size=18, weight="normal")
 
     model_dropdown = ctk.CTkOptionMenu(
-        model_frame,
+        app,
         values=list(AVAILABLE_MODELS.keys()),
+        font=bold_font,
+        width=200,
     )
-    model_dropdown.set(next(iter(AVAILABLE_MODELS)))
-    model_dropdown.pack(side="left", fill="x", expand=True)
+    model_dropdown.set(list(AVAILABLE_MODELS.keys())[0])
+    model_dropdown.pack(pady=10, padx=10, fill="x")
 
-    chat_display_frame = ctk.CTkFrame(app, width=380, height=380)
-    chat_display_frame.pack(pady=10)
+    chat_display_frame = ctk.CTkFrame(app, width=480, height=880)
+    chat_display_frame.pack(pady=10, expand=True, fill="y")
     chat_display = ctk.CTkTextbox(
-        chat_display_frame, width=380, height=380, state="disabled"
+        chat_display_frame, width=480, height=880, state="disabled", font=normal_font
     )
-    chat_display.pack()
+    chat_display.pack(expand=True, fill="both")
 
     input_frame = ctk.CTkFrame(app)
-    input_frame.pack(pady=10, padx=10, fill="x")
+    input_frame.pack(pady=10, padx=10, fill="x", expand=True)
 
-    input_entry = ctk.CTkEntry(input_frame)
+    input_entry = ctk.CTkEntry(input_frame, font=normal_font)
     input_entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
 
-    send_button = ctk.CTkButton(input_frame, text="Send", command=assign_task)
+    send_button = ctk.CTkButton(
+        input_frame, text="Send", font=bold_font, command=assign_task
+    )
     send_button.pack(side="right")
     app.mainloop()
