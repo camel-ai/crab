@@ -13,6 +13,7 @@
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 import warnings
 from pathlib import Path
+from typing import Literal
 from uuid import uuid4
 
 import customtkinter as ctk
@@ -50,8 +51,10 @@ def get_model_instance(model_key: str):
 
 def assign_task():
     task_description = input_entry.get()
+    if not task_description.strip():
+        return
     input_entry.delete(0, "end")
-    display_message(task_description)
+    display_message(task_description, "user")
 
     try:
         model = get_model_instance(model_dropdown.get())
@@ -65,31 +68,44 @@ def assign_task():
             agent_policy=agent_policy,
             log_dir=log_dir,
         )
-    
+
         experiment.set_display_callback(display_message)
 
         def run_experiment():
             try:
                 experiment.start_benchmark()
             except Exception as e:
-                display_message(f"Error: {str(e)}", "ai")
+                display_message(f"Error: {str(e)}", "error")
 
         import threading
+
         thread = threading.Thread(target=run_experiment, daemon=True)
         thread.start()
-    
+
     except Exception as e:
-        display_message(f"Error: {str(e)}", "ai")
+        display_message(f"Error: {str(e)}", "error")
 
 
-def display_message(message, sender="user"):
+def display_message(
+    message, category: Literal["system", "user", "action", "error"] = "system"
+):
     chat_display.configure(state="normal")
-    if sender == "user":
-        chat_display.insert("end", f"User: {message}\n", "user")
-    else:
-        chat_display.insert("end", f"AI: {message}\n", "ai")
-    chat_display.tag_config("user", justify="left", foreground="blue")
-    chat_display.tag_config("ai", justify="right", foreground="green")
+    if category == "user":
+        chat_display.insert("end", f"{message}\n", "user")
+    elif category == "system":
+        chat_display.insert("end", f"{message}\n", "system")
+    elif category == "error":
+        chat_display.insert("end", f"{message}\n", "error")
+    elif category == "action":
+        chat_display.insert("end", f"{message}\n", "action")
+    chat_display.tag_config(
+        "user", justify="right", foreground="lightblue", wrap="word"
+    )
+    chat_display.tag_config("system", justify="left", foreground="gray", wrap="word")
+    chat_display.tag_config(
+        "action", justify="left", foreground="lightgreen", wrap="word"
+    )
+    chat_display.tag_config("error", justify="left", foreground="red", wrap="word")
     chat_display.configure(state="disabled")
     chat_display.see("end")
     app.update_idletasks()
@@ -98,7 +114,7 @@ def display_message(message, sender="user"):
 if __name__ == "__main__":
     log_dir = (Path(__file__).parent / "logs").resolve()
 
-    ctk.set_appearance_mode("System")
+    ctk.set_appearance_mode("dark")
     ctk.set_default_color_theme("blue")
 
     app = ctk.CTk()
@@ -118,7 +134,7 @@ if __name__ == "__main__":
     model_dropdown.pack(pady=10, padx=10, fill="x")
 
     chat_display_frame = ctk.CTkFrame(app, width=480, height=880)
-    chat_display_frame.pack(pady=10, expand=True, fill="y")
+    chat_display_frame.pack(pady=10, padx=10, expand=True, fill="both")
     chat_display = ctk.CTkTextbox(
         chat_display_frame, width=480, height=880, state="disabled", font=normal_font
     )

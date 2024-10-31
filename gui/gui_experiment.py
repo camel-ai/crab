@@ -14,7 +14,7 @@
 from pathlib import Path
 from typing import Literal
 
-from crab import AgentPolicy, Benchmark, Experiment, MessageType
+from crab import ActionOutput, AgentPolicy, Benchmark, Experiment, MessageType
 
 
 class GuiExperiment(Experiment):
@@ -54,23 +54,21 @@ class GuiExperiment(Experiment):
 
     def step(self, it) -> bool:
         if self.display_callback:
-            self.display_callback(f"Step {self.step_cnt}:", "ai")
+            self.display_callback("CRAB is Thinking...", "system")
 
         prompt = self.get_prompt()
         self.log_prompt(prompt)
 
         try:
             response = self.agent_policy.chat(prompt)
-            if self.display_callback:
-                self.display_callback(f"Planning next action...", "ai")
         except Exception as e:
             if self.display_callback:
-                self.display_callback(f"Error: {str(e)}", "ai")
+                self.display_callback(f"Error: {str(e)}", "error")
             self.write_main_csv_row("agent_exception")
             return True
-        
+
         if self.display_callback:
-            self.display_callback(f"Executing: {response}", "ai")
+            self.display_callback(f"Acting: {response}", "action")
         return self.execute_action(response)
 
     def execute_action(self, response: list[ActionOutput]) -> bool:
@@ -85,30 +83,25 @@ class GuiExperiment(Experiment):
             if benchmark_result.terminated:
                 if self.display_callback:
                     self.display_callback(
-                        f"✓ Task completed! Results: {self.metrics}", "ai"
+                        f"✓ Task completed! Results: {self.metrics}", "system"
                     )
                 self.write_current_log_row(action)
                 self.write_current_log_row(benchmark_result.info["terminate_reason"])
                 return True
 
             if self.display_callback:
-                self.display_callback(
-                    f'Action "{action.name}" completed in {action.env}. '
-                    f"Progress: {self.metrics}", "ai"
-                )
+                self.display_callback("Action completed.\n>>>>>", "system")
             self.write_current_log_row(action)
             self.step_cnt += 1
         return False
 
     def start_benchmark(self):
-        if self.display_callback:
-            self.display_callback("Starting benchmark...", "ai")
         try:
             super().start_benchmark()
         except KeyboardInterrupt:
             if self.display_callback:
-                self.display_callback("Experiment interrupted.", "ai")
+                self.display_callback("Experiment interrupted.", "error")
             self.write_main_csv_row("experiment_interrupted")
         finally:
             if self.display_callback:
-                self.display_callback("Experiment finished.", "ai")
+                self.display_callback("Experiment finished.", "error")

@@ -29,11 +29,13 @@ from gui.host_os import HostOS
 
 _CACHED_HOST_OS = None
 
+
 def check_host_os() -> HostOS:
     global _CACHED_HOST_OS
 
     if _CACHED_HOST_OS is None:
         import platform
+
         host_os = platform.system().lower()
 
         if host_os == "linux":
@@ -46,6 +48,7 @@ def check_host_os() -> HostOS:
             raise ValueError(f"Host OS {host_os} is not supported")
 
     return _CACHED_HOST_OS
+
 
 @evaluator(env_name="ubuntu")
 def empty_evaluator_linux() -> bool:
