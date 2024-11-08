@@ -29,6 +29,7 @@ openai = "^1.12.0"
 cryptography = "^43.0.0"
 setuptools = "^73.0.1"
 tenacity = "^9.0.0"
+gymnasium = "^1.0.0"
 
 # desktop actions
 pillow = "^10.2.0"
