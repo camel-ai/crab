@@ -18,7 +18,7 @@ import gymnasium as gym
 from openai.types.chat.chat_completion_tool_param import ChatCompletionToolParam
 
 
-class Environment(gym.Env, ABC):
+class CrabEnvironment(gym.Env, ABC):
     """The base environment class for agents to interact with in the CRAB framework.
 
     Crab Environment is a subclass of `gymnasium.Env` and is designed to be a base class

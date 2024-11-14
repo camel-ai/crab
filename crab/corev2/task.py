@@ -16,7 +16,19 @@ from typing import Any
 import gymnasium as gym
 from gymnasium import Wrapper
 from gymnasium.core import ActType, ObsType, WrapperObsType
-from gymnasium.spaces import Dict, Space, Text, Tuple
+from gymnasium.spaces import Dict, Text, Tuple
+from pydantic import BaseModel, ConfigDict
+
+from .evaluator import Evaluator
+
+
+class Task(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+    id: str
+    description: str
+    evaluator: Evaluator
+    setup: callable[(), None]
+    # extra_action: list[Action] = []
 
 
 class TaskWrapper(Wrapper[WrapperObsType, ActType, ObsType, ActType]):
@@ -61,7 +73,7 @@ class TaskWrapper(Wrapper[WrapperObsType, ActType, ObsType, ActType]):
         self, action: ActType
     ) -> tuple[WrapperObsType, float, bool, bool, dict[str, Any]]:
         observation, reward, terminal, truncated, info = self.step(action)
-        reward = self.task.evaluate(self.env)
+        reward = self.task.evaluator.step(self.env)
         return self.observation(observation), reward, terminal, truncated, info
 
     def observation(self, observation: ObsType):

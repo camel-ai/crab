@@ -12,21 +12,13 @@
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
 from abc import ABC, abstractmethod
-from typing import Iterable
+from typing import Any
 
 from .environment import Environment
-from .evaluator import Evaluator
+from .task import Task
 
 
-class Benchmark(ABC):
+class Evaluator(ABC):
     @abstractmethod
-    def get_corresponding_env(self) -> Environment:
-        pass
-
-    @abstractmethod
-    def get_task_by_id(self, id: str) -> str:
-        pass
-
-    @abstractmethod
-    def tasks(self) -> Iterable[tuple[str, Evaluator]]:
+    def step(self, environment: Environment, task: Task) -> Any:
         pass
