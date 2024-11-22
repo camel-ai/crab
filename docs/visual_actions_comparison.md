@@ -1,4 +1,4 @@
-# Visual Actions Comparison: GroundingDINO+EasyOCR vs YOLO-based Detection
+# Visual Actions Comparison: GroundingDINO+EasyOCR vs OmniParser Detection
 
 This document provides a detailed comparison between the two visual action approaches used in the Crab framework for GUI element detection and interaction.
 
@@ -11,7 +11,7 @@ This document provides a detailed comparison between the two visual action appro
   - [EasyOCR](https://github.com/JaidedAI/EasyOCR) for text recognition
 - **Primary Use Case**: General-purpose object detection with text recognition
 
-### New Approach (YOLO-based Detection)
+### New Approach (OmniParser Detection)
 - **Implementation**: Located in `crab/actions/omniparser_visual_actions.py`
 - **Core Technologies**: 
   - Custom YOLO model optimized for GUI element detection
@@ -22,7 +22,7 @@ This document provides a detailed comparison between the two visual action appro
 
 ### 1. Model Architecture
 
-| Aspect | Legacy Approach | YOLO-based Detection |
+| Aspect | Legacy Approach | OmniParser Detection |
 |--------|----------------|------------|
 | Architecture | Transformer-based (GroundingDINO)<br>+ Separate OCR model | Single YOLO model<br>+ Configurable OCR |
 | Model Size | ~1.5GB combined | ~50MB (YOLO)<br>+ ~250MB (OCR) |
@@ -31,7 +31,7 @@ This document provides a detailed comparison between the two visual action appro
 
 ### 2. Advanced Capabilities
 
-| Capability | Legacy Approach | YOLO-based Detection |
+| Capability | Legacy Approach | OmniParser Detection |
 |------------|----------------|---------------------------|
 | **OCR** | EasyOCR only | PaddleOCR and EasyOCR |
 | **Caption Generation** | Basic element labels | Basic element labels |
@@ -42,7 +42,7 @@ This document provides a detailed comparison between the two visual action appro
 
 ### 3. Performance Metrics
 
-| Metric | Legacy Approach | YOLO-based Detection |
+| Metric | Legacy Approach | OmniParser Detection |
 |--------|----------------|------------|
 | Total Processing Time | 3-5s per image | 0.8-1.5s per image |
 | Object Detection Time | 2-3s | 0.5-1s |
@@ -64,7 +64,7 @@ This document provides a detailed comparison between the two visual action appro
 - No fast processing
 - No confidence scores
 
-#### YOLO-based Detection
+#### OmniParser Detection
 - Fast GUI element detection
 - Confidence scores
 - Low resource usage
@@ -211,7 +211,7 @@ final_image, prompt = get_elements_prompt(
 ).run()
 ```
 
-### YOLO-based Detection
+### OmniParser Detection
 ```python
 from crab.actions.omniparser_visual_actions import detect_and_annotate_gui_elements
 
@@ -247,7 +247,7 @@ The comparison tests evaluate:
 
 ## Conclusion
 
-The YOLO-based detection now offers a complete alternative to the legacy approach:
+The OmniParser Detection now offers a complete alternative to the legacy approach:
 - Faster processing times (2-3x speedup)
 - Smaller core model size (30x smaller)
 - Choice of OCR engines
@@ -255,4 +255,4 @@ The YOLO-based detection now offers a complete alternative to the legacy approac
 - Enhanced box filtering with OCR awareness
 - Confidence-based classification
 
-While the legacy approach still has some unique capabilities (multi-image processing, general object detection), the YOLO-based approach provides a more efficient and specialized solution for GUI automation tasks. Future improvements will focus on adding multi-image support and enhancing semantic understanding using OmniParser's capabilities.
+While the legacy approach still has some unique capabilities (multi-image processing, general object detection), the OmniParser Detection provides a more efficient and specialized solution for GUI automation tasks. Future improvements will focus on adding multi-image support and enhancing semantic understanding using OmniParser's capabilities.
