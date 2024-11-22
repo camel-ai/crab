@@ -171,4 +171,3 @@ _build/
 logs/
 
 .DS_Store
-__pycache__
