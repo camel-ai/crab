@@ -14,19 +14,65 @@
 import base64
 from io import BytesIO
 from typing import Callable
+import logging
+import gc
 
 import dill
 from PIL import Image
 
+logger = logging.getLogger(__name__)
 
 def base64_to_image(encoded: str) -> Image.Image:
-    return Image.open(BytesIO(base64.b64decode(encoded)))
+    try:
+        logger.info("Converting base64 to image")
+        start_size = len(encoded)
+        logger.info(f"Input base64 size: {start_size / 1024 / 1024:.2f} MB")
+        
+        # Decode base64
+        img_data = base64.b64decode(encoded)
+        logger.info(f"Decoded data size: {len(img_data) / 1024 / 1024:.2f} MB")
+        
+        # Create image from bytes
+        img = Image.open(BytesIO(img_data))
+        logger.info(f"Created image: {img.size}x{img.mode}")
+        
+        # Force load image data
+        img.load()
+        logger.info("Image data loaded into memory")
+        
+        # Clean up
+        del img_data
+        gc.collect()
+        
+        return img
+    except Exception as e:
+        logger.error(f"Error converting base64 to image: {str(e)}")
+        raise
 
 
 def image_to_base64(image: Image.Image) -> str:
-    img_byte_arr = BytesIO()
-    image.save(img_byte_arr, format="png")
-    return base64.b64encode(img_byte_arr.getvalue()).decode("utf-8")
+    try:
+        logger.info(f"Converting image to base64: {image.size}x{image.mode}")
+        
+        # Use BytesIO to save image
+        img_byte_arr = BytesIO()
+        image.save(img_byte_arr, format="PNG", optimize=True)
+        img_data = img_byte_arr.getvalue()
+        logger.info(f"PNG size: {len(img_data) / 1024 / 1024:.2f} MB")
+        
+        # Convert to base64
+        encoded = base64.b64encode(img_data).decode("utf-8")
+        logger.info(f"Base64 size: {len(encoded) / 1024 / 1024:.2f} MB")
+        
+        # Clean up
+        img_byte_arr.close()
+        del img_data
+        gc.collect()
+        
+        return encoded
+    except Exception as e:
+        logger.error(f"Error converting image to base64: {str(e)}")
+        raise
 
 
 def callable_to_base64(func: Callable) -> str:
