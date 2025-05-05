@@ -84,7 +84,7 @@ Join us ([*Discord*](https://discord.camel-ai.org/) or [*WeChat*](https://ghli.o
 - **WeChat Community:** Scan the QR code below to join our WeChat community.
 
   <div align="center">
-    <img src="assets/wechatgroup.jpeg" alt="WeChat QR Code" width="200">
+    <img src="assets/wechatgroup.jpeg" alt="WeChat QR Code">
   </div>
 
 
