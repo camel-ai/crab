@@ -78,6 +78,18 @@ Please cite [our paper](https://arxiv.org/abs/2407.01511) if you use anything re
 }
 ```
 
+## Community
+Join us ([*Discord*](https://discord.camel-ai.org/) or [*WeChat*](https://ghli.org/camel/wechat.png)) in pushing the boundaries of finding the scaling laws of agents. 
+
+- **WeChat Community:** Scan the QR code below to join our WeChat community.
+
+  <div align="center">
+    <img src="assets/wechatgroup.jpeg" alt="WeChat QR Code" width="200">
+  </div>
+
+
+<br>
+
 [slack-url]: https://join.slack.com/t/camel-kwr1314/shared_invite/zt-1vy8u9lbo-ZQmhIAyWSEfSwLCl2r2eKA
 [slack-image]: https://img.shields.io/badge/Slack-CAMEL--AI-blueviolet?logo=slack
 [discord-url]: https://discord.gg/CNcNpquyDc
