@@ -19,6 +19,7 @@ from pydantic import BaseModel
 from crab.core.backend_model import BackendModel
 
 from .camel_model import CamelModel
+from .camel_rag_model import CamelRAGModel
 from .claude_model import ClaudeModel
 from .gemini_model import GeminiModel
 from .openai_model import OpenAIModel, OpenAIModelJSON, SGlangOpenAIModelJSON
