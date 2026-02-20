@@ -1,0 +1,1212 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crab.core.task_generator &#8212; CRAB Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=0deb7d70"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/crab/core/task_generator';</script>
+    <link rel="icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/CRAB_logo1.png" class="logo__image only-light" alt="CRAB Documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/CRAB_logo1.png" class="logo__image only-dark" alt="CRAB Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started with CRAB:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/build_your_own_benchmark.html">Build your own benchmark</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">CRAB Benchmark-v0:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../crab_benchmark_v0/get_started.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../crab_benchmark_v0/environment_gcp_setup.html">Google cloud platform setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../crab_benchmark_v0/environment_local_setup.html">Local setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">crab</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../crab.html">crab package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../crab.benchmarks.html">crab.benchmarks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../crab.client.html">crab.client package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../crab.core.html">crab.core package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../crab.core.models.html">crab.core.models package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../crab.environments.html">crab.environments package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../crab.server.html">crab.server package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../crab.server.controller.html">crab.server.controller package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/camel-ai/crab" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for crab.core.task_generator</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the “License”);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an “AS IS” BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========</span>
+<span class="c1"># ruff: noqa: E501</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">importlib</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">colored</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">GeneratedTask</span><span class="p">,</span> <span class="n">SubTask</span><span class="p">,</span> <span class="n">SubTaskInstance</span><span class="p">,</span> <span class="n">Task</span>
+
+<span class="n">SYSTEM_PROMPT_SINGLE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You are a wise operator who is familiar with both the Ubuntu and Android operating</span>
+<span class="s2">systems. Our goal is to use the output of the source task as the input for the target</span>
+<span class="s2">task. You should describe of the task they combined together using several imperative</span>
+<span class="s2">sentences. You cannot provide any extra information such as detailed operation method,</span>
+<span class="s2">yet only combined the taks description together in a reasonable way. You shouldn&#39;t fill</span>
+<span class="s2">in the input attribute wrapped by curly brackets.</span>
+
+<span class="s2">Source task:</span>
+<span class="s2">Find out the city located at coordinate (8.65759263086632, 7.520403498426244) via Google Maps.</span>
+
+<span class="s2">Target task:</span>
+<span class="s2">Set the screen background as the first figure of </span><span class="si">{city_name}</span><span class="s2"> in Google.</span>
+
+<span class="s2">Answer:</span>
+<span class="s2">Using Google Maps, find the city located at coordinates (8.65759263086632,7.520403498426244), search Google for the first image of that city, and set this image as the desktop background on an Ubuntu system.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">USER_PROMPT_SINGLE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Source task:</span>
+<span class="si">{task1}</span>
+
+<span class="s2">Target task:</span>
+<span class="si">{task2}</span>
+
+<span class="s2">Answer:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">SELECT_USER_START</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Source attribute:</span>
+<span class="si">{source_task}</span>
+<span class="s2">Target tasks:</span>
+<span class="si">{target_tasks}</span>
+<span class="s2">Select a task from target tasks</span>
+<span class="s2">Answer:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">SELECT_SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You are a wise operator who is familiar with both the Ubuntu and Android operating</span>
+<span class="s2">systems. Our goal is to use the output of the source task as the input for the target</span>
+<span class="s2">task. You should identify the most reasonable target task from the list, explain why you</span>
+<span class="s2">choose it, and output the description of the task they combined together using several</span>
+<span class="s2">imperative sentences. It is crucial to establish a connection between the source and</span>
+<span class="s2">target tasks and select the best one as the output. Remember, you must select at least</span>
+<span class="s2">one with the crucial output format. You must include the provided value and every</span>
+<span class="s2">details in each task. You must use &quot;======&quot; to seperate each part (selected task number,</span>
+<span class="s2">combined task description, and explanation) Here is an example:</span>
+
+<span class="s2">Source task:</span>
+<span class="s2">Find out the city located at coordinate (8.65759263086632, 7.520403498426244) via Google Maps.</span>
+
+<span class="s2">Target tasks:</span>
+<span class="s2">Task 0: Set the screen background as the first figure of {input attribute} in Google.</span>
+<span class="s2">Task 1: Close the progress of {input attribute} app via task manager.</span>
+<span class="s2">Task 2: Download {input attribute} from the app store.</span>
+<span class="s2">Task 3: Create a PowerPoint with one page containing Mount Alps.jpg and named as {input attribute 2}.</span>
+<span class="s2">Task 4: Send message {input attribute 1} to +81 09074540472.</span>
+
+<span class="s2">Answer:</span>
+<span class="s2">0</span>
+<span class="s2">======</span>
+<span class="s2">Using Google Maps, find the city located at coordinates (8.65759263086632,7.520403498426244), search Google for the first image of that city, and set this image as the desktop background on an Ubuntu system.</span>
+<span class="s2">======</span>
+<span class="s2">This task is the most relevant and directly utilizes the output of the source task.</span>
+<span class="s2">Finding the city provides us with a specific location which can easily lead to a visual</span>
+<span class="s2">representation. Searching for an image of the city to set as a background is a practical</span>
+<span class="s2">application that visually celebrates the discovery of the city&#39;s identity.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">SELECT_USER_PROMPT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Source task:</span>
+<span class="si">{source_task}</span>
+<span class="s2">Target tasks:</span>
+<span class="si">{target_tasks}</span>
+
+<span class="s2">Answer:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="TaskGenerator">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator">[docs]</a>
+<span class="k">class</span> <span class="nc">TaskGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class to generate tasks based on a directed graph of subtasks.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">attribute_pool</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span> <span class="n">subtasks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SubTask</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the TaskGenerator object.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            attribute_pool (dict): A dictionary mapping attribute types to lists of possible values.</span>
+<span class="sd">            subtasks (list): A list of SubTask objects to be included in the task generation graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attribute_pool</span> <span class="o">=</span> <span class="n">attribute_pool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph_generation</span><span class="p">(</span><span class="n">subtasks</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">task</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">task</span> <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">subtasks</span><span class="p">}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EMPTY&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+
+<div class="viewcode-block" id="TaskGenerator.from_config">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.from_config">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_config</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TaskGenerator&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Class method to create a TaskGenerator instance from a configuration file.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            config_path (str): Path to the YAML configuration file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            TaskGenerator: An instance of TaskGenerator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">subtask_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;subtask&quot;</span><span class="p">]</span>
+        <span class="n">attribute_pool</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;attribute_pool&quot;</span><span class="p">]</span>
+        <span class="n">subtask_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">SubTask</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="n">subtask</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+                <span class="n">description</span><span class="o">=</span><span class="n">subtask</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">],</span>
+                <span class="n">attribute_dict</span><span class="o">=</span><span class="p">{</span>
+                    <span class="n">key</span><span class="p">:</span> <span class="n">subtask</span><span class="p">[</span><span class="s2">&quot;attribute_dict&quot;</span><span class="p">][</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">subtask</span><span class="p">[</span><span class="s2">&quot;attribute_dict&quot;</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="n">output_type</span><span class="o">=</span><span class="n">subtask</span><span class="p">[</span><span class="s2">&quot;output_type&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">subtask</span> <span class="ow">in</span> <span class="n">subtask_data</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">attribute_pool</span><span class="p">,</span> <span class="n">subtask_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.graph_generation">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.graph_generation">[docs]</a>
+    <span class="k">def</span> <span class="nf">graph_generation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtask_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SubTask</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a directed graph from a list of subtasks based on output and input types.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">(</span><span class="n">subtask_list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">input_node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">output_node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_list</span> <span class="ow">in</span> <span class="n">output_node</span><span class="o">.</span><span class="n">attribute_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">for</span> <span class="nb">type</span> <span class="ow">in</span> <span class="n">type_list</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="n">input_node</span><span class="o">.</span><span class="n">output_type</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
+                                <span class="n">input_node</span><span class="p">,</span> <span class="n">output_node</span><span class="p">,</span> <span class="n">attribute_name</span><span class="o">=</span><span class="n">name</span>
+                            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.combine">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.combine">[docs]</a>
+    <span class="k">def</span> <span class="nf">combine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combines two task descriptions into a single task description using GPT model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            current_description (str): The current task description.</span>
+<span class="sd">            target_description (str): The target task description to combine.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The combined task description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">user_content</span> <span class="o">=</span> <span class="n">USER_PROMPT_SINGLE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">task1</span><span class="o">=</span><span class="n">current_description</span><span class="p">,</span> <span class="n">task2</span><span class="o">=</span><span class="n">target_description</span>
+        <span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">SYSTEM_PROMPT_SINGLE</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_content</span><span class="p">},</span>
+            <span class="p">],</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo-preview&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.gpt_choice">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.gpt_choice">[docs]</a>
+    <span class="k">def</span> <span class="nf">gpt_choice</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">current_description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">outgoing_edges</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">SubTask</span><span class="p">,</span> <span class="n">SubTask</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">SubTask</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines the best task choice from a list of possible target tasks using GPT model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            current_description (str): Description of the current task.</span>
+<span class="sd">            outgoing_edges (list): List of possible outgoing edges representing target tasks.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing the chosen SubTask, attributes, new description, and combined description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">target_neighbours</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">selected_attributes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">new_descriptions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">outgoing_edges</span><span class="p">):</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attribute_name</span> <span class="o">=</span> <span class="n">edge</span>
+            <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fill_task_attributes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attribute_name</span><span class="p">)</span>
+            <span class="n">selected_attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="n">attributes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">attribute_name</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="n">attribute_name</span> <span class="o">+</span> <span class="s2">&quot;}&quot;</span>
+            <span class="n">new_description</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">new_descriptions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_description</span><span class="p">)</span>
+            <span class="n">target_neighbours</span> <span class="o">+=</span> <span class="s2">&quot;Task </span><span class="si">{0}</span><span class="s2">: </span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">new_description</span><span class="p">)</span>
+        <span class="n">user_content</span> <span class="o">=</span> <span class="n">SELECT_USER_PROMPT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">source_task</span><span class="o">=</span><span class="n">current_description</span><span class="p">,</span>
+            <span class="n">target_tasks</span><span class="o">=</span><span class="n">target_neighbours</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">SELECT_SYSTEM_PROMPT</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">user_content</span><span class="p">},</span>
+            <span class="p">],</span>
+            <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4-turbo-preview&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">response_message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span>
+        <span class="n">answers</span> <span class="o">=</span> <span class="n">response_message</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;======&quot;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">answers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="n">combined_description</span> <span class="o">=</span> <span class="n">answers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">outgoing_edges</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">selected_attributes</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="n">new_descriptions</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+            <span class="n">combined_description</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.random_walk">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.random_walk">[docs]</a>
+    <span class="k">def</span> <span class="nf">random_walk</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">current_description</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start_node</span><span class="p">:</span> <span class="n">SubTask</span><span class="p">,</span> <span class="n">random_number</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">SubTask</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs a random walk from the starting node to generate a task sequence.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            current_description (str): The current task description.</span>
+<span class="sd">            start_node (SubTask): The starting subtask node.</span>
+<span class="sd">            random_number (int): Maximum number of edges to consider.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple | None: A tuple containing the next SubTask, attributes if a next step is available, otherwise None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out_edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">start_node</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;attribute_name&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_edges</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">*** No neighbour points, generation stopped ***</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">start_node</span><span class="o">.</span><span class="n">output_type</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">*** Output None, generation will stop ***</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">random_number</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_edges</span><span class="p">):</span>
+            <span class="n">select_edge_list</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">out_edges</span><span class="p">,</span> <span class="n">random_number</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">select_edge_list</span> <span class="o">=</span> <span class="n">out_edges</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gpt_choice</span><span class="p">(</span><span class="n">current_description</span><span class="p">,</span> <span class="n">select_edge_list</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_fill_task_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">SubTask</span><span class="p">,</span> <span class="n">kept_attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fills the task attributes by randomly selecting values from the attribute pool, except the kept attribute.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            task (SubTask): The task whose attributes need to be filled.</span>
+<span class="sd">            kept_attribute (str): The attribute to exclude from filling.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary of filled attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attribute_types</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">attribute_dict</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">attribute_types</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">kept_attribute</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_random_attributes</span><span class="p">(</span><span class="n">attribute_types</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_select_random_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Randomly selects attributes for a task from the attribute pool based on the type dictionary.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            type_dict (dict): A dictionary of attribute types to attribute names.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary of selected attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">attr_name</span><span class="p">,</span> <span class="n">attr_type_list</span> <span class="ow">in</span> <span class="n">type_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">pool</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">attr_type</span> <span class="ow">in</span> <span class="n">attr_type_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">attr_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attribute_pool</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr_type</span><span class="si">}</span><span class="s2"> not in attribute pool.&quot;</span><span class="p">)</span>
+                <span class="n">pool</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attribute_pool</span><span class="p">[</span><span class="n">attr_type</span><span class="p">])</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">attr_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">pool</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+<div class="viewcode-block" id="TaskGenerator.generate_single_node_task">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.generate_single_node_task">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_single_node_task</span><span class="p">(</span><span class="n">subtask</span><span class="p">:</span> <span class="n">SubTask</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a single node task based on a SubTask instance.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            subtask (SubTask): The subtask to generate a task for.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing the task description and a directed graph of the task.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generating task: </span><span class="si">{</span><span class="n">subtask</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">))</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">type_name</span> <span class="ow">in</span> <span class="n">subtask</span><span class="o">.</span><span class="n">attribute_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Input attribute &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; (</span><span class="si">{</span><span class="n">type_name</span><span class="si">}</span><span class="s1">): &#39;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">attributes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">subtask</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
+        <span class="n">result_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+        <span class="n">result_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">SubTaskInstance</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">subtask</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">attributes</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">description</span><span class="p">,</span> <span class="n">result_graph</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.combine_subtask_list">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.combine_subtask_list">[docs]</a>
+    <span class="k">def</span> <span class="nf">combine_subtask_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subtask_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">SubTask</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combines a list of subtasks into a single task sequence.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            subtask_list (list): A list of SubTask instances to combine.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing the final task description and a directed graph of the task sequence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_node</span> <span class="o">=</span> <span class="n">subtask_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_random_attributes</span><span class="p">(</span><span class="n">start_node</span><span class="o">.</span><span class="n">attribute_dict</span><span class="p">)</span>
+        <span class="n">result_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;What is the output of </span><span class="si">{</span><span class="n">start_node</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes</span><span class="p">)</span><span class="si">}</span><span class="s2">: &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">last_node</span> <span class="o">=</span> <span class="n">SubTaskInstance</span><span class="p">(</span>
+            <span class="n">task</span><span class="o">=</span><span class="n">start_node</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">attributes</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span> <span class="ow">or</span> <span class="kc">None</span>
+        <span class="p">)</span>
+        <span class="n">result_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">last_node</span><span class="p">)</span>
+        <span class="n">current_description</span> <span class="o">=</span> <span class="n">start_node</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">subtask_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">current_description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">current_description</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">attribute_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+            <span class="n">attributes</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">output</span><span class="p">}</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;What is the output of </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes</span><span class="p">)</span><span class="si">}</span><span class="s2">: &quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">SubTaskInstance</span><span class="p">(</span>
+                <span class="n">task</span><span class="o">=</span><span class="n">task</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">attributes</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span> <span class="ow">or</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">result_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">last_node</span><span class="p">,</span> <span class="n">current_node</span><span class="p">)</span>
+            <span class="n">last_node</span> <span class="o">=</span> <span class="n">current_node</span>
+        <span class="k">return</span> <span class="n">current_description</span><span class="p">,</span> <span class="n">result_graph</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.combine_two_subtasks">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.combine_two_subtasks">[docs]</a>
+    <span class="k">def</span> <span class="nf">combine_two_subtasks</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">sub_task_id_1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sub_task_id_2</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Combines two subtasks into a single task sequence based on user input.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            sub_task_id_1 (int): ID of the first subtask.</span>
+<span class="sd">            sub_task_id_2 (int): ID of the second subtask.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing the combined task description and a directed graph of the task sequence.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sub_task_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_mapping</span><span class="p">[</span><span class="n">sub_task_id_1</span><span class="p">]</span>
+        <span class="n">sub_task_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">task_mapping</span><span class="p">[</span><span class="n">sub_task_id_2</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Task 1: </span><span class="si">{</span><span class="n">sub_task_1</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Task 2: </span><span class="si">{</span><span class="n">sub_task_2</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;cyan&quot;</span><span class="p">))</span>
+        <span class="n">attributes_1</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">types</span> <span class="ow">in</span> <span class="n">sub_task_1</span><span class="o">.</span><span class="n">attribute_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;Input attribute &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; (</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s1">) for the first task: &#39;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">attributes_1</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">description_1</span> <span class="o">=</span> <span class="n">sub_task_1</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes_1</span><span class="p">)</span>
+        <span class="n">output_1</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;What is the output of </span><span class="si">{</span><span class="n">description_1</span><span class="si">}</span><span class="s1"> (&quot;</span><span class="si">{</span><span class="n">sub_task_1</span><span class="o">.</span><span class="n">output_type</span><span class="si">}</span><span class="s1">&quot;): &#39;</span><span class="p">,</span>
+                <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">The output type of the first subtask is &#39;</span><span class="si">{</span><span class="n">sub_task_1</span><span class="o">.</span><span class="n">output_type</span><span class="si">}</span><span class="s2">&#39;.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;cyan&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">attributes_2</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">types</span> <span class="ow">in</span> <span class="n">sub_task_2</span><span class="o">.</span><span class="n">attribute_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">sub_task_1</span><span class="o">.</span><span class="n">output_type</span> <span class="ow">in</span> <span class="n">types</span>
+                <span class="ow">or</span> <span class="nb">input</span><span class="p">(</span>
+                    <span class="n">colored</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Can the output &#39;</span><span class="si">{</span><span class="n">sub_task_1</span><span class="o">.</span><span class="n">output_type</span><span class="si">}</span><span class="s2">&#39; be used as the &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; (</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s2">) of the second task? (yes/no): &quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="o">==</span> <span class="s2">&quot;yes&quot;</span>
+            <span class="p">):</span>
+                <span class="n">attributes_2</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">output_1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                    <span class="n">colored</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s1">&#39;Input attribute &quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; (</span><span class="si">{</span><span class="n">types</span><span class="si">}</span><span class="s1">) for the second task: &#39;</span><span class="p">,</span>
+                        <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">attributes_2</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">description_2</span> <span class="o">=</span> <span class="n">sub_task_2</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes_2</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">combined_description</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">description_1</span><span class="p">,</span> <span class="n">description_2</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">*** Combined Task: </span><span class="si">{</span><span class="n">combined_description</span><span class="si">}</span><span class="s2"> ***</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">input</span><span class="p">(</span>
+                    <span class="n">colored</span><span class="p">(</span>
+                        <span class="s2">&quot;Do you want to re-generate the combined task? (yes/no): &quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="o">!=</span> <span class="s2">&quot;yes&quot;</span>
+            <span class="p">):</span>
+                <span class="k">break</span>
+        <span class="n">result_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+        <span class="n">node1</span> <span class="o">=</span> <span class="n">SubTaskInstance</span><span class="p">(</span>
+            <span class="n">task</span><span class="o">=</span><span class="n">sub_task_1</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">attributes_1</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output_1</span>
+        <span class="p">)</span>
+        <span class="n">node2</span> <span class="o">=</span> <span class="n">SubTaskInstance</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">sub_task_2</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">attributes_2</span><span class="p">)</span>
+        <span class="n">result_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node1</span><span class="p">)</span>
+        <span class="n">result_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node2</span><span class="p">)</span>
+        <span class="n">result_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">combined_description</span><span class="p">,</span> <span class="n">result_graph</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.task_generation">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.task_generation">[docs]</a>
+    <span class="k">def</span> <span class="nf">task_generation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">start_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">random_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">SubTask</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a sequence of tasks starting from a given subtask ID or randomly.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            start_id (int | None): The ID of the starting subtask or None to choose randomly.</span>
+<span class="sd">            max_iter (int): The maximum number of iterations to perform in the generation process.</span>
+<span class="sd">            random_number (int): The maximum number of neighbors to consider for random walk.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple containing the final task description and a list of SubTask objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">task_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">start_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start_node</span><span class="p">:</span> <span class="n">SubTask</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">start_id</span><span class="p">:</span>
+                    <span class="n">start_node</span><span class="p">:</span> <span class="n">SubTask</span> <span class="o">=</span> <span class="n">node</span>
+                    <span class="k">break</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_select_random_attributes</span><span class="p">(</span><span class="n">start_node</span><span class="o">.</span><span class="n">attribute_dict</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">start_node</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">attributes</span><span class="p">)</span>
+        <span class="n">task_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">start_node</span><span class="p">,</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">description</span><span class="p">))</span>
+
+        <span class="n">current_node</span> <span class="o">=</span> <span class="n">start_node</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">next_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_walk</span><span class="p">(</span>
+                <span class="n">current_description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+                <span class="n">start_node</span><span class="o">=</span><span class="n">current_node</span><span class="p">,</span>
+                <span class="n">random_number</span><span class="o">=</span><span class="n">random_number</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">next_node</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">task_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_node</span><span class="p">)</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">next_node</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">current_node</span> <span class="o">=</span> <span class="n">next_node</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">description</span><span class="p">,</span> <span class="n">task_list</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.generate_evaluator">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.generate_evaluator">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_evaluator</span><span class="p">(</span>
+        <span class="n">subtasks_graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates an evaluator graph from a directed graph of subtask instances.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            subtasks_graph (nx.DiGraph): A directed graph of subtask instances.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            nx.DiGraph: A directed graph representing the combined evaluator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">evaluator_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">subtasks_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">evaluator_map</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">evaluator_generator</span><span class="p">(</span><span class="o">**</span><span class="n">node</span><span class="o">.</span><span class="n">attribute</span><span class="p">)</span>
+        <span class="n">combined_evaluator_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">union_all</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">evaluator_map</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="k">for</span> <span class="n">from_node</span><span class="p">,</span> <span class="n">to_node</span> <span class="ow">in</span> <span class="n">subtasks_graph</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+            <span class="n">from_node_evaluator</span> <span class="o">=</span> <span class="n">evaluator_map</span><span class="p">[</span><span class="n">from_node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="n">sink_nodes</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">node</span>
+                <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">out_degree</span> <span class="ow">in</span> <span class="n">from_node_evaluator</span><span class="o">.</span><span class="n">out_degree</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">out_degree</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="p">]</span>
+            <span class="n">to_node_evaluator</span> <span class="o">=</span> <span class="n">evaluator_map</span><span class="p">[</span><span class="n">to_node</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="n">start_nodes</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">node</span>
+                <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">in_degree</span> <span class="ow">in</span> <span class="n">to_node_evaluator</span><span class="o">.</span><span class="n">in_degree</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">in_degree</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="p">]</span>
+            <span class="n">combined_evaluator_graph</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span>
+                <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">sink_nodes</span><span class="p">,</span> <span class="n">start_nodes</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">combined_evaluator_graph</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.dump_generated_task">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.dump_generated_task">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">dump_generated_task</span><span class="p">(</span>
+        <span class="n">description</span><span class="p">,</span>
+        <span class="n">task_instance_graph</span><span class="p">,</span>
+        <span class="n">dir_path</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves a generated task to a file.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            description (str): The description of the generated task.</span>
+<span class="sd">            task_instance_graph (nx.DiGraph): The directed graph of the task instance.</span>
+<span class="sd">            dir_path (str): The directory path where the task file will be saved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">node</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">task_instance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">)}</span>
+        <span class="n">id_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">relabel_nodes</span><span class="p">(</span><span class="n">task_instance_graph</span><span class="p">,</span> <span class="n">mapping</span><span class="p">)</span>
+
+        <span class="n">generated_task</span> <span class="o">=</span> <span class="n">GeneratedTask</span><span class="p">(</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">tasks</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">task_instance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">),</span>
+            <span class="n">adjlist</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">generate_adjlist</span><span class="p">(</span><span class="n">id_graph</span><span class="p">)),</span>
+        <span class="p">)</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">generated_task</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">generated_task</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">====================================================================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;magenta&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Task saved to: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;magenta&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="TaskGenerator.get_task_from_file">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.TaskGenerator.get_task_from_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_task_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Task</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads a task from a file.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            file_name (str): The file name containing the task data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Task: An instance of Task loaded from the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span>
+        <span class="n">graph_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">task_config</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;tasks&quot;</span><span class="p">]):</span>
+            <span class="n">graph_map</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">SubTaskInstance</span><span class="p">(</span>
+                <span class="n">task</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">task_mapping</span><span class="p">[</span><span class="n">task_config</span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">]],</span>
+                <span class="n">attribute</span><span class="o">=</span><span class="n">task_config</span><span class="p">[</span><span class="s2">&quot;attribute&quot;</span><span class="p">],</span>
+                <span class="n">output</span><span class="o">=</span><span class="n">task_config</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;adjlist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">parse_adjlist</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">nodetype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">subtask_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">relabel_nodes</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">graph_map</span><span class="p">)</span>
+        <span class="n">evaluator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_evaluator</span><span class="p">(</span><span class="n">subtask_graph</span><span class="p">)</span>
+
+        <span class="n">setup_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">teardown_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">extra_action_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">subtask_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+            <span class="n">setup_set</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">setup</span><span class="p">)</span>
+            <span class="n">teardown_set</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">teardown</span><span class="p">)</span>
+            <span class="n">extra_action_set</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">task</span><span class="o">.</span><span class="n">extra_action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Task</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+            <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
+            <span class="n">setup</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">setup_set</span><span class="p">),</span>
+            <span class="n">teardown</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">teardown_set</span><span class="p">),</span>
+            <span class="n">extra_action</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">extra_action_set</span><span class="p">),</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="load_subtasks">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.load_subtasks">[docs]</a>
+<span class="k">def</span> <span class="nf">load_subtasks</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads subtasks from specified benchmark version modules.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        version (str): The version of the benchmark to load subtasks from.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: A tuple containing two collections of subtasks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a_subtasks_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;benchmarks.crab-benchmark-</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.subtasks.a_subtasks&quot;</span>
+    <span class="p">)</span>
+    <span class="n">u_subtasks_module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;benchmarks.crab-benchmark-</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">.subtasks.u_subtasks&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">a_subtasks_module</span><span class="o">.</span><span class="n">collection</span><span class="p">,</span> <span class="n">u_subtasks_module</span><span class="o">.</span><span class="n">collection</span></div>
+
+
+
+<div class="viewcode-block" id="generate_length1_all">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.generate_length1_all">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_length1_all</span><span class="p">(</span>
+    <span class="n">generator</span><span class="p">:</span> <span class="n">TaskGenerator</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">subtask_collection</span><span class="p">:</span> <span class="nb">list</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates tasks for all subtasks in a collection and saves them.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        generator (TaskGenerator): The task generator instance.</span>
+<span class="sd">        dir_path (str): The directory path where the tasks will be saved.</span>
+<span class="sd">        subtask_collection (list): The collection of subtasks to generate tasks for.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">subtask_collection</span><span class="p">:</span>
+        <span class="n">description</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_single_node_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+        <span class="n">generator</span><span class="o">.</span><span class="n">dump_generated_task</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">==================== Task Generation Completed ====================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;magenta&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="generate_length1_by_id">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.generate_length1_by_id">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_length1_by_id</span><span class="p">(</span><span class="n">generator</span><span class="p">:</span> <span class="n">TaskGenerator</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a single task for a specified subtask ID and saves it.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        generator (TaskGenerator): The task generator instance.</span>
+<span class="sd">        dir_path (str): The directory path where the task will be saved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">subtask_id</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;Please input the subtask ID: &quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">subtask_id</span> <span class="ow">in</span> <span class="n">generator</span><span class="o">.</span><span class="n">task_mapping</span><span class="p">:</span>
+            <span class="n">task</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">task_mapping</span><span class="p">[</span><span class="n">subtask_id</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">()</span>
+            <span class="n">description</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">generate_single_node_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+            <span class="n">generator</span><span class="o">.</span><span class="n">dump_generated_task</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">==================== Task Generation Completed ====================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;magenta&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s2">&quot;Invalid subtask ID. Please try again.&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="generate_length2_manual">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.generate_length2_manual">[docs]</a>
+<span class="k">def</span> <span class="nf">generate_length2_manual</span><span class="p">(</span><span class="n">generator</span><span class="p">:</span> <span class="n">TaskGenerator</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manually generates a two-step task sequence from user-specified subtask IDs and saves it.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        generator (TaskGenerator): The task generator instance.</span>
+<span class="sd">        dir_path (str): The directory path where the task sequence will be saved.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">sub_task_id_1</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;Please input the id of the first subtask: &quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">sub_task_id_2</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span><span class="s2">&quot;Please input the id of the second subtask: &quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">sub_task_id_1</span> <span class="ow">in</span> <span class="n">generator</span><span class="o">.</span><span class="n">task_mapping</span>
+            <span class="ow">and</span> <span class="n">sub_task_id_2</span> <span class="ow">in</span> <span class="n">generator</span><span class="o">.</span><span class="n">task_mapping</span>
+        <span class="p">):</span>
+            <span class="n">description</span><span class="p">,</span> <span class="n">graph</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">combine_two_subtasks</span><span class="p">(</span>
+                <span class="n">sub_task_id_1</span><span class="o">=</span><span class="n">sub_task_id_1</span><span class="p">,</span> <span class="n">sub_task_id_2</span><span class="o">=</span><span class="n">sub_task_id_2</span>
+            <span class="p">)</span>
+            <span class="n">generator</span><span class="o">.</span><span class="n">dump_generated_task</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">dir_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">==================== Task Composition Completed ====================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;magenta&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">missing_ids</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="nb">id</span>
+                <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sub_task_id_1</span><span class="p">,</span> <span class="n">sub_task_id_2</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">generator</span><span class="o">.</span><span class="n">task_mapping</span>
+            <span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="n">colored</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Invalid input: ID </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing_ids</span><span class="p">)</span><span class="si">}</span><span class="s2"> not found. Please try again.&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.task_generator.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Task Generator for CRAB Benchmarks&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--version&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;v0&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Benchmark version (e.g., v0, v1)&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--mode&quot;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;generate_length1_all&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;generate_length2_manual&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;generate_length1_by_id&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Mode to run the task generator&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--dir_path&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Directory path to save the generated tasks&quot;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--config_path&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the task generation configuration file&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">dir_path</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">a_collection</span><span class="p">,</span> <span class="n">u_collection</span> <span class="o">=</span> <span class="n">load_subtasks</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+    <span class="n">all_collection</span> <span class="o">=</span> <span class="n">u_collection</span> <span class="o">+</span> <span class="n">a_collection</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="n">colored</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">==================== Task Generation Starting ====================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;magenta&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;generate_length1_all&quot;</span><span class="p">:</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">TaskGenerator</span><span class="p">(</span><span class="n">subtasks</span><span class="o">=</span><span class="n">all_collection</span><span class="p">)</span>
+        <span class="n">generate_length1_all</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">all_collection</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;generate_length2_manual&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">attribute_pool</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;attribute_pool&quot;</span><span class="p">]</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">TaskGenerator</span><span class="p">(</span><span class="n">attribute_pool</span><span class="p">,</span> <span class="n">all_collection</span><span class="p">)</span>
+        <span class="n">generate_length2_manual</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">dir_path</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;generate_length1_by_id&quot;</span><span class="p">:</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">TaskGenerator</span><span class="p">(</span><span class="n">subtasks</span><span class="o">=</span><span class="n">all_collection</span><span class="p">)</span>
+        <span class="n">generate_length1_by_id</span><span class="p">(</span><span class="n">generator</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">dir_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="n">colored</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid mode selected. Please choose &#39;generate_length1_all&#39;, &#39;generate_length2_manual&#39;, or &#39;generate_length1_by_id&#39;.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By CAMEL-AI.org
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, CAMEL-AI.org.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
