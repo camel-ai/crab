@@ -1,0 +1,15 @@
+{
+  "description": "Using Firefox, navigate to the CAMEL-AI GitHub repository (https://github.com/camel-ai/camel). Download the example code file 'examples/role_playing.py', then use Visual Studio Code to open it and save a copy to '/home/crab/camel_examples/role_playing.py'.",
+  "tasks": [
+    {
+      "task": "a313ea4d-e501-4971-b4fe-db2aad19eac1",
+      "attribute": {
+        "url": "https://raw.githubusercontent.com/camel-ai/camel/master/examples/role_playing.py",
+        "file_path": "/home/crab/camel_examples/role_playing.py"
+      },
+      "output": "/home/crab/camel_examples/role_playing.py"
+    }
+  ],
+  "adjlist": "0",
+  "id": "camel-example-001"
+}
