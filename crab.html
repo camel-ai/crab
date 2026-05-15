@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>crab package &#8212; CRAB Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=0deb7d70"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'crab';</script>
+    <link rel="icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="crab.benchmarks package" href="crab.benchmarks.html" />
+    <link rel="prev" title="crab" href="modules.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/CRAB_logo1.png" class="logo__image only-light" alt="CRAB Documentation - Home"/>
+    <script>document.write(`<img src="_static/CRAB_logo1.png" class="logo__image only-dark" alt="CRAB Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started with CRAB:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started/build_your_own_benchmark.html">Build your own benchmark</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">CRAB Benchmark-v0:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="crab_benchmark_v0/get_started.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crab_benchmark_v0/environment_gcp_setup.html">Google cloud platform setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="crab_benchmark_v0/environment_local_setup.html">Local setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">crab</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">crab package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.benchmarks.html">crab.benchmarks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.client.html">crab.client package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="crab.core.html">crab.core package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html">crab.core.models package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.environments.html">crab.environments package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="crab.server.html">crab.server package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.controller.html">crab.server.controller package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/camel-ai/crab" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/crab.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>crab package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-crab">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="crab-package">
+<h1>crab package<a class="headerlink" href="#crab-package" title="Link to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="crab.benchmarks.html">crab.benchmarks package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crab.benchmarks.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.benchmarks.html#module-crab.benchmarks.template">crab.benchmarks.template module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.benchmarks.html#module-crab.benchmarks">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crab.client.html">crab.client package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crab.client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.client.html#crab-client-env-module">crab.client.env module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.client.html#crab-client-openai-interface-module">crab.client.openai_interface module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.client.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crab.core.html">crab.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.models.html">crab.core.models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#module-crab.core.models.action">crab.core.models.action module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#module-crab.core.models.benchmark_interface">crab.core.models.benchmark_interface module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#module-crab.core.models.config">crab.core.models.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#module-crab.core.models.evaluator">crab.core.models.evaluator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#module-crab.core.models.task">crab.core.models.task module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.models.html#module-crab.core.models">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core.benchmark">crab.core.benchmark module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark"><code class="docutils literal notranslate"><span class="pre">Benchmark</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.close_task"><code class="docutils literal notranslate"><span class="pre">Benchmark.close_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.evaluate"><code class="docutils literal notranslate"><span class="pre">Benchmark.evaluate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.export_action_space"><code class="docutils literal notranslate"><span class="pre">Benchmark.export_action_space()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.get_env_descriptions"><code class="docutils literal notranslate"><span class="pre">Benchmark.get_env_descriptions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.human_evaluation"><code class="docutils literal notranslate"><span class="pre">Benchmark.human_evaluation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.observe"><code class="docutils literal notranslate"><span class="pre">Benchmark.observe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.observe_with_prompt"><code class="docutils literal notranslate"><span class="pre">Benchmark.observe_with_prompt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.reset"><code class="docutils literal notranslate"><span class="pre">Benchmark.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.start_task"><code class="docutils literal notranslate"><span class="pre">Benchmark.start_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.benchmark.Benchmark.step"><code class="docutils literal notranslate"><span class="pre">Benchmark.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.benchmark.create_benchmark"><code class="docutils literal notranslate"><span class="pre">create_benchmark()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core.decorators">crab.core.decorators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.decorators.action"><code class="docutils literal notranslate"><span class="pre">action()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.decorators.evaluator"><code class="docutils literal notranslate"><span class="pre">evaluator()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core.environment">crab.core.environment module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment"><code class="docutils literal notranslate"><span class="pre">Environment</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.name"><code class="docutils literal notranslate"><span class="pre">Environment.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.description"><code class="docutils literal notranslate"><span class="pre">Environment.description</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.trajectory"><code class="docutils literal notranslate"><span class="pre">Environment.trajectory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.action_space"><code class="docutils literal notranslate"><span class="pre">Environment.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.close"><code class="docutils literal notranslate"><span class="pre">Environment.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.observation_space"><code class="docutils literal notranslate"><span class="pre">Environment.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.observe"><code class="docutils literal notranslate"><span class="pre">Environment.observe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.observe_with_prompt"><code class="docutils literal notranslate"><span class="pre">Environment.observe_with_prompt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.reset"><code class="docutils literal notranslate"><span class="pre">Environment.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.set_action"><code class="docutils literal notranslate"><span class="pre">Environment.set_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.start"><code class="docutils literal notranslate"><span class="pre">Environment.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.step"><code class="docutils literal notranslate"><span class="pre">Environment.step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.environment.Environment.take_action"><code class="docutils literal notranslate"><span class="pre">Environment.take_action()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.environment.create_environment"><code class="docutils literal notranslate"><span class="pre">create_environment()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core.exceptions">crab.core.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.exceptions.ActionNotFound"><code class="docutils literal notranslate"><span class="pre">ActionNotFound</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.exceptions.TaskNotFound"><code class="docutils literal notranslate"><span class="pre">TaskNotFound</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core.graph_evaluator">crab.core.graph_evaluator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.calculate_longest_unfinished_path_length"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.calculate_longest_unfinished_path_length()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.calculate_step_to_complete"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.calculate_step_to_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.compute_radar_stats"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.compute_radar_stats()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.entry"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.entry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.get_completeness"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.get_completeness()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.get_completeness_per_action"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.get_completeness_per_action()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.get_longest_unfinished_path_length"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.get_longest_unfinished_path_length()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.get_next_source_nodes"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.get_next_source_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.get_step_to_complete"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.get_step_to_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.is_complete"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.is_complete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.reset"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.stat"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.stat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.step"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.step()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.update"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.graph_evaluator.GraphEvaluator.visualize"><code class="docutils literal notranslate"><span class="pre">GraphEvaluator.visualize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core.task_generator">crab.core.task_generator module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator"><code class="docutils literal notranslate"><span class="pre">TaskGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.combine"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.combine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.combine_subtask_list"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.combine_subtask_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.combine_two_subtasks"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.combine_two_subtasks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.dump_generated_task"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.dump_generated_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.from_config"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.from_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.generate_evaluator"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.generate_evaluator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.generate_single_node_task"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.generate_single_node_task()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.get_task_from_file"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.get_task_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.gpt_choice"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.gpt_choice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.graph_generation"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.graph_generation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.random_walk"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.random_walk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.core.html#crab.core.task_generator.TaskGenerator.task_generation"><code class="docutils literal notranslate"><span class="pre">TaskGenerator.task_generation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.task_generator.generate_length1_all"><code class="docutils literal notranslate"><span class="pre">generate_length1_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.task_generator.generate_length1_by_id"><code class="docutils literal notranslate"><span class="pre">generate_length1_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.task_generator.generate_length2_manual"><code class="docutils literal notranslate"><span class="pre">generate_length2_manual()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.task_generator.load_subtasks"><code class="docutils literal notranslate"><span class="pre">load_subtasks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.core.html#crab.core.task_generator.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#crab-core-vagrant-manager-module">crab.core.vagrant_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.core.html#module-crab.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crab.environments.html">crab.environments package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crab.environments.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.environments.html#crab-environments-android-module">crab.environments.android module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.environments.html#crab-environments-linux-module">crab.environments.linux module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.environments.html#module-crab.environments.template">crab.environments.template module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.environments.html#module-crab.environments">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crab.server.html">crab.server package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.controller.html">crab.server.controller package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.controller.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.controller.html#crab-server-controller-benchmark-module">crab.server.controller.benchmark module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.controller.html#crab-server-controller-environment-module">crab.server.controller.environment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.controller.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.api">crab.server.api module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.api.raw_action"><code class="docutils literal notranslate"><span class="pre">raw_action()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.config">crab.server.config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.config.EnvSettings"><code class="docutils literal notranslate"><span class="pre">EnvSettings</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.EnvSettings.DISPLAY"><code class="docutils literal notranslate"><span class="pre">EnvSettings.DISPLAY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.EnvSettings.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">EnvSettings.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.EnvSettings.model_config"><code class="docutils literal notranslate"><span class="pre">EnvSettings.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.EnvSettings.model_fields"><code class="docutils literal notranslate"><span class="pre">EnvSettings.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.config.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.Settings.ENVIRONMENT"><code class="docutils literal notranslate"><span class="pre">Settings.ENVIRONMENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.Settings.HOST"><code class="docutils literal notranslate"><span class="pre">Settings.HOST</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.Settings.PORT"><code class="docutils literal notranslate"><span class="pre">Settings.PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.Settings.model_computed_fields"><code class="docutils literal notranslate"><span class="pre">Settings.model_computed_fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.Settings.model_config"><code class="docutils literal notranslate"><span class="pre">Settings.model_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="crab.server.html#crab.server.config.Settings.model_fields"><code class="docutils literal notranslate"><span class="pre">Settings.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.config.parse_args"><code class="docutils literal notranslate"><span class="pre">parse_args()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#crab-server-data-module">crab.server.data module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.exception_handlers">crab.server.exception_handlers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.exception_handlers.request_validation_exception_handler"><code class="docutils literal notranslate"><span class="pre">request_validation_exception_handler()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.exception_handlers.unhandled_exception_handler"><code class="docutils literal notranslate"><span class="pre">unhandled_exception_handler()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.logger">crab.server.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.main">crab.server.main module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.main.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.middleware">crab.server.middleware module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.middleware.log_request_middleware"><code class="docutils literal notranslate"><span class="pre">log_request_middleware()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server.utils">crab.server.utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.utils.get_benchmarks_environments"><code class="docutils literal notranslate"><span class="pre">get_benchmarks_environments()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="crab.server.html#crab.server.utils.get_instances"><code class="docutils literal notranslate"><span class="pre">get_instances()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crab.server.html#module-crab.server">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="module-crab">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-crab" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="modules.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">crab</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="crab.benchmarks.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">crab.benchmarks package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-crab">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By CAMEL-AI.org
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, CAMEL-AI.org.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crab.core.environment &#8212; CRAB Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=0deb7d70"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/crab/core/environment';</script>
+    <link rel="icon" href="../../../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/CRAB_logo1.png" class="logo__image only-light" alt="CRAB Documentation - Home"/>
+    <script>document.write(`<img src="../../../_static/CRAB_logo1.png" class="logo__image only-dark" alt="CRAB Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started with CRAB:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../get_started/build_your_own_benchmark.html">Build your own benchmark</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">CRAB Benchmark-v0:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../crab_benchmark_v0/get_started.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../crab_benchmark_v0/environment_gcp_setup.html">Google cloud platform setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../crab_benchmark_v0/environment_local_setup.html">Local setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">crab</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../crab.html">crab package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../crab.benchmarks.html">crab.benchmarks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../crab.client.html">crab.client package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../crab.core.html">crab.core package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../crab.core.models.html">crab.core.models package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../crab.environments.html">crab.environments package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../crab.server.html">crab.server package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../crab.server.controller.html">crab.server.controller package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/camel-ai/crab" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for crab.core.environment</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the “License”);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an “AS IS” BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Client</span>
+
+<span class="kn">from</span> <span class="nn">crab.utils</span> <span class="kn">import</span> <span class="n">decrypt_message</span><span class="p">,</span> <span class="n">encrypt_message</span><span class="p">,</span> <span class="n">generate_key_from_env</span>
+<span class="kn">from</span> <span class="nn">crab.utils.measure</span> <span class="kn">import</span> <span class="n">timed</span>
+
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotFound</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Action</span><span class="p">,</span> <span class="n">ClosedAction</span><span class="p">,</span> <span class="n">EnvironmentConfig</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;crab-server&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Environment">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment">[docs]</a>
+<span class="k">class</span> <span class="nc">Environment</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A crab environment for language model agent interaction and evaluation.</span>
+
+<span class="sd">    This class supports action execution and observation within a simulated or actual</span>
+<span class="sd">    ecosystem. The environment is defined by customizable action and observation spaces,</span>
+<span class="sd">    comprising various crab actions. Actions should include comprehensive docstrings to</span>
+<span class="sd">    facilitate agent understanding and interaction.</span>
+
+<span class="sd">    Typically, users instantiate this class directly to perform actions within the local</span>
+<span class="sd">    execution context (i.e., the device running the crab framework). This class may also</span>
+<span class="sd">    serve as a base for specialized environments requiring unique action execution</span>
+<span class="sd">    processes, such as forwarding actions to remote systems for execution. This is</span>
+<span class="sd">    achieved by overriding the `take_action` method.</span>
+
+<span class="sd">    Actions defined in the `action_space`, `observation_space`, or `reset`, as well as</span>
+<span class="sd">    those invoked through the `take_action` method that include an `env` parameter, will</span>
+<span class="sd">    have this parameter automatically populated with the current environment instance.</span>
+<span class="sd">    This allows actions to access and manipulate environment states and variables.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        name (str): The name of the environment.</span>
+<span class="sd">        description (str): A description of the environment.</span>
+<span class="sd">        trajectory (List[tuple[str, dict[str, Any], Any]]): A record of actions taken,</span>
+<span class="sd">            their parameters, and the results.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): The name of the environment.</span>
+<span class="sd">        action_space (List[Action]): A list of actions that can be executed, defining</span>
+<span class="sd">            the possible interactions agents can undertake.</span>
+<span class="sd">        observation_space (List[ClosedAction]): A list of observations defining the</span>
+<span class="sd">            possible states agents can perceive.</span>
+<span class="sd">        description (str, optional): A textual description of the environment. Defaults</span>
+<span class="sd">            to an empty string.</span>
+<span class="sd">        reset (Action | None, optional): An action to reset the environment to its</span>
+<span class="sd">            initial state. Defaults to `None`.</span>
+<span class="sd">        remote_url (Action | None, optional): If set, the action will be taken at</span>
+<span class="sd">            remote machine, by default it will be taken at local. Example:</span>
+<span class="sd">            `http://192.168.1.1:8000`. Defaults to `None`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">action_space</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Action</span><span class="p">],</span>
+        <span class="n">observation_space</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ClosedAction</span><span class="p">],</span>
+        <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">reset</span><span class="p">:</span> <span class="n">Action</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">remote_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">extra_attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation_history</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_origin_action_space</span> <span class="o">=</span> <span class="n">action_space</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_observation_space</span> <span class="o">=</span> <span class="n">observation_space</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span> <span class="o">=</span> <span class="n">reset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">action</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">action_space</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="p">:</span> <span class="n">Client</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">remote_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">remote_url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">extra_attributes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enc_key</span> <span class="o">=</span> <span class="n">generate_key_from_env</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Environment.step">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.step">[docs]</a>
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">action_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes an action that is in the action space and recorded to the trajectory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            action_name: Name of the action to execute. Must be in action space.</span>
+<span class="sd">            parameters (dict[str, Any], optional): Parameters for the action. Defaults</span>
+<span class="sd">                to an empty `dict`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Any: The result of the action execution.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ActionNotFound: If the action is not found within the environment&#39;s action</span>
+<span class="sd">                space.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">action_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_map</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Env &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;: receives unkown action &quot;</span><span class="si">{</span><span class="n">action_name</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ActionNotFound</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Action </span><span class="si">{</span><span class="n">action_name</span><span class="si">}</span><span class="s2"> not found in the environment&quot;</span><span class="p">)</span>
+        <span class="n">action_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_map</span><span class="p">[</span><span class="n">action_name</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take_action</span><span class="p">(</span><span class="n">action_handler</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">action_handler</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="Environment.take_action">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.take_action">[docs]</a>
+    <span class="k">def</span> <span class="nf">take_action</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">action</span><span class="p">:</span> <span class="n">Action</span><span class="p">,</span>
+        <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes an action within the environment.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            action (Action): The action to execute. Can be an action name or an</span>
+<span class="sd">                `Action` object.</span>
+<span class="sd">            parameters (dict[str, Any], optional): Parameters for the action. Defaults</span>
+<span class="sd">                to an empty `dict`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Any: The result of the action execution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_endpoint</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Env &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;: action: &quot;</span><span class="si">{</span><span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot; successed. &#39;</span>
+                <span class="s2">&quot;result: </span><span class="si">{result}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;Env &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&quot;: action: &quot;</span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s1">&quot; failed:&#39;</span><span class="p">,</span> <span class="n">stack_info</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="k">raise</span></div>
+
+
+<div class="viewcode-block" id="Environment.observe">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.observe">[docs]</a>
+    <span class="nd">@timed</span>
+    <span class="k">def</span> <span class="nf">observe</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Observes the current state.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, Any]: A dictionary containing the current observations. Keys</span>
+<span class="sd">                represent the names of the observation actions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">take_action</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">observation_space</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="Environment.observe_with_prompt">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.observe_with_prompt">[docs]</a>
+    <span class="nd">@timed</span>
+    <span class="k">def</span> <span class="nf">observe_with_prompt</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">prompt_tools</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Action</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Observes the current state with prompt.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">observations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">observe</span><span class="p">()</span>
+        <span class="n">prompts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">ob_name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">observations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">ob_name</span> <span class="ow">in</span> <span class="n">prompt_tools</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">prompt_tools</span><span class="p">[</span><span class="n">ob_name</span><span class="p">]</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">get_required_params</span><span class="p">()))</span>
+                <span class="n">prompts</span><span class="p">[</span><span class="n">ob_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_endpoint</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">observations</span><span class="p">,</span> <span class="n">prompts</span></div>
+
+
+<div class="viewcode-block" id="Environment.set_action">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.set_action">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Action</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds an action in the environment&#39;s action space, either replace if the action</span>
+<span class="sd">        name exist.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            action (Action): The action to replace or add.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_map</span><span class="p">[</span><span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span></div>
+
+
+<div class="viewcode-block" id="Environment.start">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.start">[docs]</a>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Starts the environment.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Environment.close">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.close">[docs]</a>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Closes the environment, performing any necessary cleanup.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Environment.reset">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.Environment.reset">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the environment based on the provided reset action&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_action_space</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_origin_action_space</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">action</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">action</span> <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_action_space</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">take_action</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reset</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">action_space</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Action</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_action_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">observation_space</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ClosedAction</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_observation_space</span>
+
+    <span class="k">def</span> <span class="nf">_action_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Action</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Rewrite to support different environments.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">action</span><span class="o">.</span><span class="n">local</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;action&quot;</span><span class="p">:</span> <span class="n">action</span><span class="o">.</span><span class="n">to_raw_action</span><span class="p">(),</span>
+                    <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">action</span><span class="o">.</span><span class="n">parameters</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">)</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enc_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">encrypt_message</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enc_key</span><span class="p">)</span>
+                <span class="n">content_type</span> <span class="o">=</span> <span class="s2">&quot;text/plain&quot;</span>
+
+            <span class="c1"># send action to remote machine</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="s2">&quot;/raw_action&quot;</span><span class="p">,</span>
+                <span class="n">content</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="n">content_type</span><span class="p">},</span>
+            <span class="p">)</span>
+
+            <span class="n">resp_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enc_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">resp_content</span> <span class="o">=</span> <span class="n">decrypt_message</span><span class="p">(</span><span class="n">resp_content</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enc_key</span><span class="p">)</span>
+
+            <span class="n">resp_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">resp_content</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">resp_json</span><span class="p">[</span><span class="s2">&quot;action_returns&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># or directly execute it</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">set_kept_param</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="create_environment">
+<a class="viewcode-back" href="../../../crab.core.html#crab.core.environment.create_environment">[docs]</a>
+<span class="k">def</span> <span class="nf">create_environment</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">EnvironmentConfig</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Environment</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported environment config type.&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By CAMEL-AI.org
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, CAMEL-AI.org.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
