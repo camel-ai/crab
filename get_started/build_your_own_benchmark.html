@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Build your own benchmark &#8212; CRAB Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=0deb7d70"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'get_started/build_your_own_benchmark';</script>
+    <link rel="icon" href="../_static/favicon.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Get started" href="../crab_benchmark_v0/get_started.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/CRAB_logo1.png" class="logo__image only-light" alt="CRAB Documentation - Home"/>
+    <script>document.write(`<img src="../_static/CRAB_logo1.png" class="logo__image only-dark" alt="CRAB Documentation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started with CRAB:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Build your own benchmark</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">CRAB Benchmark-v0:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../crab_benchmark_v0/get_started.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../crab_benchmark_v0/environment_gcp_setup.html">Google cloud platform setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../crab_benchmark_v0/environment_local_setup.html">Local setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">crab</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../crab.html">crab package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../crab.benchmarks.html">crab.benchmarks package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../crab.client.html">crab.client package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../crab.core.html">crab.core package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../crab.core.models.html">crab.core.models package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../crab.environments.html">crab.environments package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../crab.server.html">crab.server package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../crab.server.controller.html">crab.server.controller package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/camel-ai/crab" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/get_started/build_your_own_benchmark.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Build your own benchmark</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actions">Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluators">Evaluators</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="build-your-own-benchmark">
+<h1>Build your own benchmark<a class="headerlink" href="#build-your-own-benchmark" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p><img alt="" src="assets/benchmark_config.png" /></p>
+<p>Crab benchmark system mainly consists of five types of component:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Action</span></code>: The fundamental building block of Crab framework, which represents a unit operation that can be taken by an agent or as a fixed process that called multi times in a benchmark.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Evaluator</span></code>: A specific type of <code class="docutils literal notranslate"><span class="pre">Action</span></code> that assess whether an agent has achieved its goal. Multiple evaluators can be combined together as a graph to enable complex evaluation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Environment</span></code> A abstraction of an environment that the agent can take action and obverse in a given action and observation space. An environment can be launched on the local machine, a physical remote machine, or a virtual machine.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Task</span></code>: A task with a natural language description to instruct the agent to perform. It can include interaction with multiple environments. Notice that in the benchmark, a task should have an graph evaluator to judge if the task progress.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Benchmark</span></code>: The main body of the crab system that contains all required component to build a benchmark, including environments, tasks, prompting method. It controls several</p></li>
+</ul>
+</section>
+<section id="actions">
+<h2>Actions<a class="headerlink" href="#actions" title="Link to this heading">#</a></h2>
+<p>Actions are the fundamental building blocks of the Crab system’s operations.  Each action is encapsulated as an instance of the <code class="docutils literal notranslate"><span class="pre">Action</span></code> class. An action can convert into a JSON schema for language model agents to use.</p>
+<p>An action is characterized by the following attributes:</p>
+<ul class="simple">
+<li><p><strong>Name</strong>: A string identifier uniquely represents the action.</p></li>
+<li><p><strong>Entry</strong>: A callable entry point to the actual Python function that executes the action.</p></li>
+<li><p><strong>Parameters</strong>: A Pydantic model class that defines the input parameters the action accepts.</p></li>
+<li><p><strong>Returns</strong>: A Pydantic model class that defines the structure of the return type the action produces.</p></li>
+<li><p><strong>Description</strong>: An string providing a clear and concise description of what the action does and how it behaves.</p></li>
+<li><p><strong>Kept Parameters</strong>: A list of parameters retained for internal use by the Crab system, which do not appear in the action’s parameter list but are injected automatically at runtime. For exmaple we use <code class="docutils literal notranslate"><span class="pre">env</span></code> to represent the current environment object that action are taken in.</p></li>
+<li><p><strong>Environment Name</strong>: An optional string that can specify the environment the action is associated with. Usually this attribute is only used by predifined actions like <code class="docutils literal notranslate"><span class="pre">setup</span></code> in an environment.</p></li>
+</ul>
+<p>Here is an example of creating an action through python function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@action</span>
+<span class="k">def</span> <span class="nf">click</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    click on the current desktop screen.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (float): The X coordinate, as a floating-point number in the range [0.0, 1.0].</span>
+<span class="sd">        y (float): The Y coordinate, as a floating-point number in the range [0.0, 1.0].</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pyautogui</span>
+
+    <span class="n">pyautogui</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;action</span></code> decorator transforms the <code class="docutils literal notranslate"><span class="pre">click</span></code> function into an <code class="docutils literal notranslate"><span class="pre">Action</span></code> with these mappings:</p>
+<ul class="simple">
+<li><p>The function name <code class="docutils literal notranslate"><span class="pre">click</span></code> becomes the action <strong>name</strong>.</p></li>
+<li><p>The parameters <code class="docutils literal notranslate"><span class="pre">x:</span> <span class="pre">float,</span> <span class="pre">y:</span> <span class="pre">float</span></code> with their type hints become the action <strong>parameters</strong>.</p></li>
+<li><p>The return type hint <code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">None</span></code> is used for the action’s <strong>returns</strong> field, indicating no value returned.</p></li>
+<li><p>The function’s docstring provides a <strong>description</strong> for the action and its parameters, utilized in the JSON schema for the agent.</p></li>
+<li><p>The function body defines the action’s behavior, executed when the action is called.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">Action</span></code> class allows for different combination operations such as:</p>
+<ul class="simple">
+<li><p><strong>Pipe</strong>: Using the <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code> operator, actions can be piped together, where the output of one action becomes the input to another, provided their parameters and return types are compatible.</p></li>
+<li><p><strong>Sequential Combination</strong>: The <code class="docutils literal notranslate"><span class="pre">+</span></code> operator allows for two actions to be combined sequentially, executing one after the other.</p></li>
+</ul>
+</section>
+<section id="evaluators">
+<h2>Evaluators<a class="headerlink" href="#evaluators" title="Link to this heading">#</a></h2>
+<p>Evaluators in the Crab system are a specific type of <code class="docutils literal notranslate"><span class="pre">Action</span></code> that assess whether an agent has achieved its goal. They should return a boolean value, indicating whether the task’s objective has been met. Multiple evaluators can be connected into a graph using the <code class="docutils literal notranslate"><span class="pre">networkx</span></code> package, enabling multi-stage evaluation, where different conditions can be checked in sequence or in parallel.</p>
+<p>An example evaluator <code class="docutils literal notranslate"><span class="pre">check_file_exist</span></code> confirms the presence of a file at a given path, using the <code class="docutils literal notranslate"><span class="pre">os.path.isfile</span></code> method to return <code class="docutils literal notranslate"><span class="pre">True</span></code> if the file exists or <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@evaluator</span>
+<span class="k">def</span> <span class="nf">check_file_exist</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Extra attributes of evaluators:</p>
+<ul class="simple">
+<li><p><strong>Require Submit</strong>: Indicates if the evaluator awaits a specific submission to carry out its assessment.</p></li>
+</ul>
+<p>Logical operators allow for evaluator combinations:</p>
+<ul class="simple">
+<li><p><strong>AND (&amp;)</strong>: Requires all evaluators to succeed for a task to pass.</p></li>
+<li><p><strong>OR (|)</strong>: Passes if any of the evaluators succeed.</p></li>
+<li><p><strong>NOT (~)</strong>: Reverses the evaluation outcome.</p></li>
+</ul>
+<p>The combined evaluator is still considered as <strong>one evaluator</strong> rather than a graph evaluator.</p>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="quickstart.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Quickstart</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../crab_benchmark_v0/get_started.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Get started</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#actions">Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluators">Evaluators</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By CAMEL-AI.org
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, CAMEL-AI.org.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
