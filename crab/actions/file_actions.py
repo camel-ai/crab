@@ -11,15 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # =========== Copyright 2024 @ CAMEL-AI.org. All Rights Reserved. ===========
-import base64
-from io import BytesIO
-
 from PIL import Image
-
-from crab.core import action
-
+from pydantic import Field
+from crab.core.decorators import action
+from crab.utils.common import base64_to_image
 
 @action
-def save_base64_image(image: str, path: str = "image.png") -> None:
-    image = Image.open(BytesIO(base64.b64decode(image)))
-    image.save(path)
+def save_image(image: str = Field(..., description="Base64 encoded image string"), path: str = Field(..., description="Path to save the image")):
+    """Save a base64 encoded image to a file."""
+    img = base64_to_image(image)
+    img.save(path)
+    return f"Image saved to {path}"
