@@ -21,11 +21,12 @@ from crab.core.backend_model import BackendModel
 from .camel_model import CamelModel
 from .claude_model import ClaudeModel
 from .gemini_model import GeminiModel
+from .minimax_model import MiniMaxModel
 from .openai_model import OpenAIModel, OpenAIModelJSON, SGlangOpenAIModelJSON
 
 
 class BackendModelConfig(BaseModel):
-    model_class: Literal["openai", "claude", "gemini", "camel", "sglang"]
+    model_class: Literal["openai", "claude", "gemini", "camel", "sglang", "minimax"]
     """Specify the model class to be used. Different model classese use different
     APIs.
     """
@@ -121,6 +122,19 @@ def create_backend_model(model_config: BackendModelConfig) -> BackendModel:
                 history_messages_len=model_config.history_messages_len,
                 base_url=model_config.base_url,
                 api_key=model_config.api_key,
+            )
+        case "minimax":
+            if model_config.json_structre_output:
+                raise Warning(
+                    "json_structre_output is not supported for MiniMaxModel currently."
+                )
+            return MiniMaxModel(
+                model=model_config.model_name,
+                parameters=model_config.parameters,
+                history_messages_len=model_config.history_messages_len,
+                base_url=model_config.base_url,
+                api_key=model_config.api_key,
+                tool_call_required=model_config.tool_call_required,
             )
         case "camel":
             return CamelModel(
