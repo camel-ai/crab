@@ -171,3 +171,7 @@ _build/
 logs/
 
 .DS_Store
+
+# RAG data
+local_data/
+vim_docs/
